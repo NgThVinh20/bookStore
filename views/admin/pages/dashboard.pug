@@ -1,0 +1,87 @@
+extends ../layouts/default.pug
+
+
+
+block main
+  h1.box-title  Tổng quan
+  //- Section-1
+  .section-1
+    .inner-item
+      .inner-icon
+        img(src="assets/images/user.png", alt="")
+      .inner-content
+        .inner-title Người dùng 
+        .inner-number 1.200
+    .inner-item
+      .inner-icon
+        img(src="assets/images/order.png", alt="")
+      .inner-content
+        .inner-title Đơn hàng
+        .inner-number 3.600
+    .inner-item
+      .inner-icon
+        img(src="assets/images/revenue.png", alt="")
+      .inner-content
+        .inner-title Doanh thu
+        .inner-number 300.000.000đ
+  //- Section-1
+  //- Section-2
+  .section-2
+    .inner-head
+      h2.inner-title Biểu đồ doanh thu 
+      input.inner-filter(type="month")
+    .inner-chart 
+      canvas(id="revenue-chart")
+  //- Section-2
+
+   //- Section-3
+  .section-3
+    h2.inner-title-main Đơn hàng mới
+
+    .table-1 
+      table
+        thead
+          tr 
+            th.text-left Mã
+            th.text-left Thông tin khách 
+            th.text-left Danh sách sách 
+            th.text-left Thanh toán 
+            th.text-left Trạng thái
+            th.text-left Ngày đặt
+        tbody
+          tr 
+            td.text-left
+              .text-primary OD000001
+            td.text-left
+              div Họ tên: Lê Văn A 
+              div SDT: 012345678
+              div Ghi chú: Test...
+            td.text-left 
+              .book-list 
+                .book-item
+                  img(src="assets/images/demo-item.png", alt="" class="inner-image")
+                  .inner-content
+                    .inner-name Tiểu thuyết Mưa đỏ
+                .book-item
+                  img(src="assets/images/demo-item.png", alt="" class="inner-image")
+                  .inner-content
+                    .inner-name book Hạ Long
+            td.text-left 
+              div Tổng tiền: 250.000đ
+              div Giảm: 75.000đ
+              div Mã giảm: UUDAITHANG12
+              div Thanh toán: 175.000đ
+              div PTTT: Ví Momo
+              div TTTT: Đã thanh toán
+            td.text-left 
+              .tag.tag-orange Khởi tạo
+            td.text-right
+              div 16:20
+              div 01/01/2025  
+  
+
+    //- Section-3
+
+
+    
+

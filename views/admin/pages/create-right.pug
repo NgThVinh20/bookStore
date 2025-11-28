@@ -1,0 +1,38 @@
+extends ../layouts/default.pug
+include ../mixins/checkbox.pug
+
+
+block main
+  h1.box-title Tạo nhóm quyền
+
+  .section-8
+    form(action="" id="settingRoleForm")
+      .inner-group
+        label.inner-label(for="name") Tên nhóm quyền
+        input(type="text" name="name" id="name")
+      .inner-group
+        label.inner-label(for="desc") mô tả ngắn
+        input(type="text" name="desc" id="desc")
+      
+      .inner-group
+        label.inner-label Phân quyền
+        .inner-checkbox-list
+          .inner-checkbox-item 
+            +checkbox-30("right", "right-1","id-tong-quan")
+            label(for="right-1") Xem trang Tổng quan
+          .inner-checkbox-item 
+            +checkbox-30("right", "right-2","id-xem-danh-muc")
+            label(for="right-2") Xem danh mục
+          .inner-checkbox-item 
+            +checkbox-30("right", "right-3","id-tao-danh-muc")
+            label(for="right-3") Tạo danh mục
+          .inner-checkbox-item 
+            +checkbox-30("right", "right-4","id-sua-danh-muc")
+            label(for="right-4") sửa danh mục
+          .inner-checkbox-item 
+            +checkbox-30("right", "right-5","id-xoa-danh-muc")
+            label(for="location-5") xóa danh mục
+      .inner-button.inner-two-col
+        button Tạo mới
+    .inner-back
+        a(href="") Quay lại danh sách 

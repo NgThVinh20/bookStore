@@ -1,0 +1,32 @@
+extends ../layouts/default.pug
+include ../mixins/checkbox.pug
+
+
+block main
+  h1.box-title Thông tin cá nhân
+
+  .section-8
+    form(action="" id = "formInfomationUser")
+      .inner-group
+        label.inner-label(for="name") Họ tên
+        input(type="text" name="name" id="name")
+      .inner-group
+        label.inner-label(for="email") Email
+        input(type="email" name="email" id="email")
+      .inner-group
+        label.inner-label(for="numberPhone") Số điện thoại
+        input(type="number" name="numberPhone" id="number-phone")
+      .inner-group
+        label.inner-label(for="level") Chức vụ
+        input(type="text" name="level" id="level")
+      .inner-group
+        label.inner-label(for="role") Phân quyền
+        input(type="text" name="role" id="role")
+      .inner-group.inner-two-col.inner-avatar
+        label.inner-label(for="avatar") Ảnh đại diện
+        .inner-upload-image
+          input(type="file" id="avatar" name="avatar" filepondImage)
+      .inner-button.inner-two-col
+        button Cập nhật
+    .inner-back
+        a(href="") Đổi mật khẩu   

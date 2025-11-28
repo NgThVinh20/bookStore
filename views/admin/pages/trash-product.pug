@@ -1,0 +1,74 @@
+extends ../layouts/default.pug 
+include ../mixins/checkbox.pug
+
+
+block main
+  h1.box-title Thùng rác 
+
+
+  //-Section-5
+  .section-5 
+    .inner-wrap
+      .inner-change-status
+        .inner-item
+          select
+            option(value="") -- Hành động --
+            option(value="") Dừng hoạt động
+            option(value="") xóa
+        button.inner-button Áp dụng
+      .inner-search
+        <i class="fa-solid fa-magnifying-glass"></i>
+        input(type="text" placeholder="Tìm kiếm")
+  //-Section-5
+
+  //-Section-6
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th.text-left
+              +checkbox-30("","")
+            th.text-left Tên danh mục
+            th.text-center Ảnh đại diện
+            th.text-center Vị trí
+            th.text-center Trạng thái
+            th.text-left Tạo bởi
+            th.text-left Xóa bởi
+            th.text-left Hành động
+        tbody
+          tr
+            td.text-left 
+              +checkbox-30("","")
+            td.text-left Danh mục 1
+            td.text-center 
+              img(src="assets/images/kinh-te.jpg", alt="")
+            td.text-center 1
+            td.text-center 
+              .tag.tag-green Hoạt Động
+            td.text-left
+              div Lê Văn A
+              div 16:30 - 12/09/2025
+            td.text-left
+              div Lê Văn A
+              div 16:30 - 12/09/2025
+            td.text-left 
+              .box-actions
+                a(href="" class="inner-edit")
+                  <i class="fa-solid fa-pen-to-square"></i> 
+                a(href="" class="inner-remove")
+                  <i class="fa-solid fa-trash-can"></i>          
+  //-Section-6
+
+  //-Section-7
+  .section-7
+    span.inner-label Hiển thị 1 - 9 của 78
+    select.inner-pagination
+      option(value="") Trang 1
+      option(value="") Trang 2
+      option(value="") Trang 3
+  //-Section-7
+
+
+
+  

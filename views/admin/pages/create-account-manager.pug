@@ -1,0 +1,45 @@
+extends ../layouts/default.pug
+include ../mixins/checkbox.pug
+
+
+block main
+  h1.box-title Tạo tài khoản quản trị
+
+  .section-8
+    form(action="" id="settingAccountManager")
+      .inner-group
+        label.inner-label(for="name") Họ tên
+        input(type="text" name="name" id="name")
+      .inner-group
+        label.inner-label(for="email") Email
+        input(type="email" name="email" id="email")
+      .inner-group
+        label.inner-label(for="number-phone") Số điện thoại
+        input(type="number" name="numberPhone" id="number-phone")
+      .inner-group
+        label.inner-label(for="role") Nhóm quyền
+        select(name="role" id="role") 
+          option(value="id-quan-tri-vien") Quản trị viên
+          option(value="id-quan-ly-don-hang") Quản lý đơn hàng 
+          option(value="id-quan-ly-tour") Quản lý danh mục 
+
+      .inner-group
+        label.inner-label(for="level") Chức vụ
+        input(type="text" name="level" id="level")
+      .inner-group
+        label.inner-label(for="status") Trạng thái
+        select(name="status" id="status") 
+          option(value="active") Hoạt động
+          option(value="inactive") Tạm dừng
+      .inner-group
+        label.inner-label(for="password") Mật khẩu
+        input(type="text" name="password" id="password")
+      
+      .inner-group.inner-two-col.inner-avatar
+        label.inner-label(for="avatar") Ảnh đại diện
+        .inner-upload-image
+          input(type="file" id="avatar" name="avatar" filepondImage)
+      .inner-button.inner-two-col
+        button Tạo mới
+    .inner-back
+        a(href="") Quay lại danh sách    

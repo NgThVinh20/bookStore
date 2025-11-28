@@ -1,0 +1,32 @@
+extends ../layouts/default.pug
+include ../mixins/checkbox.pug
+
+block main
+  h1.box-title Thông tin website
+
+  .section-8
+    form(action="" id = "formWebsiteInformation")
+      .inner-group
+        label.inner-label(for="name") Tên website
+        input(type="text" name="name" id="name")
+      .inner-group
+        label.inner-label(for="email") Email
+        input(type="email" name="email" id="email")
+      .inner-group
+        label.inner-label(for="numberPhone") Số điện thoại
+        input(type="number" name="numberPhone" id="numberPhone")
+      .inner-group
+        label.inner-label(for="place") Địa chỉ
+        input(type="text" name="place" id="place")
+      .inner-group.inner-avatar
+        label.inner-label(for="avatar" ) Logo 
+        .inner-upload-image
+          input(type="file" id="avatar" name="avatar" filepondImage )
+      .inner-group.inner-avatar
+        label.inner-label(for="Favicon") Favicon
+        .inner-upload-image
+          input(type="file" id="Favicon" name="Favicon" filepondImage)
+      .inner-button.inner-two-col
+        button Cập nhật
+    .inner-back
+        a(href="") Quay lại danh sách 
