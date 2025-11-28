@@ -1,0 +1,90 @@
+extends ../layouts/default.pug
+include ../mixins/product-item.pug
+include ../mixins/breadcumb.pug
+
+
+block main
+  // Breadcrumb
+  +breadcumb()
+  // End Breadcrumb
+
+  // Section 9
+  .section-9
+    .container
+      .inner-wrap
+        .inner-left
+          // Box Filter
+          .box-filter
+            .inner-filter-list
+              .inner-head
+                .inner-title Bộ Lọc
+                i.fa-solid.fa-filter
+              .inner-group
+                .inner-label Tác giả
+                select
+                  option(value="") -- Chọn Tác giả --
+                  option(value="") Chu Lai
+                  option(value="") Nguyễn Nhật Ánh
+                  option(value="") Nguyễn Huy Thiệp
+                  option(value="") Vũ Trọng Phụng 
+              .inner-group
+                .inner-label Thể loại
+                select
+                  option(value="") -- Chọn thể loại --
+                  option(value="") Tiểu thuyết
+                  option(value="") Truyện tranh
+                  option(value="") Lịch sử
+                  option(value="") Kinh tế
+                  option(value="") Văn học
+                  option(value="") Kĩ năng sống
+              .inner-group
+                .inner-label Mức giá
+                select
+                  option(value="") -- Chọn khoảng giá --
+                  option(value="") Dưới 100.000đ
+                  option(value="") Từ 100.000đ đến 300.000đ
+                  option(value="") Từ 300.000đ đến 500.000đ
+                  option(value="") Trên 500.000đ
+              button.inner-button Áp Dụng
+          // End Box Filter
+          .overlay
+        .inner-right
+          .inner-info-1
+            h2.inner-title Tiểu thuyết
+            .inner-desc
+              | Du lịch Châu Á: là châu lục lớn và đông dân nhất thế giới. Châu Á cũng có nhiều danh lam thắng cảnh đẹp tại một số quốc gia như Hàn Quốc, Nhật Bản, Trung Quốc, Việt Nam,... và VK Travel là nhà tổ chức du lịch chuyên nghiệp hàng đầu Châu Á, đã 5 lần liên tiếp nhận giải TTG Travel Awards. Hãy cùng 28.Travel du lịch Châu Á để tận hưởng những dịch vụ tốt nhất.
+          .inner-info-2
+            .inner-sort
+              .inner-label Sắp xếp:
+              button
+                | Giá tăng dần
+                i.fa-solid.fa-circle-arrow-up
+              button
+                | Giá giảm dần
+                i.fa-solid.fa-circle-arrow-down
+              button.active
+                | Khuyến Mại Hot
+                i.fa-solid.fa-tag
+              button
+                | Xem Nhiều
+                i.fa-solid.fa-eye
+            .inner-total-item
+              | Tất cả:
+              b 101 Tour
+            button.inner-button-filter
+              | Bộ Lọc
+              i.fa-solid.fa-filter
+          .inner-list-tour
+            +product-item()
+           
+          .box-pagination
+            .inner-list-button
+              button
+                i.fa-solid.fa-angles-left
+              button.active 1
+              button 2
+              button 3
+              button 4
+              button
+                i.fa-solid.fa-angles-right
+  // End Section 9

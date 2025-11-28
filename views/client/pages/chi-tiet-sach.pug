@@ -1,0 +1,140 @@
+extends ../layouts/default.pug
+include ../mixins/breadcumb.pug
+block main
+  // Breadcrumb
+  +breadcumb()
+  // End Breadcrumb
+  // Section 10
+  .section-10
+    .container
+      .inner-wrap
+        .inner-left
+          // Box Images
+          .box-images
+            .inner-image-main
+              .swiper.swiperImagesMain
+                .swiper-wrapper 
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/demo-item.png"
+                        )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/item-1.png"
+                        )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/item-1.png"
+                        )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/tieuthuyet.jpg"
+                        )
+            .inner-image-thumb
+              .swiper.swiperImagesThumb
+                .swiper-wrapper 
+                  .swiper-slide 
+                      .inner-image
+                        img(
+                          alt="" 
+                          src="/client/assets/images/demo-item.png"
+                          )
+                  .swiper-slide 
+                      .inner-image
+                        img(
+                          alt="" 
+                          src="/client/assets/images/item-1.png"
+                          )
+                  .swiper-slide 
+                      .inner-image
+                        img(
+                          alt="" 
+                          src="/client/assets/images/item-1.png"
+                          )
+                  .swiper-slide 
+                      .inner-image
+                        img(
+                          alt="" 
+                          src="/client/assets/images/tieuthuyet.jpg"
+                          )
+          // End Box Images
+          // Box book Info
+          .book-info
+            .inner-title-main Thông Tin sách
+            .inner-content
+              p
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit cumque, quae soluta repellendus in quia rem esse laboriosam culpa velit corrupti voluptas, sed tenetur possimus aperiam sint ex! Corporis, quisquam? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi iure, quas laborum culpa numquam magni reiciendis laboriosam deserunt ut sequi corporis delectus quibusdam consequatur, perferendis veniam molestiae accusamus consequuntur dolorem.
+              img(
+                alt="" 
+                src="/client/assets/images/item-1.png"
+                )
+              p
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolorem possimus, quam quaerat sapiente doloribus unde perferendis corporis qui voluptates placeat, hic totam, quis alias. Aut, et nulla. Dolores, amet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima beatae, ut eaque, est, impedit labore facere saepe veniam aperiam dignissimos cupiditate perspiciatis quas inventore rerum odio qui numquam. Sequi, atque.
+              <img alt="" src="/client/assets/images/demo-item.png">
+              p
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolorem possimus, quam quaerat sapiente doloribus unde perferendis corporis qui voluptates placeat, hic totam, quis alias. Aut, et nulla. Dolores, amet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima beatae, ut eaque, est, impedit labore facere saepe veniam aperiam dignissimos cupiditate perspiciatis quas inventore rerum odio qui numquam. Sequi, atque.
+            .inner-read-more
+              button.button-outline Xem tất cả
+          // End Box book Info
+        .inner-right
+          // Box book Detail
+          .book-detail
+            .inner-title-main Sản phẩm của bạn
+            .inner-product
+              .inner-image
+                img(
+                  alt="" 
+                  src="/client/assets/images/demo-item.png"
+                  )
+              .inner-info
+                .inner-title Tiểu thuyết mưa đỏ
+                .inner-rating
+                  .inner-stars
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-regular.fa-star
+                  .inner-number 500 lượt đánh giá
+            .inner-meta
+              .inner-item
+                i.fa-solid.fa-ticket-simple
+                span Mã sản phẩm:
+                span.inner-highlight 28T00001
+              .inner-item
+                <i class="fa-solid fa-user"></i>
+                span Tác giả:
+                span.inner-highlight Chu Lai
+              .inner-item
+                <i class="fa-solid fa-book"></i>
+                span Thể loại:
+                span.inner-highlight Tiểu thuyết
+              .inner-item
+                i.fa-solid.fa-calendar-days
+                span Ngày xuất bản
+                span.inner-highlight 20/10/2024
+              .inner-item
+                <i class="fa-solid fa-dollar-sign"></i>
+                span giá cũ
+                span.old-price 250.000đ
+              .inner-item
+                <i class="fa-solid fa-dollar-sign"></i>
+                span giá mới
+                span.inner-highlight 175.000đ
+            .inner-group
+              .inner-label Số Lượng
+              input(type="number" class="bookNumber")
+            .inner-total
+              .inner-label Tổng cộng:
+              .inner-price 175.000đ
+            button.inner-button-add-cart Thêm Vào Giỏ Hàng
+          // End book Tour Detail
+  // End Section 10

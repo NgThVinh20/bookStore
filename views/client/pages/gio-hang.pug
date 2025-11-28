@@ -1,0 +1,123 @@
+extends ../layouts/default.pug
+
+
+block main
+  // Section 11
+  .section-11
+    .container
+      .inner-wrap
+        .inner-head
+          .inner-title Giỏ Hàng
+          a.inner-back(href="#")
+            | Quay lại mua hàng
+            i.fa-solid.fa-angle-right
+        .inner-tour-list
+          .inner-tour-item
+            .inner-actions
+              button.inner-delete
+                i.fa-solid.fa-xmark
+              input.inner-check(type="checkbox")
+            .inner-product
+              .inner-image
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="assets/images/demo-item.png"
+                    )
+              .inner-content
+                .inner-title
+                  a(href="#") Tiểu thuyết Mưa đỏ
+                .inner-meta
+                  div
+                    | Tác giả:
+                    b Chu Lai
+                  div
+                    | Ngày Xuất Bản:
+                    b 20/10/2024
+                  div
+                    | Danh mục:
+                    b Tiểu thuyết
+        .inner-coupon
+          form(action="" id ="coupon-form")
+            input(
+              placeholder="Nhập mã giảm giá" 
+              type="text"
+              name = "coupon"
+              id="coupon-input"
+              )
+            button Dùng Mã
+        .inner-list-price
+          .inner-item
+            .inner-label Tổng tiền:
+            .inner-price  250.000đ
+          .inner-item
+            .inner-label Giảm:
+            .inner-price -75.000 đ
+          .inner-item
+            .inner-label Thanh toán:
+            .inner-price-highlight 175.000 đ
+  // End Section 11
+  
+  // Section 12
+  .section-12
+    .container
+      .inner-wrap
+        form(action="" id="orderForm")
+          .inner-title-main Thông Tin Khách Hàng
+          .inner-list-group
+            .inner-group
+              input(
+                placeholder="Họ và tên" 
+                type="text"
+                id="fullName"
+                name="fullName"
+                )
+            .inner-group
+              input(
+                placeholder="Số điện thoại" 
+                type="text"
+                id="number-phone"
+                name="numberPhone"
+                )
+            .inner-group
+              input(
+                placeholder="Email" 
+                type="email"
+                id="email"
+                name="email"
+                )
+            .inner-group.inner-two-col
+              textarea(placeholder="Ghi chú" name="note")
+          .inner-title-main Chọn phương thức thanh toán
+          .inner-list-method
+            .inner-item
+              input#methodMoney(
+                value="money" 
+                name="method" 
+                type="radio"
+                checked
+                )
+              label(for="methodMoney") Thanh toán tiền mặt khi nhận hàng
+            .inner-item
+              input#methodMomo(
+                value="momo" 
+                name="method" 
+                type="radio"
+                )
+              label(for="methodMomo") Ví MoMo
+            .inner-item
+              input#methodBank(
+                value="bank" 
+                name="method" 
+                type="radio"
+                )
+              label(for="methodBank") Chuyển khoản ngân hàng
+          .inner-info-bank
+            .inner-title Thông tin chuyển khoản
+            .inner-text
+              div Ngân hàng : Vietcombank
+              div Tên tài khoản: Le Van A
+              div STK: 0123456789
+          .inner-button
+            button ĐặT hàng
+  // End Section 12

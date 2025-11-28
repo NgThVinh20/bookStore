@@ -1,0 +1,45 @@
+header.header
+  .container
+    .inner-wrap
+      button.inner-button-menu
+        img(
+          alt="" 
+          src="/client/assets/images/icon-menu.png"
+          )
+      a.inner-logo(href="#")
+        img(
+          alt="ThangLong BookStore" 
+          src="/client/assets/images/logo.png"
+          )
+      nav.inner-menu
+        ul
+          li
+            a.active(href="#") Trang Chủ
+          li
+            a(href="#") Danh mục sách
+            i.fa-solid.fa-caret-down
+            ul.inner-sub
+              li
+                a.active(href="#") Tiểu thuyết
+              li
+                a(href="#") Truyện tranh
+              li
+                a(href="#") Lịch sử
+              li
+                a(href="#") Kinh tế
+          li
+            a(href="#") Tác giả
+          li
+            a(href="#") Bán chạy
+            
+          li
+           input(type="text" placeholder="Tìm kiếm sách..." class="inner-search")
+        .overlay
+      a.inner-cart(href="#")
+        i.fa-solid.fa-cart-shopping
+        span
+          img(
+            alt="" 
+            src="/client/assets/images/icon-arrow-left.png"
+            )
+          | 1

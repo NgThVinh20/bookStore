@@ -1,0 +1,200 @@
+extends ../layouts/default.pug
+include ../mixins/product-item.pug
+
+block main
+  // Section 1
+  .section-1
+    .container
+      .inner-wrap(data-aos="fade-up" data-aos-duration="1500")
+        h1.inner-title
+          | Khám phá Thế Giới Sách – Tri Thức Mở Ra Mỗi Ngày
+        p.inner-desc Kho tàng sách phong phú từ văn học, kỹ năng sống đến kinh doanh và khám phá tri thức. Mỗi trang sách là một hành trình mới chờ bạn bắt đầu.
+        form.inner-form
+          .inner-box
+            .inner-input-group
+              input(type="text" class="inner-input" placeholder="Bạn muốn tìm kiếm thể loại sách gì?")
+              i.fa-solid.fa-angle-down.inner-down
+            .inner-suggest
+              .inner-suggest-title
+                <i class="fa-solid fa-location-dot"></i> Những thể loại sách phổ biến
+              .inner-suggest-list
+                .inner-item 
+                  .inner-item-image 
+                    img(src="/client/assets/images/db.png" alt="")
+                  .inner-item-content
+                    .inner-item-title Truyện tranh
+                    .inner-item-desc 50 sản phẩm
+                .inner-item 
+                  .inner-item-image 
+                    img(src="/client/assets/images/tieuthuyet.jpg" alt="")
+                  .inner-item-content
+                    .inner-item-title Tiểu thuyết
+                    .inner-item-desc 50 Sản phẩm
+                .inner-item 
+                  .inner-item-image 
+                    img(src="/client/assets/images/banner-vanhoc.jpg" alt="")
+                  .inner-item-content
+                    .inner-item-title Văn học
+                    .inner-item-desc 50 sản 
+                .inner-item 
+                  .inner-item-image 
+                    img(src="/client/assets/images/kinh-te.jpg" alt="")
+                  .inner-item-content
+                    .inner-item-title Kinh tế
+                    .inner-item-desc Sản phẩm 
+          button.inner-button
+            i.fa-solid.fa-magnifying-glass
+            | Tìm Kiếm
+  // End Section 1
+
+  // Section 2
+  .section-2
+    .container
+      .inner-wrap(data-aos="fade-up" data-aos-duration="1500" )
+        .inner-info
+          h2.inner-title
+            | ƯU ĐÃI THÁNG 12
+            br
+            | HỘI SÁCH ONLINE GIỜ CHÓT
+          p.inner-desc Săn sách hay, best-seller, thiếu nhi, kỹ năng… giá ưu đãi cực sốc.
+          .inner-time
+            .inner-clock-title Kết thúc sau
+            .inner-clock-number(clock-expire="2025-12-30T23:59:59")
+              .inner-item
+                .inner-number 00
+                .inner-label Ngày
+              .inner-item
+                .inner-number 00
+                .inner-label Giờ
+              .inner-item
+                .inner-number 00
+                .inner-label Phút
+              .inner-item
+                .inner-number 00
+                .inner-label Giây
+          .inner-discount-info
+            .inner-discount-title GIẢM ĐẾN
+            .inner-discount-price 30% 
+              span GIÁ TRỊ ĐƠN HÀNG
+        .inner-list
+          .swiper.swiperSection2
+            .swiper-wrapper
+              .swiper-slide 
+                +product-item()
+              .swiper-slide
+                +product-item()
+              .swiper-slide
+                +product-item()
+              .swiper-slide 
+                +product-item()
+              .swiper-slide 
+                +product-item()
+              .swiper-slide 
+                +product-item()
+              .swiper-slide 
+                +product-item()
+            .swiper-pagination
+  // End Section 2
+  
+  // Section 3
+  .section-3
+    .container(data-aos="fade-up" data-aos-duration="1500" )
+      h2.box-title KHÁM PHÁ THEO DANH MỤC
+      .inner-wrap
+        .swiper.swiperSection3
+            .swiper-wrapper
+              .swiper-slide
+                .inner-item
+                  a(href="#")
+                    img(
+                      alt="" 
+                      src="/client/assets/images/banner-vanhoc.jpg"
+                      )
+                  .inner-title 
+                    a(href="") Văn Học
+              .swiper-slide
+                .inner-item
+                  a(href="#")
+                    img(
+                      alt="" 
+                      src="/client/assets/images/tieuthuyet.jpg"
+                      )
+                  .inner-title 
+                    a(href="") Tiểu Thuyết
+              .swiper-slide
+                .inner-item
+                  a(href="#")
+                    img(
+                      alt="" 
+                      src="/client/assets/images/kinh-te.jpg"
+                      )
+                  .inner-title 
+                    a(href="#") Kinh Tế
+              .swiper-slide
+                .inner-item
+                  a(href="#")
+                    img(
+                      alt="" 
+                      src="/client/assets/images/kns.jpg"
+                      )
+                  .inner-title 
+                    a(href="") Kỹ Năng Sống
+              .swiper-slide
+                .inner-item
+                  a(href="#")
+                    img(
+                      alt="" 
+                      src="/client/assets/images/truyen-tranh.jpg"
+                      )
+                  .inner-title 
+                    a(href="") Truyện Tranh
+              
+            .swiper-pagination
+  // End Section 3
+  
+  // Section 4
+  .section-4
+    .container(data-aos="fade-up" data-aos-duration="1500" )
+      h2.box-title Sản phẩm bán chạy nhất
+      .inner-wrap
+        +product-item()
+        +product-item()
+        +product-item()
+        +product-item()
+      .inner-button
+        a.button-outline(href="#") Xem tất cả
+  // End Section 4
+  
+  // Section 5
+  .section-5
+    .container(data-aos="fade-up" data-aos-duration="1500" )
+      a.inner-image(href="#")
+        img(
+          alt="" 
+          src="/client/assets/images/banner-1.png"
+          )
+  // End Section 5
+  
+  // Section 6
+  .section-4
+    .container(data-aos="fade-up" data-aos-duration="1500" )
+      h2.box-title Sách mới phát hành
+      .inner-wrap
+        +product-item()
+        +product-item
+        +product-item()
+        +product-item()
+      .inner-button
+        a.button-outline(href="#") Xem tất cả
+  // End Section 6
+  
+  // Section 7
+  .section-5
+    .container(data-aos="fade-up" data-aos-duration="1500" )
+      a.inner-image(href="#")
+        img(
+          alt="" 
+          src="/client/assets/images/banner-5.png"
+          )
+  // End Section 7
+  
