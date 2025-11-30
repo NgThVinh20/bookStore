@@ -124,7 +124,9 @@ select {
   font-size: 18px;
   color: var(--color-text);
 }
-
+.form-account .inner-meta .inner-link:hover{
+  color:var(--color-primary);
+}
 .form-account .inner-button {
   width: 100%;
   height: 56px;

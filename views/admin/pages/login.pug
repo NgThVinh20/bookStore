@@ -17,11 +17,11 @@ block main
         .inner-check 
           +checkbox-30("rememberPassword", "rememberPassword")
           label(for="rememberPassword") Nhớ mật khẩu
-        a(href="#" class="inner-link") Quên mật khẩu?
+        a(href=`/${pathAdmin}/account/forgot-password` class="inner-link") Quên mật khẩu?
       button.inner-button Đăng nhập
       .inner-more
         span Bạn chưa có tài khoản?   
-        a(href="#") Tạo tài khoản
+        a(href=`/${pathAdmin}/account/register`) Tạo tài khoản
  
       
 

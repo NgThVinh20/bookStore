@@ -1344,6 +1344,9 @@ input, select, textarea, button {
   font-weight: 400;
   font-size: 14px;
   color: #747578;
+  display: flex;
+  align-items: center;
+  gap:5px;
 }
 
 .section-9 .inner-list-tour {
@@ -1519,7 +1522,7 @@ input, select, textarea, button {
 }
 .box-filter .inner-button:hover{
   cursor:pointer;
-  background-color:#5a14e4;
+  background-color:#f9313d;
 }
 @media(max-width:991.98px){
   .box-filter{
@@ -1800,7 +1803,7 @@ input, select, textarea, button {
 }
 .book-detail .inner-button-add-cart:hover{
   cursor:pointer;
-  background-color:#5a14e4;
+  background-color:#f9313d;
 }
 @media (max-width: 575.98px) {
   .book-detail {
