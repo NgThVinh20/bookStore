@@ -44,7 +44,7 @@ block main
         label.inner-label(for="list") Danh sách sách
         .book-list 
           .book-item
-            img(src="assets/images/tour-1.png", alt="" class="inner-image")
+            img(src="/admin/assets/images/tour-1.png", alt="" class="inner-image")
             .inner-content
               .inner-name Tiểu thuyết Mưa đỏ
               .inner-desc
@@ -61,4 +61,4 @@ block main
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back
-        a(href="") Quay lại danh sách 
+        a(href=`/${pathAdmin}/books/list`) Quay lại danh sách 

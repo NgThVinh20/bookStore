@@ -51,9 +51,9 @@ block main
         <i class="fa-solid fa-magnifying-glass"></i>
         input(type="text" placeholder="Tìm kiếm")
       .inner-button-create
-        a(href="#")  + Tạo mới
+        a(href= `/${pathAdmin}/books/create`)  + Tạo mới
       .inner-button-trash
-        a(href="#")  Thùng rác
+        a(href=`/${pathAdmin}/books/trash`)  Thùng rác
   //-Section-5
 
   //-Section-6
@@ -79,7 +79,7 @@ block main
             td.text-left Danh mục 1
             td.text-center Tiểu thuyết Mưa đỏ
             td.text-center
-              img(src="assets/images/demo-item.png", alt="")
+              img(src="/admin/assets/images/demo-item.png", alt="")
             td.text-center
               div 250.000đ
             td.text-center 
@@ -92,7 +92,7 @@ block main
               div 16:30 - 12/09/2025
             td.text-left 
               .box-actions
-                a(href="" class="inner-edit")
+                a(href=`/${pathAdmin}/books/create` class="inner-edit")
                   <i class="fa-solid fa-pen-to-square"></i> 
                 a(href="" class="inner-remove")
                   <i class="fa-solid fa-trash-can"></i>          

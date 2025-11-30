@@ -64,11 +64,11 @@ block main
             td.text-left
               .book-list 
                 .book-item
-                  img(src="assets/images/demo-item.png", alt="" class="inner-image")
+                  img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
                   .inner-content
                     .inner-name Tiểu thuyết Mưa đỏ
                 .book-item
-                  img(src="assets/images/demo-item.png", alt="" class="inner-image")
+                  img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
                   .inner-content
                     .inner-name Tiểu thuyết Mưa đỏ
             td.text-left
@@ -85,14 +85,14 @@ block main
               div 16:30 - 12/09/2025
             td.text-left 
               .box-actions
-                a(href="" class="inner-edit")
+                a(href=`/${pathAdmin}/order/edit` class="inner-edit")
                   <i class="fa-solid fa-pen-to-square"></i> 
                 a(href="" class="inner-remove")
                   <i class="fa-solid fa-trash-can"></i>     
   //-Section-6
 
   //-Section-7
-  .section-7
+  .section-7  
     span.inner-label Hiển thị 1 - 9 của 78
     select.inner-pagination
       option(value="") Trang 1

@@ -16,3 +16,15 @@ module.exports.forgotPassword = (req, res) => {
     pageTitle:"Trang quên mật khẩu"
   });
 }
+
+module.exports.resetPassword = (req, res) => {
+  res.render('admin/pages/change-password.pug', {
+    pageTitle:"Trang đổi mật khẩu"
+  });
+}
+
+module.exports.OTP = (req, res) => {
+  res.render('admin/pages/OTP.pug', {
+    pageTitle:"Trang nhập mã OTP"
+  });
+}

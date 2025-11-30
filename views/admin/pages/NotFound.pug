@@ -1,0 +1,10 @@
+extends ../layouts/default.pug
+
+
+block main
+  
+  .not-found
+    img(src="/admin/assets/images/404.png", alt="")
+    .inner-title Trang này không tồn tại...
+    a(href=`/${pathAdmin}/dashboard`)
+      button.inner-button-back Trở về trang tổng quan
