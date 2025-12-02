@@ -4,6 +4,10 @@ router.get('/login', accountController.login);
 
 // trang dki
 router.get('/register', accountController.register);
+router.post('/register', accountController.registerPost);
+router.get('/register-initial', accountController.registerInitial);
+
+
 // trang quên mk
 router.get('/forgot-password', accountController.forgotPassword);
 

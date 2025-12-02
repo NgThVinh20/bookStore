@@ -10,3 +10,5 @@ module.exports.book = mongoose.model(
     },
     "books"
 );
+
+console.log(book);

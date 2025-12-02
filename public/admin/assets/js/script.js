@@ -436,3 +436,19 @@ if(changeRole){
     // permissions
   })
 }
+
+// sider
+const sider = document.querySelector(".sider");
+if(sider){
+  const pathNameCurrent = window.location.pathname;
+  const pathNameCurrentSplit = pathNameCurrent.split("/");
+  const menuList = sider.querySelectorAll("a");
+  menuList.forEach(item =>{
+    const pathName = item.getAttribute("href");
+    const pathNameSplit = pathName.split("/");
+    if(pathNameCurrentSplit[1] == pathNameSplit[1] && pathNameCurrentSplit[2] == pathNameSplit[2]){
+      item.classList.add("active");
+    }
+  })
+}
+// sider

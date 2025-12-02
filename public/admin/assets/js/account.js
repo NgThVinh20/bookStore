@@ -1,3 +1,30 @@
+// Khởi tạo thư viện Notyf
+var notify = new Notyf({
+  duration:3000,
+  position: {x:'right',y:'top'},
+  dismissible: true
+});
+
+// Hiển thị thông báo trong sessionStorage
+let notifySession = sessionStorage.getItem("notify");
+if(notifySession){
+  notifySession = JSON.parse(notifySession);
+  if(notifySession.code == "error"){
+    notify.error(notifySession.message);
+  }
+  if(notifySession.code == "success"){
+    notify.success(notifySession.message);
+  }
+  sessionStorage.removeItem("notify");
+}
+// vẽ thông báo 
+const drawNotify = (code, message) => {
+  const data = {
+    code:code,
+    message:message
+  };
+  sessionStorage.setItem("notify",JSON.stringify(data));
+}
 // validate login form
 const loginForm = document.querySelector('#loginForm');
 if(loginForm){
@@ -98,7 +125,31 @@ if(registerForm){
     const fullname = event.target.fullname.value;
     const email = event.target.email.value;
     const Password = event.target.Password.value;
-    const rememberPassword = event.target.rememberPassword.checked;
+   
+    const dataFinal = {
+      fullname: fullname,
+      email: email,
+      Password:Password
+    };
+
+    fetch(`/${pathAdmin}/account/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataFinal)
+      })
+
+      .then(res => res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.href = `/${pathAdmin}/account/register-initial`;
+        }
+       })
   })
 }
 // validate register form

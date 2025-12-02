@@ -16,7 +16,8 @@ const path = require('path')
 const app = express()
 const port = 1000
 
-
+// cho phép gửi dữ liệu dạng json
+app.use(express.json());
 
 // thiết lập thư mục chứa file view
 app.set('views', path.join(__dirname, "views"))
@@ -29,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // tạo biến toàn cục trong file pug
 app.locals.pathAdmin = "admin"
-
 
 app.use('/', clientRouter);
 app.use(`/${pathAdmin}`, adminRouter);

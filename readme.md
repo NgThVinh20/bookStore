@@ -57,5 +57,7 @@ bước 5: chạy câu lệnh yarn start
 8. **PUG**
    - yarn add pug
    - chạy câu lệnh yarn start để khởi động chương trình hoặc sau khi mã nguồn được thay đổi
-8. **Mongoose**
+9. **Mongoose**
    -- Kết nối tới MongoDB
+10. **Notyf**
+   --
