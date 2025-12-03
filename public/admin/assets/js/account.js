@@ -1,30 +1,38 @@
-// Khởi tạo thư viện Notyf
+// Khởi tạo Notyf
 var notify = new Notyf({
-  duration:3000,
-  position: {x:'right',y:'top'},
+  duration: 3000,
+  position: {
+    x:'right',
+    y:'top'
+  },
   dismissible: true
 });
 
 // Hiển thị thông báo trong sessionStorage
 let notifySession = sessionStorage.getItem("notify");
-if(notifySession){
+if(notifySession) {
   notifySession = JSON.parse(notifySession);
-  if(notifySession.code == "error"){
+  if(notifySession.code == "error") {
     notify.error(notifySession.message);
   }
-  if(notifySession.code == "success"){
+  if(notifySession.code == "success") {
     notify.success(notifySession.message);
   }
   sessionStorage.removeItem("notify");
 }
-// vẽ thông báo 
+
+// Vẽ thông báo
 const drawNotify = (code, message) => {
   const data = {
-    code:code,
-    message:message
+    code: code,
+    message: message
   };
-  sessionStorage.setItem("notify",JSON.stringify(data));
+  sessionStorage.setItem("notify", JSON.stringify(data));
 }
+// End Khởi tạo Notyf
+
+
+
 // validate login form
 const loginForm = document.querySelector('#loginForm');
 if(loginForm){
@@ -125,7 +133,6 @@ if(registerForm){
     const fullname = event.target.fullname.value;
     const email = event.target.email.value;
     const Password = event.target.Password.value;
-   
     const dataFinal = {
       fullname: fullname,
       email: email,

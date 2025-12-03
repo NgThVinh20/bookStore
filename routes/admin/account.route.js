@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const accountController = require("../../controllers/admin/account.controller.js");
+const accountValidate = require("../../validates/admin/account.validate");
+
+
+
 router.get('/login', accountController.login);
 
 // trang dki
 router.get('/register', accountController.register);
-router.post('/register', accountController.registerPost);
+router.post('/register', accountValidate.registerPost, accountController.registerPost)
 router.get('/register-initial', accountController.registerInitial);
 
 
