@@ -60,4 +60,8 @@ bước 5: chạy câu lệnh yarn start
 9. **Mongoose**
    -- Kết nối tới MongoDB
 10. **Notyf**
-   --
+   -- Hiển thị ra câu thông báo đẹp hơn
+11. **BcryptJS**
+   --Mã hóa mật khẩu 
+12. **Joi.dev**
+   --validate dữ liệu bên backend
