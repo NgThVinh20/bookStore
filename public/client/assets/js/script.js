@@ -18,7 +18,7 @@ if(buttonMenuMobile){
   listButtonSubMenu.forEach(button => {
     // add class "active for li"
     button.addEventListener("click", ()=>{
-      button.closest("li").classList.add("active");
+      button.closest("li").classList.toggle("active");
     })
     //remove class "active" of li when click on overlay
     overlay.addEventListener("click", ()=>{

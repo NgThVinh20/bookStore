@@ -5,6 +5,7 @@ const accountValidate = require("../../validates/admin/account.validate");
 
 
 router.get('/login', accountController.login);
+router.post('/login',accountValidate.loginPost, accountController.loginPost);
 
 // trang dki
 router.get('/register', accountController.register);

@@ -9,6 +9,46 @@ module.exports.login = (req, res) => {
     pageTitle:"Trang đăng nhập"
   });
 }
+module.exports.loginPost = async (req, res) => {
+  const { email, PassWord } = req.body;
+  // kiểm tra email
+  const existAccount =  await AccountAdmin.findOne({
+    email: email
+  });
+  if(!existAccount) {
+    res.json({
+      code: "error",
+      message: "Email không tồn tại trong hệ thống!"
+    });
+    return;
+  } 
+  // kiểm tra mật khẩu
+  const isPasswordValid = await bcrypt.compare(PassWord, existAccount.Password);
+  if(!isPasswordValid) {
+    res.json({
+      code: "error",
+      message: "Mật khẩu không đúng!"
+    });
+    return;
+  }
+  // kiểm tra trạng thái tài khoản
+   if(existAccount.status != "active") {
+    res.json({
+      code: "error",
+      message: "Tài khoản chưa được kích hoạt!"
+    });
+    return;
+  }
+
+
+  // console.log(existAccount);
+  res.json({
+    code: "success",
+    message: "Đăng nhập khoản thành công!"
+  });
+}
+
+
 
 
 
@@ -36,9 +76,9 @@ module.exports.registerPost = async(req, res) => {
 
   // mã hóa mật khẩu
   req.body.Password = await bcrypt.hash(req.body.Password, 10);
-  console.log(req.body);
-  // const newAccount = new AccountAdmin(req.body);
-  // await newAccount.save();
+  // console.log(req.body);
+  const newAccount = new AccountAdmin(req.body);
+  await newAccount.save();
 
   res.json({
     code: "success",
