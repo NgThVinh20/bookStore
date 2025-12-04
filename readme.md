@@ -65,3 +65,4 @@ bước 5: chạy câu lệnh yarn start
    --Mã hóa mật khẩu 
 12. **Joi.dev**
    --validate dữ liệu bên backend
+12. **JsonWebToken**
