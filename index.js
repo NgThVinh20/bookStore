@@ -10,7 +10,7 @@ connectDB();
 const adminRouter = require("./routes/admin/index.route.js");
 const clientRouter = require("./routes/client/index.route.js");
 const { pathAdmin } = require('./config/variable.config.js');
-
+const cookieParser = require('cookie-parser')
 
 const path = require('path')
 const app = express()
@@ -18,6 +18,9 @@ const port = 1000
 
 // cho phép gửi dữ liệu dạng json
 app.use(express.json());
+
+// đọc được cookies
+app.use(cookieParser())
 
 // thiết lập thư mục chứa file view
 app.set('views', path.join(__dirname, "views"))

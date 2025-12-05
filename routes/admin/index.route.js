@@ -8,22 +8,22 @@ const clientRoutes = require("./client.route.js")
 const contactRoutes = require("./contact.route.js")
 const settingRoutes = require("./setting.route.js")
 const profileRoutes = require("./profile.route.js")
-
+const authMiddleware = require("../../middlewares/admin/auth.middleware.js");
 
 
 
 router.use('/account', accountRoutes);
-router.use('/dashboard', dashboardRoutes);
-router.use('/category', categoryRoutes);
-router.use('/books', bookRoutes);
-router.use('/orders', orderRoutes);
-router.use('/clients', clientRoutes);
-router.use('/contacts', contactRoutes);
-router.use('/settings', settingRoutes);
-router.use('/profile', profileRoutes);
+router.use('/dashboard',authMiddleware.verifyToken, dashboardRoutes);
+router.use('/category',authMiddleware.verifyToken, categoryRoutes);
+router.use('/books',authMiddleware.verifyToken, bookRoutes);
+router.use('/orders',authMiddleware.verifyToken, orderRoutes);
+router.use('/clients',authMiddleware.verifyToken, clientRoutes);
+router.use('/contacts',authMiddleware.verifyToken, contactRoutes);
+router.use('/settings',authMiddleware.verifyToken, settingRoutes);
+router.use('/profile',authMiddleware.verifyToken, profileRoutes);
 
 
-router.use((req, res) => {
+router.use(authMiddleware.verifyToken,(req, res) => {
   res.render('admin/pages/NotFound.pug', {
     pageTitle:"Not Found"
   });

@@ -65,4 +65,7 @@ bước 5: chạy câu lệnh yarn start
    --Mã hóa mật khẩu 
 12. **Joi.dev**
    --validate dữ liệu bên backend
-12. **JsonWebToken**
+13. **JsonWebToken**
+   --Lưu trạng thái đăng nhập bằng token
+14. **JsonWebToken**
+   --dùng để đọc (parse) dữ liệu cookie từ trình duyệt và đưa chúng vào req.cookies
