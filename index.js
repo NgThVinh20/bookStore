@@ -28,6 +28,9 @@ app.set('view engine', 'pug')
 // thiết lập thư mục public chứa các file tĩnh file tĩnh
 app.use(express.static(path.join(__dirname, 'public')))
 
+// Tạo biến toàn cục dùng bên BE
+global.pathAdmin = pathAdmin
+
 // tạo biến toàn cục trong file pug
 app.locals.pathAdmin = "admin"
 

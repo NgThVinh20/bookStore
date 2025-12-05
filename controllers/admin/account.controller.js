@@ -2,8 +2,6 @@ const AccountAdmin = require("../../models/accountAdmin.model")
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
-
-
 module.exports.login = (req, res) => {
   res.render('admin/pages/login.pug', {
     pageTitle:"Trang đăng nhập"
@@ -65,6 +63,11 @@ module.exports.loginPost = async (req, res) => {
 }
 
 
+// đăng xuất
+module.exports.logOut = (req, res) => {
+  res.clearCookie("token");
+  res.redirect(`/${pathAdmin}/account/login`);
+}
 
 
 

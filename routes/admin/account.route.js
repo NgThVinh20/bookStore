@@ -3,9 +3,16 @@ const accountController = require("../../controllers/admin/account.controller.js
 const accountValidate = require("../../validates/admin/account.validate");
 
 
-
+// Trang đăng nhập
 router.get('/login', accountController.login);
 router.post('/login',accountValidate.loginPost, accountController.loginPost);
+
+// trang đăng xuất
+router.get('/log-out', accountController.logOut);
+
+
+
+
 
 // trang dki
 router.get('/register', accountController.register);
