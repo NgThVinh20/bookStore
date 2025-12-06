@@ -77,7 +77,17 @@ if(registerForm){
         errorMessage: "Họ tên không hợp lệ ( ít nhất 2 chữ cái)"
       },
     ])
-    .addField('#Password', [
+    .addField('#email', [
+      {
+        rule: 'required',
+        errorMessage:"Vui lòng nhập email"
+     },
+     {
+        rule: 'email',
+        errorMessage:"Vui lòng nhập email đúng định dạng"
+     },
+    ])
+     .addField('#Password', [
       {
         rule: 'required',
         errorMessage:"Vui lòng nhập mật khẩu, mật khẩu ít nhất 8 ký tự bao gồm chữ in hoa, chữ thường, kí tự đặc biệt và số"
@@ -104,16 +114,6 @@ if(registerForm){
      },
      
     ])
-    .addField('#email', [
-      {
-        rule: 'required',
-        errorMessage:"Vui lòng nhập email"
-     },
-     {
-        rule: 'email',
-        errorMessage:"Vui lòng nhập email đúng định dạng"
-     },
-    ])
      .addField('#agree', [
       {
         rule: 'required',
@@ -129,7 +129,7 @@ if(registerForm){
       email: email,
       Password:Password
     };
-
+    console.log(dataFinal)
     fetch(`/${pathAdmin}/account/register`, {
         method: "POST",
         headers: {

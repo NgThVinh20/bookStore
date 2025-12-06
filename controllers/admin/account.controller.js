@@ -89,7 +89,6 @@ module.exports.registerPost = async(req, res) => {
    const existAccount = await AccountAdmin.findOne({
     email: req.body.email
   });
-
   if(existAccount) {
     res.json({
       code: "error",
@@ -102,7 +101,7 @@ module.exports.registerPost = async(req, res) => {
 
   // mã hóa mật khẩu
   req.body.Password = await bcrypt.hash(req.body.Password, 10);
-  // console.log(req.body);
+  console.log(req.body);
   const newAccount = new AccountAdmin(req.body);
   await newAccount.save();
 
