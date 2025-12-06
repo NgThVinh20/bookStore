@@ -77,6 +77,7 @@ module.exports.loginPost = async (req, res, next) => {
       .messages({
         "string.empty": "Vui lòng nhập mật khẩu!",
       }),
+    rememberPassword: Joi.boolean()
   })
 
   const { error } = schema.validate(req.body);
@@ -90,5 +91,28 @@ module.exports.loginPost = async (req, res, next) => {
     return;
   }
 
+  next();
+}
+// validate forgot password
+module.exports.forgotPasswordPost = async (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .email()
+      .required()
+      .messages({
+        "string.empty": "Vui lòng nhập email!",
+        "string.email": "Email không đúng định dạng!",
+      }),
+  })
+  const { error } = schema.validate(req.body);
+  if(error) {
+    const errorMessage = error.details[0].message;
+
+    res.json({
+      code: "error",
+      message: errorMessage
+    })
+    return;
+  }
   next();
 }

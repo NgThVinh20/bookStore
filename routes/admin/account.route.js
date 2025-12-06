@@ -22,6 +22,7 @@ router.get('/register-initial', accountController.registerInitial);
 
 // trang quên mk
 router.get('/forgot-password', accountController.forgotPassword);
+router.post('/forgot-password',accountValidate.forgotPasswordPost, accountController.forgotPasswordPost);
 
 router.get('/reset-password', accountController.resetPassword);
 

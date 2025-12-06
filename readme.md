@@ -69,3 +69,5 @@ bước 5: chạy câu lệnh yarn start
    --Lưu trạng thái đăng nhập bằng token
 14. **JsonWebToken**
    --dùng để đọc (parse) dữ liệu cookie từ trình duyệt và đưa chúng vào req.cookies
+15. **mailtrap**
+   --Gửi mail tự động

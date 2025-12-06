@@ -30,7 +30,8 @@ if(loginForm){
 
     const dataFinal = {
       email: email,
-      PassWord: PassWord
+      PassWord: PassWord,
+      rememberPassword:rememberPassword
     };
     fetch(`/${pathAdmin}/account/login`, {
         method: "POST",
@@ -169,6 +170,28 @@ if(forgetPassword){
     ])
   .onSuccess((event) => {
     const email = event.target.email.value;
+    const dataFinal = {
+      email: email,
+    };
+    fetch(`/${pathAdmin}/account/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataFinal)
+      })
+
+      .then(res => res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          notify.success(data.message);
+          drawNotify(data.code,data.message);
+          window.location.href = `/${pathAdmin}/account/OTP?email=${email}`;
+        }
+      })
   })
 }
 // validate forget password
