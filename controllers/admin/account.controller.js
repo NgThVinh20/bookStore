@@ -196,3 +196,60 @@ module.exports.OTP = (req, res) => {
     pageTitle:"Trang nhập mã OTP"
   });
 }
+module.exports.OtpPassWordPost = async (req, res) => {
+  const {email, otp} = req.body;
+  // console.log(email);
+
+  // kiểm tra email tồn tại trong hệ thống
+  const existAccount = await AccountAdmin.findOne({
+    email:email,
+    status: "active"
+  })
+  // console.log(existAccount);
+  if(!existAccount){
+    res.json({
+      code: "error",
+      message: "email không tồn tại trong hệ thống!"
+    });
+    return;
+  }
+  // Kiểm tra email, otp đã tồn tại trong ForgotPassword chưa
+  const existRecord = await ForgotPassword.findOne({
+    email:email,
+    otp:otp
+  })
+  if(!existRecord){
+    res.json({
+      code: "error",
+      message: "Mã OTP không hợp lệ"
+    });
+    return;
+  }
+
+   // tạo jwt
+  const token = jwt.sign(
+    {
+      id : existAccount.id,
+      email: existAccount.email,
+      rememberPassword: existAccount.rememberPassword
+    },
+    process.env.JWT_Secret,
+    {
+      expiresIn: "1d"
+    }
+  );
+  // lưu token vào cookie
+  res.cookie("token",token, {
+    maxAge: (24 *60 *60*1000) ,
+    // chỉ cho phép cookie được truy cập bởi server
+    httpOnly:true, 
+    // không cho phép lấy cookie từ tên miền khác
+    sameSite: "strict", 
+  })
+
+
+   res.json({
+      code: "success",
+      message: "Xác nhận mã OTP thành công"
+    });
+}

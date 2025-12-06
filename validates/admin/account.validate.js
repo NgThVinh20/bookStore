@@ -116,3 +116,33 @@ module.exports.forgotPasswordPost = async (req, res, next) => {
   }
   next();
 }
+
+// validate otp password
+module.exports.OtpPassWordPost = async (req, res, next) => {
+  const schema = Joi.object({
+    otp: Joi.string()
+      .required()
+      .messages({
+        "string.empty": "Vui lòng nhập mã OTP!",
+      }),
+    email: Joi.string()
+      .email()
+      .required()
+      .messages({
+        "string.empty": "Vui lòng gửi kèm email!",
+        "string.email": "Email không đúng định dạng!",
+      }),
+
+  })
+  const { error } = schema.validate(req.body);
+  if(error) {
+    const errorMessage = error.details[0].message;
+
+    res.json({
+      code: "error",
+      message: errorMessage
+    })
+    return;
+  }
+  next();
+}

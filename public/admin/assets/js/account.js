@@ -209,12 +209,37 @@ if(formOTP){
      },
        {
         rule: 'customRegexp',
-        value:/^\d{6}$/,
+        value:/^\d{4}$/,
         errorMessage:"mã OTP không đúng định dạng"
      },
     ])
   .onSuccess((event) => {
     const otp = event.target.otp.value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get("email");
+    const dataFinal = {
+      email: email,
+      otp:otp
+    };
+
+    fetch(`/${pathAdmin}/account/otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataFinal)
+      })
+
+      .then(res => res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.href = `/${pathAdmin}/account/reset-password`;
+        }
+       })
   })
 }
 // validate OTP

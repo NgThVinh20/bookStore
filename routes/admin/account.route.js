@@ -27,5 +27,5 @@ router.post('/forgot-password',accountValidate.forgotPasswordPost, accountContro
 router.get('/reset-password', accountController.resetPassword);
 
 router.get('/OTP', accountController.OTP);
-
+router.post('/OTP',accountValidate.OtpPassWordPost, accountController.OtpPassWordPost);
 module.exports = router;
