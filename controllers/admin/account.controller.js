@@ -6,7 +6,7 @@ const {generateNum} = require("../../helpers/generate.helper")
 const {sendMail} = require("../../helpers/mail.helper")
 
 
-
+// login
 module.exports.login = (req, res) => {
   res.render('admin/pages/login.pug', {
     pageTitle:"Trang đăng nhập"
@@ -78,7 +78,7 @@ module.exports.logOut = (req, res) => {
 
 
 
-
+// register
 module.exports.register = (req, res) => {
   res.render('admin/pages/register.pug', {
     pageTitle:"Trang đăng ký"
@@ -185,11 +185,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
 }
 
 
-module.exports.resetPassword = (req, res) => {
-  res.render('admin/pages/change-password.pug', {
-    pageTitle:"Trang đổi mật khẩu"
-  });
-}
+
 
 module.exports.OTP = (req, res) => {
   res.render('admin/pages/OTP.pug', {
@@ -252,4 +248,28 @@ module.exports.OtpPassWordPost = async (req, res) => {
       code: "success",
       message: "Xác nhận mã OTP thành công"
     });
+}
+
+
+module.exports.resetPassword = (req, res) => {
+  res.render('admin/pages/change-password.pug', {
+    pageTitle:"Trang đổi mật khẩu"
+  });
+}
+module.exports.resetPasswordPost = async (req, res) => {
+  const {password} = req.body;
+    // mã hóa mật khẩu
+  const PasswordHash = await bcrypt.hash(password, 10);
+  await AccountAdmin.updateOne(
+    {
+     _id:req.account.id
+    },
+    {
+      Password: PasswordHash
+    }
+)
+  res.json({
+    code: "success",
+    message: "Đổi mật khẩu thành công!"
+  });
 }

@@ -146,3 +146,46 @@ module.exports.OtpPassWordPost = async (req, res, next) => {
   }
   next();
 }
+
+// validate reset password
+module.exports.resetPasswordPost = async (req, res, next) => {
+  const schema = Joi.object({
+    password: Joi.string()
+      .min(8)
+      .custom((value, helpers) => {
+        if(!/[a-z]/.test(value)) {
+          return helpers.error('password.lowercase');
+        }
+        if(!/[A-Z]/.test(value)) {
+          return helpers.error('password.uppercase');
+        }
+        if(!/\d/.test(value)) {
+          return helpers.error('password.number');
+        }
+        if(!/[^A-Za-z0-9]/.test(value)) {
+          return helpers.error('password.special');
+        }
+        return value;
+      })
+      .required()
+      .messages({
+        "string.empty": "Vui lòng nhập mật khẩu!",
+        "string.min": "Mật khẩu phải có ít nhất 8 ký tự!",
+        "password.lowercase": "Mật khẩu phải chứa ký tự thường!",
+        "password.uppercase": "Mật khẩu phải chứa ký tự hoa!",
+        "password.number": "Mật khẩu phải chứa chữ số!",
+        "password.special": "Mật khẩu phải chứa ký tự đặc biệt!",
+      }),
+  })
+  const { error } = schema.validate(req.body);
+  if(error) {
+    const errorMessage = error.details[0].message;
+
+    res.json({
+      code: "error",
+      message: errorMessage
+    })
+    return;
+  }
+  next();
+}

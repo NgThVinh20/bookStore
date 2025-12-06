@@ -250,7 +250,7 @@ if (resetPassword) {
   const validator = new JustValidate('#resetPassword');
 
   validator
-    .addField('#NewPassword', [
+    .addField('#password', [
       {
         rule: 'required',
         errorMessage: "Vui lòng nhập mật khẩu",
@@ -289,7 +289,7 @@ if (resetPassword) {
       },
       {
         validator: (value, context) => {
-          const password = context['#NewPassword'].elem.value;
+          const password = context['#password'].elem.value;
           return value === password;
         },
         errorMessage: "Mật khẩu xác nhận không trùng khớp",
@@ -297,7 +297,30 @@ if (resetPassword) {
     ])
 
     .onSuccess((event) => {
-      const NewPassword = event.target.NewPassword.value;
+      const password = event.target.password.value;
+
+      const dataFinal = {
+      password:password
+    };
+
+    fetch(`/${pathAdmin}/account/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataFinal)
+      })
+
+      .then(res => res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.href = `/${pathAdmin}/account/login`;
+        }
+       })
     });
 }
 
