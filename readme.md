@@ -77,3 +77,5 @@ bước 5: chạy câu lệnh yarn start
    --Luu trữ ảnh
 18. **multer-storage-cloudinary**
    --up file từ multer lên cloudinary
+19. **slug**
+   --một chuỗi ký tự ngắn gọn, dễ đọc, dùng để đại diện cho một nội dung (bài viết, sản phẩm, danh mục…) trên URL
