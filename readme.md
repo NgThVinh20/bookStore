@@ -71,3 +71,9 @@ bước 5: chạy câu lệnh yarn start
    --dùng để đọc (parse) dữ liệu cookie từ trình duyệt và đưa chúng vào req.cookies
 15. **mailtrap**
    --Gửi mail tự động
+16. **multer**
+   --upload file từ FE lên BE
+17. **cloudinary**
+   --Luu trữ ảnh
+18. **multer-storage-cloudinary**
+   --up file từ multer lên cloudinary

@@ -32,6 +32,10 @@ router.post('/OTP',accountValidate.OtpPassWordPost, accountController.OtpPassWor
 
 router.get('/reset-password', accountController.resetPassword);
 
-router.post('/reset-password',authenMiddle.verifyToken, accountValidate.resetPasswordPost, accountController.resetPasswordPost);
+router.post('/reset-password',
+  authenMiddle.verifyToken, 
+  accountValidate.resetPasswordPost,
+  accountController.resetPasswordPost
+);
 
 module.exports = router;

@@ -2,8 +2,8 @@
 const initTinyMce = (selector)=>{
    tinymce.init({
     selector: selector,
-    plugins: 'textcolor',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor backcolor permanentpen formatpainter | pageembed | aiassistant', 
+    plugins: ["anchor", "link", "charmap", "image", "lists", "media"],
+    toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link anchor charmap image numlist bullist media',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
     mergetags_list: [
@@ -103,6 +103,31 @@ if(categoryForm){
     const status = event.target.status.value;
     const avatar = filePond.avatar.getFile()?.file;
     const desc = tinymce.get("desc").getContent();
+
+    // tạo FormData
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("parent",parent);
+    formData.append("position",position);
+    formData.append("status",status);
+    formData.append("avatar",avatar);
+    formData.append("desc",desc);
+    console.log(formData)
+
+    fetch(`/${pathAdmin}/category/create`,{
+      method:"POST",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload(); 
+        }
+       })
   })
 }
 // validate category-create form 

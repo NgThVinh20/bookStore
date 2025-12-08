@@ -318,7 +318,7 @@ if (resetPassword) {
         }
         if(data.code=="success"){
           drawNotify(data.code,data.message);
-          window.location.href = `/${pathAdmin}/account/login`;
+          window.location.href = `/${pathAdmin}/dashboard`;
         }
        })
     });
