@@ -662,7 +662,10 @@ select {
   background-color: rgb(0, 182, 155,0.2);
   color:#00B69B;
 }
-
+.tag-green-red{
+   background-color: red;
+  color:white;
+}
 
 /*section-4*/
 .section-4 {
@@ -841,6 +844,7 @@ select {
 }
 .table-2{
   overflow-x:auto;
+  overflow-y: scroll;
 }
 .table-2 table{
   background-color:white;

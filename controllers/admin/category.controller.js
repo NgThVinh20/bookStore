@@ -1,11 +1,37 @@
 const {buildCategoryTree} = require("../../helpers/category.helper")
 const Category = require("../../models/category.model")
+const AccountAdmin = require("../../models/accountAdmin.model")
+const moment = require("moment");
 
-
-
-module.exports.list = (req, res) => {
+module.exports.list = async(req, res) => {
+  const categoryList = await Category.find({
+    deleted: false
+  }).sort({
+    positon: "desc"
+  })
+  for(const item of categoryList){
+    if(item.createdBy){
+      const infoAccount = await AccountAdmin.findOne({
+        _id: item.createdBy
+      })
+      if(infoAccount){
+        item.createdByFullname = infoAccount.fullname;
+        item.createdAtFormat = moment(item.createdAt).format("HH:MM - DD/MM/YYYY")
+      }
+    }
+     if(item.updatedBy){
+      const infoAccount = await AccountAdmin.findOne({
+        _id: item.updatedBy
+      })
+      if(infoAccount){
+        item.updatedByFullname = infoAccount.fullname;
+        item.updatedAtFormat = moment(item.updatedAt).format("HH:MM - DD/MM/YYYY")
+      }
+    }
+  }
   res.render('admin/pages/category.list.pug', {
-    pageTitle:"Trang Quản lý danh mục"
+    pageTitle:"Trang Quản lý danh mục",
+    categoryList: categoryList
   });
 } 
 

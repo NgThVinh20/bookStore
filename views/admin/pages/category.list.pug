@@ -59,27 +59,33 @@ block main
             th.text-left Cập nhật bởi
             th.text-left Hành động
         tbody
-          tr
-            td.text-left 
-              +checkbox-30("","")
-            td.text-left Danh mục 1
-            td.text-center 
-              img(src="/admin/assets/images/kinh-te.jpg", alt="")
-            td.text-center 1
-            td.text-center 
-              .tag.tag-green Hoạt Động
-            td.text-left
-              div Lê Văn A
-              div 16:30 - 12/09/2025
-            td.text-left
-              div Lê Văn A
-              div 16:30 - 12/09/2025
-            td.text-left 
-              .box-actions
-                a(href="" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i> 
-                a(href="" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>      
+          each item in categoryList
+            tr
+              td.text-left 
+                +checkbox-30("","")
+              td.text-left #{item.name}
+              td.text-center 
+                img(src=item.avatar, alt="")
+              td.text-center #{item.position}
+              td.text-center 
+                if(item.status=="active")
+                  .tag.tag-green Hoạt động
+                else if(item.status=="inactive")
+                  .tag.tag-red Tạm dừng
+              td.text-left
+                if(item.createdByFullname)
+                  div #{ item.createdByFullname}
+                  div #{item.createdAtFormat}
+              td.text-left
+                if(item.updatedByFullname)
+                  div #{item.updatedByFullname}
+                  div #{ item.updatedAtFormat}
+              td.text-left 
+                .box-actions
+                  a(href="" class="inner-edit")
+                    <i class="fa-solid fa-pen-to-square"></i> 
+                  a(href="" class="inner-remove")
+                    <i class="fa-solid fa-trash-can"></i>      
   //-Section-6
 
   //-Section-7
