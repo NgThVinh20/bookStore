@@ -16,7 +16,7 @@ module.exports.list = async(req, res) => {
       })
       if(infoAccount){
         item.createdByFullname = infoAccount.fullname;
-        item.createdAtFormat = moment(item.createdAt).format("HH:MM - DD/MM/YYYY")
+        item.createdAtFormat = moment(item.createdAt).format("HH:mm - DD/MM/YYYY")
       }
     }
      if(item.updatedBy){
@@ -25,7 +25,7 @@ module.exports.list = async(req, res) => {
       })
       if(infoAccount){
         item.updatedByFullname = infoAccount.fullname;
-        item.updatedAtFormat = moment(item.updatedAt).format("HH:MM - DD/MM/YYYY")
+        item.updatedAtFormat = moment(item.updatedAt).format("HH:mm - DD/MM/YYYY")
       }
     }
   }
@@ -34,7 +34,6 @@ module.exports.list = async(req, res) => {
     categoryList: categoryList
   });
 } 
-
 
 module.exports.create = async (req, res) => {
   const categoryList = await Category.find(({
@@ -80,4 +79,82 @@ module.exports.createPost = async (req, res) => {
     code: "success",
     message: "Đã tạo danh mục!"
   });
+}
+
+module.exports.edit = async (req, res) => {
+  const id = req.params.id;
+  const categoryDetail = await Category.findOne({
+    _id: id,
+    deleted: false
+  })
+  if(!categoryDetail) {
+    res.redirect(`/${pathAdmin}/category/list`);
+    return;
+  }
+
+  const categoryList = await Category.find(({
+    deleted:false
+  }))
+  const categoryTree = buildCategoryTree(categoryList);
+  res.render('admin/pages/category-edit.pug', {
+    pageTitle:"Trang Quản chỉnh sửa danh mục",
+    categoryList:categoryTree,
+    categoryDetail:categoryDetail
+  });
+} 
+module.exports.editPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const categoryDetail = await Category.findOne({
+      _id: id,
+      deleted: false
+    })
+
+    if(!categoryDetail) {
+      res.json({
+        code: "error",
+        message: "Danh mục không tồn tại!"
+      })
+      return;
+    }
+    
+    if(req.file) {
+      req.body.avatar = req.file.path;
+    } else {
+      req.body.avatar = "";
+    }
+
+    if(req.body.position) {
+      req.body.position = parseInt(req.body.position);
+    } else {
+      const record = await Category
+        .findOne({})
+        .sort({
+          position: "desc"
+        })
+      if(record) {
+        req.body.position = record.position + 1;
+      } else {
+        req.body.position = 1;
+      }
+    }
+
+    req.body.updatedBy = req.account.id;
+
+    await Category.updateOne({
+      _id: id,
+      deleted: false
+    }, req.body);
+
+    res.json({
+      code: "success",
+      message: "Đã cập nhật danh mục!"
+    })
+  } catch (error) {
+    res.json({
+      code: "error",
+      message: "Danh mục không tồn tại!"
+    })
+  }
 }

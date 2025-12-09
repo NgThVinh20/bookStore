@@ -42,11 +42,20 @@ const filePond = {}
 if (filePondImage.length > 0) {
   FilePond.registerPlugin(FilePondPluginImagePreview);
   FilePond.registerPlugin(FilePondPluginFileValidateType);
-
   filePondImage.forEach(item => {
+    const imageDefault = item.getAttribute("image-default");
+    let files = null
+    if(imageDefault){
+      files = [
+        {
+          source:imageDefault
+        }
+      ]
+    }
     filePond[item.name]=FilePond.create(item, {
       labelIdle: "+",
       acceptedFileTypes: ["image/*"],
+      files:files
     });
   });
 }
@@ -132,7 +141,56 @@ if(categoryForm){
 }
 // validate category-create form 
 
-// validate tour-create form 
+// edit category
+const categoryEditForm = document.querySelector('#categoryEditForm');
+if(categoryEditForm){
+  const validator = new JustValidate('#categoryEditForm');
+  validator
+    .addField('#name', [
+      {
+        rule: 'required',
+        errorMessage:"Vui lòng nhập tên danh mục"
+        
+     },
+    ])
+  .onSuccess((event) => {
+    const id = event.target.id.value;
+    const name = event.target.name.value;
+    const parent = event.target.parent.value;
+    const position = event.target.position.value;
+    const status = event.target.status.value;
+    const avatar = filePond.avatar.getFile()?.file;
+    const desc = tinymce.get("desc").getContent();
+
+    // tạo FormData
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("parent",parent);
+    formData.append("position",position);
+    formData.append("status",status);
+    formData.append("avatar",avatar);
+    formData.append("desc",desc);
+    console.log(formData)
+
+    fetch(`/${pathAdmin}/category/edit/${id}`,{
+      method:"PATCH",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          notify.success(data.message);
+        }
+       })
+  })
+}
+// validate category-edit form 
+
+
+// validate book-create form 
 const formCreateProduct = document.querySelector("#formCreateProduct");
 if(formCreateProduct){
   const validator = new JustValidate('#formCreateProduct');
@@ -158,7 +216,7 @@ if(formCreateProduct){
     const info = tinymce.get("info").getContent();
   })
 }
-// validate tour-create form 
+// validate book-create form 
 
 
 // validate order form

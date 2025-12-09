@@ -718,7 +718,9 @@ select {
   color: #EA0234;
   cursor: pointer;
 }
-
+.section-4 .inner-reset:hover{
+  text-decoration: underline;
+}
 @media (max-width: 1199.98px) {
   .section-4 .inner-item {
     padding: 10px 14px;
@@ -816,6 +818,9 @@ select {
   justify-content: center;
   width:159px;
 }
+.section-5 .inner-button-create a:hover{
+  background-color: #2158d7;
+}
 .section-5 .inner-button-trash a{
   background: rgba(239, 56, 38, 0.2);
   color:#EF3826;
@@ -827,6 +832,9 @@ select {
   display: inline-flex;
   align-items: center;
 
+}
+.section-5 .inner-button-trash a:hover{
+  background-color: rgba(197, 93, 93, 0.408)
 }
 @media(max-width:1199.98px){
   .section-5 .inner-change-status .inner-item{
@@ -902,6 +910,7 @@ select {
   color:red;
   border-right:0;
 }
+
 /*section-6*/
 
 /*section-7*/
