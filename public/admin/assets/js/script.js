@@ -535,3 +535,125 @@ if(sider){
   })
 }
 // sider
+
+// button delete
+const listButtonDelete = document.querySelectorAll("[buttonDelete]");
+if(listButtonDelete.length > 0) {
+  listButtonDelete.forEach(button => {
+    button.addEventListener("click", () => {
+      const dataApi = button.getAttribute("data-api");
+      fetch(dataApi, {
+        method: "PATCH"
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notify.error(data.message);
+          }
+
+          if(data.code == "success") {
+            drawNotify(data.code, data.message);
+            window.location.reload();
+          }
+        })
+    })
+  })
+}
+// button delete
+
+//filter-status
+const filterStatus = document.querySelector("[filter-status]");
+if(filterStatus){
+  const url = new URL(window.location.href);
+  filterStatus.addEventListener("change", () => {
+    const value = filterStatus.value;
+    if(value){
+      url.searchParams.set("status",value);
+    }else{
+       url.searchParams.delete("status");
+    }
+    window.location.href=url.href
+  })
+  // hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("status");
+  if(valueCurrent){
+    filterStatus.value=valueCurrent 
+  }
+}
+//filter-status
+// filter-createdBy
+const filterCreatedBy = document.querySelector("[filter-created-by]");
+if(filterCreatedBy){
+  const url = new URL(window.location.href);
+  filterCreatedBy.addEventListener("change", () => {
+    const value = filterCreatedBy.value;
+    if(value){
+      url.searchParams.set("createdBy",value);
+    }else{
+       url.searchParams.delete("createdBy");
+    }
+    window.location.href=url.href
+  })
+  // hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("createdBy");
+  if(valueCurrent){
+    filterCreatedBy.value=valueCurrent 
+  }
+}
+// filter-createdBy
+
+// filter start-date
+const filterStartDate = document.querySelector("[filter-start-date]");
+if(filterStartDate){
+  const url = new URL(window.location.href);
+  filterStartDate.addEventListener("change", () => {
+    const value = filterStartDate.value;
+    if(value){
+      url.searchParams.set("startDate",value);
+    }else{
+       url.searchParams.delete("startDate");
+    }
+    window.location.href=url.href
+  })
+  // hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("startDate");
+  if(valueCurrent){
+    filterStartDate.value=valueCurrent 
+  }
+}
+// filter start-date
+// filter end-date
+const filterEndtDate = document.querySelector("[filter-end-date]");
+if(filterEndtDate){
+  const url = new URL(window.location.href);
+  filterEndtDate.addEventListener("change", () => {
+    const value = filterEndtDate.value;
+    if(value){
+      url.searchParams.set("endDate",value);
+    }else{
+       url.searchParams.delete("endDate");
+    }
+    window.location.href=url.href
+  })
+  // hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("endDate");
+  if(valueCurrent){
+    filterEndtDate.value=valueCurrent 
+  }
+}
+// filter end-date
+
+
+// filter reset
+const filterReset =  document.querySelector("[filter-reset]")
+if(filterReset){
+  const url = new URL ( window.location.href)
+  filterReset.addEventListener("click", () => {
+    url.searchParams.delete("status");
+    url.searchParams.delete("createdBy");
+    url.searchParams.delete("startDate");
+    url.searchParams.delete("endDate");
+    window.location.href=url.href
+  })
+}
+// filter reset

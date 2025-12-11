@@ -4,9 +4,31 @@ const AccountAdmin = require("../../models/accountAdmin.model")
 const moment = require("moment");
 
 module.exports.list = async(req, res) => {
-  const categoryList = await Category.find({
-    deleted: false
-  }).sort({
+  const find = {
+    deleted: false,
+  };
+  // lọc theo trạng thái 
+  if(req.query.status){
+    find.status=req.query.status;
+  }
+  // lọc theo người tạo
+  if(req.query.createdBy){
+    find.createdBy=req.query.createdBy;
+  }
+  // lọc theo ngày tạo
+  const filterDate = {}
+  if(req.query.startDate){
+    filterDate.$gte = moment(req.query.startDate).toDate()
+    find.createdAt = filterDate;
+  }
+  if(req.query.endDate){
+    filterDate.$lte = moment(req.query.endDate).toDate()
+    find.createdAt =filterDate
+;
+  }
+
+
+  const categoryList = await Category.find(find).sort({
     positon: "desc"
   })
   for(const item of categoryList){
@@ -29,9 +51,13 @@ module.exports.list = async(req, res) => {
       }
     }
   }
+
+  // danh sách tài khoản quản trị
+  const accountAdminList = await AccountAdmin.find({}).select("id fullname")
   res.render('admin/pages/category.list.pug', {
     pageTitle:"Trang Quản lý danh mục",
-    categoryList: categoryList
+    categoryList: categoryList,
+    accountAdminList: accountAdminList
   });
 } 
 
@@ -151,6 +177,43 @@ module.exports.editPatch = async (req, res) => {
       code: "success",
       message: "Đã cập nhật danh mục!"
     })
+  } 
+  catch (error) {
+    res.json({
+      code: "error",
+      message: "Danh mục không tồn tại!"
+    })
+  }
+}
+module.exports.deletePatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const categoryDetail = await Category.findOne({
+      _id: id,
+      deleted: false
+    })
+
+    if(!categoryDetail) {
+      res.json({
+        code: "error",
+        message: "Danh mục không tồn tại!"
+      })
+      return;
+    }
+
+    await Category.updateOne({
+      _id: id,
+      deleted: false
+    }, {
+      deleted: true,
+      deletedBy: req.account.id,
+      deletedAt: Date.now()
+    });
+    res.json({
+      code: "success",
+      message: "Đã xóa danh mục!"
+    })
   } catch (error) {
     res.json({
       code: "error",
@@ -158,3 +221,4 @@ module.exports.editPatch = async (req, res) => {
     })
   }
 }
+

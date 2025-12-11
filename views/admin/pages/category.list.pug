@@ -4,25 +4,25 @@ include ../mixins/checkbox.pug
 block main
   h1.box-title Quản lý danh mục
   //-section-4
-  .section-4 
+  .section-4
     .inner-wrap
       .inner-item.inner-label 
         <i class="fa-solid fa-filter"></i> Bộ lọc
       .inner-item
-        select
+        select(filter-status)
           option(value="") Trạng thái 
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
+          option(value="active") Hoạt động 
+          option(value="inactive") Tạm dừng
       .inner-item
-        select
+        select(filter-created-by)
           option(value="") Người Tạo
-          option(value="") Lê Văn A
-          option(value="") Lê Văn B
+          each item in accountAdminList
+            option(value=item.id) #{item.fullname}
       .inner-item.inner-date
-        input(type="date")
+        input(type="date" filter-start-date)
         span - 
-        input(type="date")
-      .inner-item.inner-reset
+        input(type="date" filter-end-date)
+      .inner-item.inner-reset(filter-reset)
         <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
   //-Section-4
 
@@ -84,7 +84,7 @@ block main
                 .box-actions
                   a(href=`/${pathAdmin}/category/edit/${item.id}` class="inner-edit")
                     <i class="fa-solid fa-pen-to-square"></i> 
-                  a(href="" class="inner-remove")
+                  a(href="javascript:;" class="inner-remove" buttonDelete data-api=`/${pathAdmin}/category/delete/${item.id}`)
                     <i class="fa-solid fa-trash-can"></i>      
   //-Section-6
 
