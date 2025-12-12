@@ -644,19 +644,7 @@ if(filterEndtDate){
 // filter end-date
 
 
-// filter reset
-const filterReset =  document.querySelector("[filter-reset]")
-if(filterReset){
-  const url = new URL ( window.location.href)
-  filterReset.addEventListener("click", () => {
-    url.searchParams.delete("status");
-    url.searchParams.delete("createdBy");
-    url.searchParams.delete("startDate");
-    url.searchParams.delete("endDate");
-    window.location.href=url.href
-  })
-}
-// filter reset
+
 
 // check all
 const inputCheckAll = document.querySelector(`input[name="checkAll"]`);
@@ -721,5 +709,40 @@ if(changeMulti) {
       })
   })
 }
-
 // changeMulti
+
+// input search 
+const inputSearch = document.querySelector("[search]");
+if(inputSearch){
+  const url = new URL ( window.location.href);
+  inputSearch.addEventListener("keyup", (event)=>{
+    if(event.code=="Enter"){
+      const value = inputSearch.value;
+      if(value){
+        url.searchParams.set("keyword",value);
+      }else{
+        url.searchParams.delete("keyword");
+      }
+      window.location.href=url.href
+    }
+  })
+  const valueCurrent = url.searchParams.get("keyword");
+  if(valueCurrent){
+    inputSearch.value=valueCurrent 
+  }
+}
+// input search 
+// filter reset
+const filterReset =  document.querySelector("[filter-reset]")
+if(filterReset){
+  const url = new URL ( window.location.href)
+  filterReset.addEventListener("click", () => {
+    url.searchParams.delete("status");
+    url.searchParams.delete("createdBy");
+    url.searchParams.delete("startDate");
+    url.searchParams.delete("endDate");
+    url.searchParams.delete("keyword");
+    window.location.href=url.href
+  })
+}
+// filter reset

@@ -2,6 +2,9 @@ const {buildCategoryTree} = require("../../helpers/category.helper")
 const Category = require("../../models/category.model")
 const AccountAdmin = require("../../models/accountAdmin.model")
 const moment = require("moment");
+const slugify = require('slugify')
+
+
 
 module.exports.list = async(req, res) => {
   const find = {
@@ -23,13 +26,20 @@ module.exports.list = async(req, res) => {
   }
   if(req.query.endDate){
     filterDate.$lte = moment(req.query.endDate).toDate()
-    find.createdAt =filterDate
-;
+    find.createdAt =filterDate;
+  }
+  // lọc theo ô input
+   if(req.query.keyword){
+    let regex = req.query.keyword.trim();
+    regex = regex.replace(/\s+/g, " ")
+    regex =slugify(regex)
+    regex = new RegExp(regex, "i");
+    console.log(regex);
+    find.slug=regex;  
   }
 
-
   const categoryList = await Category.find(find).sort({
-    positon: "desc"
+    position: "desc"
   })
   for(const item of categoryList){
     if(item.createdBy){

@@ -80,3 +80,6 @@ bước 5: chạy câu lệnh yarn start
 19. **slug**
    --một chuỗi ký tự ngắn gọn, dễ đọc, dùng để đại diện cho một nội dung (bài viết, sản phẩm, danh mục…) trên URL
 19. **moment**
+   --format định dạng ngày tháng
+19. **slugify**
+   --tìm kiếm không dấu
