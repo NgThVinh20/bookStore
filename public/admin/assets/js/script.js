@@ -657,3 +657,69 @@ if(filterReset){
   })
 }
 // filter reset
+
+// check all
+const inputCheckAll = document.querySelector(`input[name="checkAll"]`);
+if(inputCheckAll){
+  inputCheckAll.addEventListener("click", () => {
+    const listInputChecked = document.querySelectorAll(`input[name="checkItem"]`)
+    listInputChecked.forEach(input => {
+      input.checked = inputCheckAll.checked;
+    })
+  })
+  
+}
+// check all
+
+// changeMulti
+const changeMulti = document.querySelector("[change-multi]");
+if(changeMulti) {
+  const button = changeMulti.querySelector("button");
+  const select = changeMulti.querySelector("select");
+  const dataApi = changeMulti.getAttribute("data-api");
+
+  button.addEventListener("click", () => {
+    const listInputChecked = document.querySelectorAll(`input[name="checkItem"]:checked`);
+    const listId = [];
+    listInputChecked.forEach(input => {
+      listId.push(input.value);
+    });
+    const option = select.value;
+
+    if(listId.length == 0) {
+      notify.error("Vui lòng chọn ít nhất 1 bản ghi!");
+      return;
+    }
+
+    if(!option) {
+      notify.error("Vui lòng chọn hành động để áp dụng!");
+      return;
+    }
+
+    const dataFinal = {
+      listId: listId,
+      option: option
+    };
+
+    fetch(dataApi, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dataFinal)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error") {
+          notify.error(data.message);
+        }
+
+        if(data.code == "success") {
+          drawNotify(data.code, data.message);
+          window.location.reload();
+        }
+      })
+  })
+}
+
+// changeMulti
