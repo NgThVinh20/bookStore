@@ -38,9 +38,26 @@ module.exports.list = async(req, res) => {
     find.slug=regex;  
   }
 
+  // phân trang 
+  const limitItem = 3;
+  let page=1;
+  if(req.query.page){
+    page=parseInt(req.query.page);
+  }
+  const skip = (page-1)*limitItem
+  const totalRecord = await Category.countDocuments(find);
+  const totalPage = Math.ceil(totalRecord/limitItem);
+  const pagination = {
+    totalPage:totalPage,
+    skip: skip,
+    totalRecord:totalRecord
+  }
   const categoryList = await Category.find(find).sort({
     position: "desc"
-  })
+  }).limit(limitItem).skip(skip);
+  // phân trang 
+
+
   for(const item of categoryList){
     if(item.createdBy){
       const infoAccount = await AccountAdmin.findOne({
@@ -67,7 +84,8 @@ module.exports.list = async(req, res) => {
   res.render('admin/pages/category.list.pug', {
     pageTitle:"Trang Quản lý danh mục",
     categoryList: categoryList,
-    accountAdminList: accountAdminList
+    accountAdminList: accountAdminList,
+    pagination: pagination
   });
 } 
 

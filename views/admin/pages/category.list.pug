@@ -91,11 +91,11 @@ block main
 
   //-Section-7
   .section-7
-    span.inner-label Hiển thị 1 - 9 của 78
-    select.inner-pagination
-      option(value="") Trang 1
-      option(value="") Trang 2
-      option(value="") Trang 3
+    span.inner-label Hiển thị Hiển thị #{pagination.skip +1 } - #{pagination.skip + categoryList.length} của #{pagination.totalRecord} 
+    select(class="inner-pagination" box-pagination)
+      - for (let i = 1; i <= pagination.totalPage; i++)
+        option(value=i) Trang #{i}
+
   //-Section-7
 
 
