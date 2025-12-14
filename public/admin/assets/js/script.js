@@ -121,7 +121,6 @@ if(categoryForm){
     formData.append("status",status);
     formData.append("avatar",avatar);
     formData.append("desc",desc);
-    console.log(formData)
 
     fetch(`/${pathAdmin}/category/create`,{
       method:"POST",
@@ -190,7 +189,7 @@ if(categoryEditForm){
 // validate category-edit form 
 
 
-// validate book-create form 
+// validate book-create form d
 const formCreateProduct = document.querySelector("#formCreateProduct");
 if(formCreateProduct){
   const validator = new JustValidate('#formCreateProduct');
@@ -201,6 +200,7 @@ if(formCreateProduct){
         errorMessage:"Vui lòng nhập tên Sản phẩm"
      },
     ])
+   
     .onSuccess((event) => {
     const name = event.target.name.value;
     const parent = event.target.parent.value;
@@ -209,12 +209,40 @@ if(formCreateProduct){
     const avatar = filePond.avatar.getFile()?.file;
     const time = event.target.time.value;
     const amount = event.target.amount.value;
-    const infor = event.target.infor.value;
-    const priceNew = event.target.priceNew.value;
     const priceOld = event.target.priceOld.value;
+    const priceNew = event.target.priceNew.value;
     const author = event.target.author.value;
-    const info = tinymce.get("info").getContent();
+    const infor = tinymce.get("infor").getContent();
+
+    // tạo FormData
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("parent",parent);
+    formData.append("position",position);
+    formData.append("status",status);
+    formData.append("avatar",avatar);
+    formData.append("time",time);
+    formData.append("amount",amount);
+    formData.append("priceOld",priceOld);
+    formData.append("priceNew",priceNew);
+    formData.append("author",author);
+    formData.append("infor",infor);
+
+    fetch(`/${pathAdmin}/books/create/`,{
+      method:"POST",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          notify.success(data.message);
+        }
+      })
   })
+
 }
 // validate book-create form 
 

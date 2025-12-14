@@ -906,6 +906,9 @@ select {
   color:rgb(0, 0, 0, 0.6);
   border-right:0.6px solid #D5D5D5;
 }
+.box-actions a.reset{
+  color:green;
+}
 .box-actions .inner-remove{
   color:red;
   border-right:0;

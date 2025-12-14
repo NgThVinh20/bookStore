@@ -1,14 +1,42 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
 
-module.exports.book = mongoose.model(
-  'book',
-   {
-      name: String,
-      author:String,
-      NXB:String,
-      type:String
+
+const schema = new mongoose.Schema(
+  {
+    name: String,
+    parent: String,
+    position: Number,
+    status: String,
+    avatar: String,
+    time: Date,
+    amount: Number,
+    priceOld: Number,
+    priceNew: Number,
+    author: String,
+    infor: String,
+    createdBy: String,
+    updatedBy: String,
+    updatedAt: Date,
+    slug: {
+      type: String,
+      slug: "name",
+      unique: true
     },
-    "books"
+    deleted: {
+      type: Boolean,
+      default: false
+    },
+    deletedBy: String,
+    deletedAt: Date
+  },
+  {
+    timestamps: true, // Tự động sinh ra trường createdAt và updatedAt
+  }
 );
+const Tour = mongoose.model('Book', schema, "books");
+module.exports = Tour;
 
-console.log(book);
+
+
