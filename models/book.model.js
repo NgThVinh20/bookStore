@@ -35,8 +35,7 @@ const schema = new mongoose.Schema(
     timestamps: true, // Tự động sinh ra trường createdAt và updatedAt
   }
 );
-const Tour = mongoose.model('Book', schema, "books");
-module.exports = Tour;
-
+const Book = mongoose.model('Book', schema, "books");
+module.exports = Book;
 
 

@@ -228,7 +228,7 @@ if(formCreateProduct){
     formData.append("author",author);
     formData.append("infor",infor);
 
-    fetch(`/${pathAdmin}/books/create/`,{
+    fetch(`/${pathAdmin}/books/create`,{
       method:"POST",
       body:formData
     })

@@ -1,19 +1,57 @@
 const {buildCategoryTree} = require("../../helpers/category.helper")
+const AccountAdmin = require("../../models/accountAdmin.model")
 const Category = require("../../models/category.model")
 const Book = require("../../models/book.model")
+const moment = require("moment");
+
 module.exports.list = async (req, res) => {
-  res.render('admin/pages/book-list.pug', {
-    pageTitle:"Trang Quản lý sách"
+  const find = {
+    deleted: false
+  };
+
+  const bookList = await Book
+    .find(find)
+    .sort({
+      position: "desc"
+    });
+
+   for(const item of bookList){
+    if(item.createdBy){
+      const infoAccount = await AccountAdmin.findOne({
+        _id: item.createdBy
+      })
+      if(infoAccount){
+        item.createdByFullname = infoAccount.fullname;
+        item.createdAtFormat = moment(item.createdAt).format("HH:mm - DD/MM/YYYY")
+      }
+    }
+     if(item.updatedBy){
+      const infoAccount = await AccountAdmin.findOne({
+        _id: item.updatedBy
+      })
+      if(infoAccount){
+        item.updatedByFullname = infoAccount.fullname;
+        item.updatedAtFormat = moment(item.updatedAt).format("HH:mm - DD/MM/YYYY")
+      }
+    }
+  }
+  res.render('admin/pages/book-list', {
+    pageTitle: "Quản lý Sách",
+    bookList: bookList,
   });
-} 
+}
+
+
 
 
 module.exports.create = async (req, res) => {
-  const categoryList = await Category.find(({
-    deleted:false
-  }))
+ const categoryList = await Category
+    .find({
+      deleted: false
+    })
 
   const categoryTree = buildCategoryTree(categoryList);
+
 
   res.render('admin/pages/product-create.pug', {
     pageTitle:"Trang tạo sản phẩm",
