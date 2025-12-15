@@ -8,24 +8,24 @@ block main
     form(action="" id = "formWebsiteInformation")
       .inner-group
         label.inner-label(for="name") Tên website
-        input(type="text" name="name" id="name")
+        input(type="text" name="name" id="name" value=websiteInfo.name)
       .inner-group
         label.inner-label(for="email") Email
-        input(type="email" name="email" id="email")
+        input(type="email" name="email" id="email" value=websiteInfo.email)
       .inner-group
         label.inner-label(for="numberPhone") Số điện thoại
-        input(type="number" name="numberPhone" id="numberPhone")
+        input(type="number" name="numberPhone" id="numberPhone" value=websiteInfo.numberPhone)
       .inner-group
         label.inner-label(for="place") Địa chỉ
-        input(type="text" name="place" id="place")
+        input(type="text" name="place" id="place" value=websiteInfo.place)
       .inner-group.inner-avatar
-        label.inner-label(for="avatar" ) Logo 
+        label.inner-label(for="logo" ) Logo 
         .inner-upload-image
-          input(type="file" id="avatar" name="avatar" filepondImage )
+          input(type="file" id="logo" name="logo" filepondImage image-default=websiteInfo.logo)
       .inner-group.inner-avatar
-        label.inner-label(for="Favicon") Favicon
+        label.inner-label(for="favicon") Favicon
         .inner-upload-image
-          input(type="file" id="Favicon" name="Favicon" filepondImage)
+          input(type="file" id="favicon" name="favicon" filepondImage image-default=websiteInfo.favicon)
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back

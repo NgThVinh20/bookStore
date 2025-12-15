@@ -475,8 +475,31 @@ if(formWebsiteInformation){
     const email = event.target.email.value;
     const numberPhone = event.target.numberPhone.value;
     const place = event.target.place.value;
-    const avatar = filePond.avatar.getFile()?.file;
-    const Favicon = filePond.Favicon.getFile()?.file;
+    const logo = filePond.logo.getFile()?.file;
+    const favicon = filePond.favicon.getFile()?.file;
+    
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("email",email);
+    formData.append("numberPhone",numberPhone);
+    formData.append("place",place);
+    formData.append("logo",logo);
+    formData.append("favicon",favicon);
+    fetch(`/${pathAdmin}/settings/info`,{
+      method:"PATCH",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload();
+        }
+      })
+    
   })
 }
 // validate form website information
