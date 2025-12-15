@@ -238,7 +238,8 @@ if(formCreateProduct){
           notify.error(data.message);
         }
         if(data.code=="success"){
-          notify.success(data.message);
+          drawNotify(data.code,data.message);
+          window.location.reload();
         }
       })
   })
@@ -247,6 +248,62 @@ if(formCreateProduct){
 // validate book-create form 
 
 
+// edit book
+const formEditProduct = document.querySelector("#formEditProduct");
+if(formEditProduct){
+  const validator = new JustValidate('#formEditProduct');
+  validator
+    .addField('#name', [
+      {
+        rule: 'required',
+        errorMessage:"Vui lòng nhập tên Sản phẩm"
+     },
+    ])
+   
+    .onSuccess((event) => {
+    const id = event.target.id.value;
+    const name = event.target.name.value;
+    const parent = event.target.parent.value;
+    const position = event.target.position.value;
+    const status = event.target.status.value;
+    const avatar = filePond.avatar.getFile()?.file;
+    const time = event.target.time.value;
+    const amount = event.target.amount.value;
+    const priceOld = event.target.priceOld.value;
+    const priceNew = event.target.priceNew.value;
+    const author = event.target.author.value;
+    const infor = tinymce.get("infor").getContent();
+
+    // tạo FormData
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("parent",parent);
+    formData.append("position",position);
+    formData.append("status",status);
+    formData.append("avatar",avatar);
+    formData.append("time",time);
+    formData.append("amount",amount);
+    formData.append("priceOld",priceOld);
+    formData.append("priceNew",priceNew);
+    formData.append("author",author);
+    formData.append("infor",infor);
+
+    fetch(`/${pathAdmin}/books/edit/${id}`,{
+      method:"PATCH",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          notify.success(data.message);
+        }
+      })
+  })
+
+}
 // validate order form
 const orderEdit = document.querySelector("#orderEdit");
 if(orderEdit){

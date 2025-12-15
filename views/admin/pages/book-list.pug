@@ -10,19 +10,19 @@ block main
       .inner-item.inner-label 
         <i class="fa-solid fa-filter"></i> Bộ lọc
       .inner-item
-        select
+        select(filter-status)
           option(value="") Trạng thái 
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
+          option(value="active") Hoạt động 
+          option(value="inactive") Tạm dừng
       .inner-item
-        select
+        select(filter-created-by)
           option(value="") Người Tạo
-          option(value="") Lê Văn A
-          option(value="") Lê Văn B
+          each item in accountAdminList
+            option(value=item.id) #{item.fullname}
       .inner-item.inner-date
-        input(type="date")
+        input(type="date" filter-start-date)
         span - 
-        input(type="date")
+        input(type="date" filter-end-date)
       .inner-item
         select
           option(value="") Danh mục
@@ -32,23 +32,24 @@ block main
           option(value="") Mức giá
           option(value="") Hoạt động 
           option(value="") Tạm dừng
-      .inner-item.inner-reset
+      .inner-item.inner-reset(filter-reset)
         <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
   //-Section-4
 
   //-Section-5
   .section-5 
     .inner-wrap
-      .inner-change-status
+      .inner-change-status(change-multi data-api=`/${pathAdmin}/books/change-multi`)
         .inner-item
           select
             option(value="") -- Hành động --
-            option(value="") Dừng hoạt động
-            option(value="") xóa
+            option(value="active") Hoạt động
+            option(value="inactive") Tạm dừng 
+            option(value="delete") Xóa
         button.inner-button Áp dụng
       .inner-search
         <i class="fa-solid fa-magnifying-glass"></i>
-        input(type="text" placeholder="Tìm kiếm")
+        input(type="text" placeholder="Tìm kiếm" search)
       .inner-button-create
         a(href= `/${pathAdmin}/books/create`)  + Tạo mới
       .inner-button-trash
@@ -62,7 +63,7 @@ block main
         thead
           tr
             th.text-left
-              +checkbox-30("","")
+              +checkbox-30("checkAll","checkAll")
             th.text-center Tên sách
             th.text-center Ảnh đại diện
             th.text-center Giá
@@ -74,7 +75,7 @@ block main
           each item in bookList
             tr
               td.text-left 
-                +checkbox-30("","")
+                +checkbox-30("checkItem","checkItem",item.id)
               td.text-center #{item.name}
               td.text-center
                 img(src=item.avatar, alt="")
@@ -92,10 +93,10 @@ block main
               td.text-left
                 if(item.updatedByFullname)
                   div #{item.updatedByFullname}
-                  div #{ item.updatedAtFormat}
+                  div #{item.updatedAtFormat}
               td.text-left 
                 .box-actions
-                  a(href=`/${pathAdmin}/books/create` class="inner-edit")
+                  a(href=`/${pathAdmin}/books/edit/${item.id}` class="inner-edit")
                     <i class="fa-solid fa-pen-to-square"></i> 
                   a(href="" class="inner-remove")
                     <i class="fa-solid fa-trash-can"></i>          

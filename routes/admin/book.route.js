@@ -7,9 +7,18 @@ const upload = multer({
   storage: cloudinaryHelper.storage
 });
 router.get('/list', bookController.list);
+
 router.get('/create', bookController.create);
 router.post('/create', upload.single('avatar'), bookValidate.createPost,
 bookController.createPost);
+
+router.get('/edit/:id', bookController.edit)
+router.patch('/edit/:id',upload.single('avatar'), bookValidate.createPost, bookController.editPatch)
+
 router.get('/trash', bookController.trash);
+
+router.patch('/change-multi', bookValidate.changeMultiPatch, bookController.changeMultiPatch)
+
+
 
 module.exports = router;
