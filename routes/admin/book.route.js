@@ -19,6 +19,11 @@ router.get('/trash', bookController.trash);
 
 router.patch('/change-multi', bookValidate.changeMultiPatch, bookController.changeMultiPatch)
 
+// Multi remove/undo for trash
+router.patch('/trash-multi', bookController.trashMultiPatch);
 
+router.patch('/delete/:id', bookController.deletePatch)
+router.patch('/undo/:id', bookController.undoPatch)
 
+router.delete('/remove/:id', bookController.remove)
 module.exports = router;

@@ -621,6 +621,32 @@ if(sider){
 }
 // sider
 
+// button undo
+const listButtonUndo = document.querySelectorAll("[buttonUndo]");
+if(listButtonUndo.length > 0) {
+  listButtonUndo.forEach(button => {
+    button.addEventListener("click", () => {
+      const dataApi = button.getAttribute("data-api");
+      fetch(dataApi, {
+        method: "PATCH"
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notify.error(data.message);
+          }
+
+          if(data.code == "success") {
+            drawNotify(data.code, data.message);
+            window.location.reload();
+          }
+        })
+    })
+  })
+}
+// button undo
+
+
 // button delete
 const listButtonDelete = document.querySelectorAll("[buttonDelete]");
 if(listButtonDelete.length > 0) {
@@ -645,6 +671,35 @@ if(listButtonDelete.length > 0) {
   })
 }
 // button delete
+// button delete
+const listButtonRemove = document.querySelectorAll("[buttonRemove]");
+if(listButtonRemove.length > 0) {
+  listButtonRemove.forEach(button => {
+    button.addEventListener("click", () => {
+      window.confirmDialog(
+        "Bạn có chắc chắn muốn xóa vĩnh viễn sách này khỏi cơ sở dữ liệu? Hành động này không thể hoàn tác!",
+        function() {
+          const dataApi = button.getAttribute("data-api");
+          fetch(dataApi, {
+            method: "DELETE"
+          })
+            .then(res => res.json())
+            .then(data => {
+              if(data.code == "error") {
+                notify.error(data.message);
+              }
+              if(data.code == "success") {
+                drawNotify(data.code, data.message);
+                window.location.reload();
+              }
+            })
+        }
+      );
+    })
+  })
+}
+// button delete
+
 
 //filter-status
 const filterStatus = document.querySelector("[filter-status]");
@@ -774,6 +829,34 @@ if(changeMulti) {
       option: option
     };
 
+    // Xác nhận trước khi xóa vĩnh viễn
+    if(option === 'remove') {
+      window.confirmDialog(
+        "Bạn có chắc chắn muốn xóa vĩnh viễn các bản ghi đã chọn? Hành động này không thể hoàn tác!",
+        function() {
+          fetch(dataApi, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataFinal)
+          })
+            .then(res => res.json())
+            .then(data => {
+              if(data.code == "error") {
+                notify.error(data.message);
+              }
+              if(data.code == "success") {
+                drawNotify(data.code, data.message);
+                window.location.reload();
+              }
+            })
+        }
+      );
+      return;
+    }
+
+    // Các thao tác khác gửi request luôn
     fetch(dataApi, {
       method: "PATCH",
       headers: {
@@ -786,7 +869,6 @@ if(changeMulti) {
         if(data.code == "error") {
           notify.error(data.message);
         }
-
         if(data.code == "success") {
           drawNotify(data.code, data.message);
           window.location.reload();
