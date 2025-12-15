@@ -1027,6 +1027,13 @@ select {
   text-decoration: underline;
 }
 
+.section-8 .inner-checkbox-list{
+  background-color: rgb(213, 213, 213,0.6);
+  padding:15px;
+  border-radius:8px;
+  overflow-y: auto;
+  height: 160px;
+}
 .section-8 .inner-checkbox-item{
   display:flex;
   gap:14px;

@@ -589,44 +589,97 @@ if(settingRoleForm){
   .onSuccess((event) => {
     const name = event.target.name.value;
     const desc = event.target.desc.value;
-    const permissons = [];
+    const permissions = [];
     // permissions
-    const ListPermissionsCheck = document.querySelectorAll(`[name="right"]:checked`);
+    const ListPermissionsCheck = document.querySelectorAll(`[name="permissions"]:checked`);
     ListPermissionsCheck.forEach(item=>{
-      permissons.push(item.value);
+      permissions.push(item.value);
     })
     // permissions
+    const dataFinal = {
+      name:name,
+      desc:desc,
+      permissions:permissions
+    }
+    fetch(`/${pathAdmin}/settings/createRole`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataFinal)
+      })
+
+      .then(res => res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload();
+        }
+       })
   })
 }
 // validate role
 
-const changeRole = document.querySelector("#changeRole");
-if(changeRole){
-  const validator = new JustValidate('#changeRole');
-   validator
-    .addField('#name', [
-      {
-        rule: 'required',
-        errorMessage:"Vui lòng nhập tên quyền"
-     },
-       {
-        rule: 'customRegexp',
-        errorMessage:/^(?=.*[A-Z]).+$/,
-     },
-    ])
+// edit role
+const settingEditRoleForm = document.querySelector("#settingEditRoleForm");
+if(settingEditRoleForm) {
+  const validator = new JustValidate('#settingEditRoleForm');
 
-  .onSuccess((event) => {
-    const name = event.target.name.value;
-    const desc = event.target.desc.value;
-    const permissons = [];
-    // permissions
-    const ListPermissionsCheck = document.querySelectorAll(`[name="right"]:checked`);
-    ListPermissionsCheck.forEach(item=>{
-      permissons.push(item.value);
+  validator
+    .addField("#name", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập tên nhóm quyền!"
+      },
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const name = event.target.name.value;
+      const desc = event.target.desc.value;
+      const permissions = [];
+
+      // permissions
+      const listPermissionChecked = document.querySelectorAll(`[name="permissions"]:checked`);
+      listPermissionChecked.forEach(input => {
+        permissions.push(input.value);
+      })
+      // End permissions
+
+      const dataFinal = {
+        name: name,
+        desc: desc,
+        permissions: permissions,
+      };
+
+      fetch(`/${pathAdmin}/settings/roleEdit/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notify.error(data.message);
+          }
+
+          if(data.code == "success") {
+            notify.success(data.message);
+          }
+        })
     })
-    // permissions
-  })
 }
+
+// edit role
+
+
+
+
+
 
 // sider
 const sider = document.querySelector(".sider");
@@ -957,3 +1010,5 @@ if(boxPagination){
   }
 }
 //box-pagination
+
+

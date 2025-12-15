@@ -151,7 +151,7 @@ module.exports.edit = async (req, res) => {
   }))
   const categoryTree = buildCategoryTree(categoryList);
   res.render('admin/pages/category-edit.pug', {
-    pageTitle:"Trang Quản chỉnh sửa danh mục",
+    pageTitle:"Trang chỉnh sửa danh mục",
     categoryList:categoryTree,
     categoryDetail:categoryDetail
   });

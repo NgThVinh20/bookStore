@@ -17,21 +17,10 @@ block main
       .inner-group
         label.inner-label Phân quyền
         .inner-checkbox-list
-          .inner-checkbox-item 
-            +checkbox-30("right", "right-1","id-tong-quan")
-            label(for="right-1") Xem trang Tổng quan
-          .inner-checkbox-item 
-            +checkbox-30("right", "right-2","id-xem-danh-muc")
-            label(for="right-2") Xem danh mục
-          .inner-checkbox-item 
-            +checkbox-30("right", "right-3","id-tao-danh-muc")
-            label(for="right-3") Tạo danh mục
-          .inner-checkbox-item 
-            +checkbox-30("right", "right-4","id-sua-danh-muc")
-            label(for="right-4") sửa danh mục
-          .inner-checkbox-item 
-            +checkbox-30("right", "right-5","id-xoa-danh-muc")
-            label(for="location-5") xóa danh mục
+          each item, index in permissions
+            .inner-checkbox-item 
+              +checkbox-30("permissions", `permissions-${index}`,item.value)
+              label(for=`permissions-${index}`) #{item.label}
       .inner-button.inner-two-col
         button Tạo mới
     .inner-back

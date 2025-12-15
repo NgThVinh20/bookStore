@@ -21,4 +21,7 @@ router.get('/adminAccount', settingController.adminAccount);
 router.get('/adminCreate', settingController.adminCreate);
 router.get('/roleAdmin', settingController.roleAdmin);
 router.get('/createRole', settingController.createRole);
+router.post('/createRole', settingController.createRolePost);
+router.get('/roleEdit/:id', settingController.roleEdit);
+router.patch('/roleEdit/:id', settingController.roleEditPatch);
 module.exports = router;
