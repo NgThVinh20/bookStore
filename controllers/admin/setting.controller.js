@@ -144,3 +144,38 @@ module.exports.roleEditPatch = async (req, res) => {
     });
   }
 }
+
+module.exports.remove = async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const roleDetail = await role.findOne({
+      _id: id,
+      deleted: true
+    })
+
+    if(!roleDetail) {
+      res.json({
+        code: "error",
+        message: "Dữ liệu không hợp lệ!"
+      })
+      return;
+    }
+
+    await roleDetail.deleteOne({
+      _id: id,
+      deleted: true
+    });
+
+    res.json({
+      code: "success",
+      message: "Đã xóa nhóm quyền !"
+    })
+  } catch (error) {
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!"
+    })
+  }
+}
+

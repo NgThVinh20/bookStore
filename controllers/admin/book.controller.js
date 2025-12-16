@@ -385,7 +385,7 @@ module.exports.undoPatch = async (req, res) => {
     if(!bookDetail) {
       res.json({
         code: "error",
-        message: "Danh mục không tồn tại!"
+        message: "Dữ liệu không hợp lệ!"
       })
       return;
     }

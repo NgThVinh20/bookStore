@@ -747,13 +747,13 @@ if(listButtonDelete.length > 0) {
   })
 }
 // button delete
-// button delete
+// button remove
 const listButtonRemove = document.querySelectorAll("[buttonRemove]");
 if(listButtonRemove.length > 0) {
   listButtonRemove.forEach(button => {
     button.addEventListener("click", () => {
       window.confirmDialog(
-        "Bạn có chắc chắn muốn xóa vĩnh viễn sách này khỏi cơ sở dữ liệu? Hành động này không thể hoàn tác!",
+        "Bạn có chắc chắn muốn xóa vĩnh viễn bản ghi này khỏi cơ sở dữ liệu? Hành động này không thể hoàn tác!",
         function() {
           const dataApi = button.getAttribute("data-api");
           fetch(dataApi, {
@@ -774,8 +774,7 @@ if(listButtonRemove.length > 0) {
     })
   })
 }
-// button delete
-
+// button remove
 
 //filter-status
 const filterStatus = document.querySelector("[filter-status]");
@@ -932,7 +931,7 @@ if(changeMulti) {
       return;
     }
 
-    // Các thao tác khác gửi request luôn
+    // Các thao tác khác gửi req luôn
     fetch(dataApi, {
       method: "PATCH",
       headers: {

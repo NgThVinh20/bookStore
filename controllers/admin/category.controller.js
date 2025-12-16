@@ -1,6 +1,7 @@
 const {buildCategoryTree} = require("../../helpers/category.helper")
 const Category = require("../../models/category.model")
 const AccountAdmin = require("../../models/accountAdmin.model")
+const Book = require("../../models/book.model")
 const moment = require("moment");
 const slugify = require('slugify')
 
@@ -230,10 +231,31 @@ module.exports.deletePatch = async (req, res) => {
       return;
     }
 
+    // kiểm tra danh mục có sách 
+    const booksCount = await Book.countDocuments({
+      parent: id,
+      deleted: false
+    });
+
+    // Kiểm tra danh mục có danh mục con
+    const subcategoriesCount = await Category.countDocuments({
+      parent: id,
+      deleted: false
+    });
+
+    if (booksCount > 0 || subcategoriesCount > 0) {
+      res.json({
+        code: "error",
+        message: "Không thể xóa danh mục vì có sách hoặc danh mục con!"
+      });
+      return;
+    }
+
     await Category.updateOne({
       _id: id,
       deleted: false
-    }, {
+    },
+    {
       deleted: true,
       deletedBy: req.account.id,
       deletedAt: Date.now()
@@ -271,21 +293,37 @@ module.exports.changeMultiPatch = async (req, res) => {
         })
         break;
       case "delete":
-        await Category.updateMany(
-          {
-          _id: {$in: listId},
-          deleted:false 
-          },{
-            deleted:true,
-            deletedBy: req.account.id,
-            deletedAt: Date.now()
+        // Kiểm tra từng danh mục có sách hoặc danh mục con
+        for (const id of listId) {
+          const booksCount = await Book.countDocuments({
+            parent: id,
+            deleted: false
+          });
+          const subcategoriesCount = await Category.countDocuments({
+            parent: id,
+            deleted: false
+          });
+          if (booksCount > 0 || subcategoriesCount > 0) {
+            res.json({
+              code: "error",
+              message: `Không thể xóa danh mục có ID ${id} vì có sách hoặc danh mục con!`
+            });
+            return;
           }
-        )
+        }
+        await Category.updateMany({
+          _id: { $in: listId },
+          deleted: false
+        }, {
+          deleted: true,
+          deletedBy: req.account.id,
+          deletedAt: Date.now()
+        });
         res.json({
           code: "success",
-          message: "Đã các bản ghi!"
+          message: "Đã xóa các bản ghi!"
         })
-        break;
+      break;
       default:
         res.json({
           code: "error",
@@ -300,3 +338,147 @@ module.exports.changeMultiPatch = async (req, res) => {
     })
   }
 }
+
+
+module.exports.trash = async (req, res) => {
+  const find = {
+    deleted: true
+  };
+  // lọc theo ô input
+  if(req.query.keyword){
+      let regex = req.query.keyword.trim();
+      regex = regex.replace(/\s+/g, " ")
+      regex =slugify(regex)
+      regex = new RegExp(regex, "i");
+      find.slug=regex;  
+  }
+  // Phân trang
+  const limitItem = 3;
+  let page=1;
+  if(req.query.page){
+    page=parseInt(req.query.page);
+  }
+  const skip = (page-1)*limitItem
+  const totalRecord = await Book.countDocuments(find);
+  const totalPage = Math.ceil(totalRecord/limitItem);
+  const pagination = {
+    totalPage:totalPage,
+    skip: skip,
+    totalRecord:totalRecord
+  }
+
+  const categoryList = await Category
+    .find(find)
+    .sort({ deletedAt: "desc" })
+    .limit(limitItem)
+    .skip(skip);
+
+  for(const item of categoryList){
+    if(item.createdBy){
+      const infoAccount = await AccountAdmin.findOne({ _id: item.createdBy })
+      if(infoAccount){
+        item.createdByFullname = infoAccount.fullname;
+        item.createdAtFormat = moment(item.createdAt).format("HH:mm - DD/MM/YYYY")
+      }
+    }
+    if(item.deletedBy){
+      const infoAccount = await AccountAdmin.findOne({ _id: item.deletedBy })
+      if(infoAccount){
+        item.deletedByFullname = infoAccount.fullname;
+        item.deletedAtFormat = moment(item.deletedAt).format("HH:mm - DD/MM/YYYY")
+      }
+    }
+  }
+
+  res.render('admin/pages/trash-category.pug', {
+    pageTitle:"Trang thùng rác",
+    categoryList: categoryList,
+    pagination: pagination,
+  });
+}
+module.exports.undoPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const categoryDetail = await Category.findOne({
+      _id: id,
+      deleted: true
+    })
+
+    if(!categoryDetail) {
+      res.json({
+        code: "error",
+        message: "Danh mục không tồn tại!"
+      })
+      return;
+    }
+
+    await Category.updateOne({
+      _id: id,
+      deleted: true
+    }, {
+      deleted: false,
+    });
+    res.json({
+      code: "success",
+      message: "Đã khôi phục sản phẩm!"
+    })
+  } catch (error) {
+    res.json({
+      code: "error",
+      message: "Sản phẩm không tồn tại!"
+    })
+  }
+}
+module.exports.remove = async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const categoryDetail = await Category.findOne({
+      _id: id,
+      deleted: true
+    })
+
+    if(!categoryDetail) {
+      res.json({
+        code: "error",
+        message: "Danh mục không tồn tại!"
+      })
+      return;
+    }
+
+    await Category.deleteOne({
+      _id: id,
+      deleted: true
+    });
+    res.json({
+      code: "success",
+      message: "Đã xóa danh mục!"
+    })
+  } catch (error) {
+    res.json({
+      code: "error",
+      message: "Danh mục không tồn tại!"
+    })
+  }
+}
+// Multi remove/undo 
+module.exports.trashMultiPatch = async (req, res) => {
+  const { listId, option } = req.body;
+  if (!Array.isArray(listId) || !option) {
+    return res.json({ code: 'error', message: 'Dữ liệu không hợp lệ!' });
+  }
+  try {
+    if (option == 'remove') {
+      await Category.deleteMany({ _id: { $in: listId }, deleted: true });
+      return res.json({ code: 'success', message: 'Đã xóa vĩnh viễn các bản ghi!' });
+    }
+    if (option == 'undo') {
+      await Category.updateMany({ _id: { $in: listId }, deleted: true }, { deleted: false });
+      return res.json({ code: 'success', message: 'Đã khôi phục các bản ghi!' });
+    }
+    return res.json({ code: 'error', message: 'Dữ liệu không hợp lệ!' });
+  } catch (e) {
+    return res.json({ code: 'error', message: 'Có lỗi xảy ra!' });
+  }
+};

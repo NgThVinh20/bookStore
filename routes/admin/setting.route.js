@@ -24,4 +24,5 @@ router.get('/createRole', settingController.createRole);
 router.post('/createRole', settingController.createRolePost);
 router.get('/roleEdit/:id', settingController.roleEdit);
 router.patch('/roleEdit/:id', settingController.roleEditPatch);
+router.patch('/roleDelete/:id', settingController.remove);
 module.exports = router;
