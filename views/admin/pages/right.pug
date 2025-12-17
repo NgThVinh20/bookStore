@@ -7,11 +7,11 @@ block main
   //-Section-5
   .section-5 
     .inner-wrap
-      .inner-change-status
+      .inner-change-status(change-multi data-api=`/${pathAdmin}/settings/trash-multi`)
         .inner-item
           select
             option(value="") -- Hành động --
-            option(value="") xóa
+            option(value="remove") xóa
         button.inner-button Áp dụng
       .inner-search
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -27,7 +27,7 @@ block main
         thead
           tr
             th.text-left
-              +checkbox-30("","")
+              +checkbox-30("checkAll","checkAll")
             th.text-left Tên nhóm quyền
             th.text-left Mô tả ngắn
             th.text-center Hành động
@@ -35,7 +35,7 @@ block main
           each item in roleList
             tr
               td.text-left 
-                +checkbox-30("","")
+                +checkbox-30("checkItem","checkItem", item.id)
               td.text-left #{item.name}
               td.text-left #{item.desc}
               td.text-center

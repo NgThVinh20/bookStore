@@ -10,36 +10,38 @@ block main
       .inner-item.inner-label 
         <i class="fa-solid fa-filter"></i> Bộ lọc
       .inner-item
-        select
+        select(filter-status)
           option(value="") Trạng thái 
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
+          option(value="active") Hoạt động 
+          option(value="inactive") Tạm dừng
+          option(value="initial") Khởi tạo 
       .inner-item.inner-date
-        input(type="date")
+        input(type="date" filter-start-date)
         span - 
-        input(type="date")
+        input(type="date" filter-end-date)
       .inner-item
-        select
+        select(filter-role)
           option(value="") Phân quyền
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
-      .inner-item.inner-reset
+          each roleItem in roleList
+            option(value=roleItem.id) #{roleItem.name}
+      .inner-item.inner-reset(filter-reset)
         <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
   //-Section-4
 
   //-Section-5
   .section-5 
     .inner-wrap
-      .inner-change-status
+      .inner-change-status(change-multi data-api=`/${pathAdmin}/settings/change-multi`)
         .inner-item
           select
             option(value="") -- Hành động --
-            option(value="") Dừng hoạt động
-            option(value="") xóa
+            option(value="active") Hoạt động
+            option(value="inactive") Dừng hoạt động
+            option(value="initial") Khởi tạo
         button.inner-button Áp dụng
       .inner-search
         <i class="fa-solid fa-magnifying-glass"></i>
-        input(type="text" placeholder="Tìm kiếm")
+        input(type="text" placeholder="Tìm kiếm" search)
       .inner-button-create
         a(href=`/${pathAdmin}/settings/adminCreate`)  + Tạo mới
   //-Section-5
@@ -51,7 +53,7 @@ block main
         thead
           tr
             th.text-left
-              +checkbox-30("","")
+              +checkbox-30("checkAll","checkAll")
             th.text-left Họ tên
             th.text-center Ảnh đại diện
             th.text-center Email
@@ -61,34 +63,38 @@ block main
             th.text-left Trạng thái
             th.text-left Hành động
         tbody
-          tr
-            td.text-left 
-              +checkbox-30("","")
-            td.text-left Lê Văn A
-            td.text-center 
-              img(src="/admin/assets/images/tour-1.png", alt="")
-            td.text-center levana@gmail.com
-            td.text-center 01234567890
-            td.text-left Quản trị viên
-            td.text-left Giám đốc
-            td.text-left 
-              .tag.tag-green Hoạt động
-            td.text-left 
-              .box-actions
-                a(href="" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i> 
-                a(href="" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i> 
+          each item in accountAdminList
+            tr
+              td.text-left 
+                +checkbox-30("checkItem","checkItem", item.id)
+              td.text-left #{item.fullname}
+              td.text-center 
+                img(src=item.avatar, alt="")
+              td.text-center #{item.email}
+              td.text-center #{item.numberPhone}
+              td.text-left #{item.roleName}
+              td.text-left #{item.level}
+              td.text-left 
+                if item.status == 'active'
+                  span.tag.tag-green Hoạt động
+                else if item.status == 'inactive'
+                  span.tag.tag-red Tạm dừng
+                else 
+                  span.tag.tag-orange Khởi tạo
+              td.text-left 
+                .box-actions
+                  a(href=`/${pathAdmin}/settings/editAccountAdmin/${item.id}` class="inner-edit")
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  a(href="javascript:;" class="inner-remove" buttonRemove data-api=`/${pathAdmin}/settings/removeAccount/${item.id}`)
+                    <i class="fa-solid fa-trash-can"></i>
                
   //-Section-6
-
   //-Section-7
   .section-7
-    span.inner-label Hiển thị 1 - 9 của 78
-    select.inner-pagination
-      option(value="") Trang 1
-      option(value="") Trang 2
-      option(value="") Trang 3
+    span.inner-label Hiển thị #{pagination.skip +1 } - #{pagination.skip + accountAdminList.length} của #{pagination.totalRecord} 
+    select(class="inner-pagination" box-pagination)
+      - for (let i = 1; i <= pagination.totalPage; i++)
+        option(value=i) Trang #{i}
   //-Section-7
 
 

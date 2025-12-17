@@ -381,6 +381,27 @@ if(formInfomationUser){
     const email = event.target.email.value;
     const numberPhone = event.target.numberPhone.value;
     const avatar = filePond.avatar.getFile()?.file;
+
+    const formData = new FormData();
+    formData.append("name",name);
+    formData.append("email",email);
+    formData.append("numberPhone",numberPhone);
+    formData.append("avatar",avatar);
+
+    fetch(`/${pathAdmin}/profile/edit`,{
+      method:"PATCH",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload(); 
+        }
+      })
   })
 }
 // validate information form
@@ -391,7 +412,7 @@ if (changePasswordManger) {
   const validator = new JustValidate('#changePasswordManger');
 
   validator
-    .addField('#NewPassword', [
+    .addField('#Password', [
       {
         rule: 'required',
         errorMessage: "Vui lòng nhập mật khẩu",
@@ -430,7 +451,7 @@ if (changePasswordManger) {
       },
       {
         validator: (value, context) => {
-          const password = context['#NewPassword'].elem.value;
+          const password = context['#Password'].elem.value;
           return value === password;
         },
         errorMessage: "Mật khẩu xác nhận không trùng khớp",
@@ -438,7 +459,24 @@ if (changePasswordManger) {
     ])
 
     .onSuccess((event) => {
-      const NewPassword = event.target.NewPassword.value;
+    const Password = event.target.Password.value;
+    const formData = new FormData();
+    formData.append("Password",Password);
+
+    fetch(`/${pathAdmin}/profile/editPassword`,{
+      method:"PATCH",
+      body:formData
+    })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload(); 
+        }
+      })
     });
 }
 // validate change passWord
@@ -509,7 +547,7 @@ const settingAccountManager = document.querySelector('#settingAccountManager');
 if(settingAccountManager){
   const validator = new JustValidate('#settingAccountManager');
   validator
-    .addField('#name', [
+    .addField('#fullname', [
       {
         rule: 'required',
         errorMessage:"Vui lòng nhập Họ tên"
@@ -525,7 +563,7 @@ if(settingAccountManager){
         errorMessage:"Vui lòng nhập email đúng định dạng"
      }
     ])
-    .addField('#password', [
+    .addField('#Password', [
       {
         rule: 'required',
         errorMessage: "Vui lòng nhập mật khẩu",
@@ -556,24 +594,101 @@ if(settingAccountManager){
         errorMessage: "Mật khẩu cần ít nhất một ký tự đặc biệt",
       },
     ])
-    .addField('#level', [
-      {
-        rule: 'required',
-        errorMessage:"Vui lòng nhập chức vụ"
-     },
-    ])
-     .onSuccess((event) => {
-      const name = event.target.name.value;
+    .onSuccess((event) => {
+      const fullname = event.target.fullname.value;
       const email = event.target.email.value;
       const numberPhone = event.target.numberPhone.value;
       const role = event.target.role.value;
       const level = event.target.level.value;
       const status = event.target.status.value;
-      const password = event.target.password.value;
+      const Password = event.target.Password.value;
       const avatar = filePond.avatar.getFile()?.file;
+
+      const formData = new FormData();
+      formData.append("fullname",fullname);
+      formData.append("email",email);
+      formData.append("numberPhone",numberPhone);
+      formData.append("role",role);
+      formData.append("level",level);
+      formData.append("status",status);
+      formData.append("Password",Password);
+      formData.append("avatar",avatar);
+      fetch(`/${pathAdmin}/settings/adminCreate`,{
+        method:"POST",
+        body:formData
+      })
+        .then(res=> res.json())
+        .then(data => {
+          if(data.code=="error"){
+            notify.error(data.message);
+          }
+          if(data.code=="success"){
+            drawNotify(data.code,data.message);
+            window.location.reload();
+          }
+        })
   })
 }
 // validate form website account manager
+
+// edit admin account
+const editAccountManager = document.querySelector('#editAccountManager');
+if(editAccountManager){
+  const validator = new JustValidate('#editAccountManager');
+  validator
+    .addField('#fullname', [
+      {
+        rule: 'required',
+        errorMessage:"Vui lòng nhập Họ tên"
+     },
+    ])
+    .addField('#email', [
+      {
+        rule: 'required',
+        errorMessage:"Vui lòng nhập email"
+     },
+     {
+        rule: 'email',
+        errorMessage:"Vui lòng nhập email đúng định dạng"
+     }
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const fullname = event.target.fullname.value;
+      const email = event.target.email.value;
+      const numberPhone = event.target.numberPhone.value;
+      const role = event.target.role.value;
+      const level = event.target.level.value;
+      const status = event.target.status.value;
+      const avatar = filePond.avatar.getFile()?.file;
+
+      const formData = new FormData();
+      formData.append("fullname",fullname);
+      formData.append("email",email);
+      formData.append("numberPhone",numberPhone);
+      formData.append("role",role);
+      formData.append("level",level);
+      formData.append("status",status);
+      formData.append("avatar",avatar);
+
+      fetch(`/${pathAdmin}/settings/editAccountAdmin/${id}`,{
+        method:"PATCH",
+        body:formData
+      })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          drawNotify(data.code,data.message);
+          window.location.reload();
+        }
+    })
+})
+}
+// edit admin account
+
 
 // validate role
 const settingRoleForm = document.querySelector("#settingRoleForm");
@@ -858,7 +973,26 @@ if(filterEndtDate){
 }
 // filter end-date
 
-
+//filter-role
+const filterRole = document.querySelector("[filter-role]");
+if(filterRole){
+  const url = new URL(window.location.href);
+  filterRole.addEventListener("change", () => {
+    const value = filterRole.value;
+    if(value){
+      url.searchParams.set("role",value);
+    }else{
+       url.searchParams.delete("role");
+    }
+    window.location.href=url.href
+  })
+  // hiển thị lựa chọn mặc định
+  const valueCurrent = url.searchParams.get("role");
+  if(valueCurrent){
+    filterRole.value=valueCurrent
+  }
+}
+//filter-role
 
 
 // check all
@@ -984,6 +1118,7 @@ if(filterReset){
     url.searchParams.delete("startDate");
     url.searchParams.delete("endDate");
     url.searchParams.delete("keyword");
+    url.searchParams.delete("role");
     window.location.href=url.href
   })
 }

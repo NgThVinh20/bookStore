@@ -8,8 +8,8 @@ block main
   .section-8
     form(action="" id="settingAccountManager")
       .inner-group
-        label.inner-label(for="name") Họ tên
-        input(type="text" name="name" id="name")
+        label.inner-label(for="fullname") Họ tên
+        input(type="text" name="fullname" id="fullname")
       .inner-group
         label.inner-label(for="email") Email
         input(type="email" name="email" id="email")
@@ -19,21 +19,21 @@ block main
       .inner-group
         label.inner-label(for="role") Nhóm quyền
         select(name="role" id="role") 
-          option(value="id-quan-tri-vien") Quản trị viên
-          option(value="id-quan-ly-don-hang") Quản lý đơn hàng 
-          option(value="id-quan-ly-tour") Quản lý danh mục 
-
+          each item in roleList
+            option(value=item.id) #{item.name}
       .inner-group
         label.inner-label(for="level") Chức vụ
         input(type="text" name="level" id="level")
       .inner-group
         label.inner-label(for="status") Trạng thái
-        select(name="status" id="status") 
+        select(name="status" id="status")
+          option(value="initial") Khởi tạo
           option(value="active") Hoạt động
           option(value="inactive") Tạm dừng
+         
       .inner-group
-        label.inner-label(for="password") Mật khẩu
-        input(type="text" name="password" id="password")
+        label.inner-label(for="Password") Mật khẩu
+        input(type="text" name="Password" id="Password")
       
       .inner-group.inner-two-col.inner-avatar
         label.inner-label(for="avatar") Ảnh đại diện
@@ -42,4 +42,4 @@ block main
       .inner-button.inner-two-col
         button Tạo mới
     .inner-back
-        a(href=`/${pathAdmin}/settings/adminAccount`) Quay lại danh sách    
+        a(href=`/${pathAdmin}/settings/adminAccount`) Quay lại danh sách
