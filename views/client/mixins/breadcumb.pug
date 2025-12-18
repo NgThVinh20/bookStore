@@ -1,15 +1,15 @@
-mixin breadcumb()
+mixin breadcumb(item)
   .breadcrumb
     .inner-image
       img(
-        alt="" 
+        alt=item.name
         src="/client/assets/images/bg.png"
         )
     .inner-content
       .container
         .inner-wrap
-          h1.inner-title Tiểu thuyết
+          h1.inner-title #{item.name}
           nav.inner-links
-            a(href="#") Trang Chủ
+            a(href="/") Trang Chủ
             i.fa-solid.fa-angles-right
-            a(href="#") Tiểu thuyết
+            a(href=`category/${item.slug}`) #{item.name}

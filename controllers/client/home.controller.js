@@ -1,6 +1,8 @@
 const Book = require("../../models/book.model")
 const Category = require("../../models/category.model")
 const moment = require("moment");
+const categoryHelper = require("../../helpers/category.helper")
+
 module.exports.home = async (req, res) => {
   // section-2
   const BookListDiscount = await Book.find({
@@ -26,6 +28,17 @@ module.exports.home = async (req, res) => {
   }
   // section-2
 
+  // section-3
+  // tất cả danh mục cha
+  const categoryListParent = await Category.find({
+    deleted:false,
+    status:"active",
+    parent:""
+  }).sort({
+    position:"desc"
+  })
+  // section-3
+
   // section-4
   const constBookListSection4 = await Book.find({
     deleted:false,
@@ -34,7 +47,6 @@ module.exports.home = async (req, res) => {
   }).sort({
     positon:"desc"
   })
-  console.log(constBookListSection4)
   for(const item of constBookListSection4){
     if(item.parent){
       const category = await Category.findOne({
@@ -76,6 +88,7 @@ module.exports.home = async (req, res) => {
   res.render('client/pages/index.pug', {
     pageTitle:"Trang chủ",
     BookListDiscount:BookListDiscount,
+    categoryListParent:categoryListParent,
     constBookListSection4:constBookListSection4,
     constBookListSection6:constBookListSection6
   });

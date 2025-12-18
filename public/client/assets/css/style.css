@@ -113,7 +113,7 @@ input, select, textarea, button {
 .header .inner-menu > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 8px;
   display: flex;
   gap: 40px;
 }
@@ -127,8 +127,10 @@ input, select, textarea, button {
   gap: 6px;
   position: relative;
 }
-
-.header .inner-menu > ul > li .list, .header .inner-menu > ul > li a {
+ /* .header .inner-menu > ul > li {
+  padding: 8px 22px;
+ } */
+ .header .inner-menu > ul > li a {
   font-weight: 500;
   font-size: 16px;
   color: #25282B;
@@ -224,6 +226,7 @@ input, select, textarea, button {
 }
 
 @media (max-width: 991.98px) {
+  
   .header .inner-menu {
     position: fixed;
     display: none;
@@ -927,13 +930,22 @@ input, select, textarea, button {
   padding-bottom: 60px;
 }
 
-
+.section-4 .inner-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
 
 .section-4 .inner-button {
   margin-top: 30px;
   text-align: center;
-} 
-
+}
+.section-2 .swiper-pagination {
+    margin-top: 30px;
+    position: static;
+    text-align: center;
+    color: white;
+}
 @media (max-width: 1199.98px) {
   .section-4 .inner-wrap {
     grid-template-columns: repeat(3, 1fr);
@@ -1351,7 +1363,7 @@ input, select, textarea, button {
   gap:5px;
 }
 
-.section-9 .inner-list-tour {
+.section-9 .inner-list-item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -1366,7 +1378,7 @@ input, select, textarea, button {
     grid-template-columns: 340fr 882fr;
   }
 
-  .section-9 .inner-list-tour {
+  .section-9 .inner-list-item {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1425,7 +1437,7 @@ input, select, textarea, button {
     font-size: 24px;
   }
   
-  .section-9 .inner-list-tour {
+  .section-9 .inner-list-item {
     gap: 10px;
   }
 }

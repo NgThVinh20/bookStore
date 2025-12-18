@@ -92,51 +92,16 @@ block main
       .inner-wrap
         .swiper.swiperSection3
             .swiper-wrapper
-              .swiper-slide
-                .inner-item
-                  a(href="#")
-                    img(
-                      alt="" 
-                      src="/client/assets/images/banner-vanhoc.jpg"
-                      )
-                  .inner-title 
-                    a(href="") Văn Học
-              .swiper-slide
-                .inner-item
-                  a(href="#")
-                    img(
-                      alt="" 
-                      src="/client/assets/images/tieuthuyet.jpg"
-                      )
-                  .inner-title 
-                    a(href="") Tiểu Thuyết
-              .swiper-slide
-                .inner-item
-                  a(href="#")
-                    img(
-                      alt="" 
-                      src="/client/assets/images/kinh-te.jpg"
-                      )
-                  .inner-title 
-                    a(href="#") Kinh Tế
-              .swiper-slide
-                .inner-item
-                  a(href="#")
-                    img(
-                      alt="" 
-                      src="/client/assets/images/kns.jpg"
-                      )
-                  .inner-title 
-                    a(href="") Kỹ Năng Sống
-              .swiper-slide
-                .inner-item
-                  a(href="#")
-                    img(
-                      alt="" 
-                      src="/client/assets/images/truyen-tranh.jpg"
-                      )
-                  .inner-title 
-                    a(href="") Truyện Tranh
+              each item in categoryListParent
+                .swiper-slide
+                  .inner-item
+                    a(href=`/category/${item.slug}`)
+                      img(
+                        alt="" 
+                        src=item.avatar
+                        )
+                    .inner-title 
+                      a(href=`/category/${item.slug}`) #{item.name}
             .swiper-pagination
   // End Section 3
   
@@ -150,7 +115,7 @@ block main
             .swiper-slide 
               +product-item(item)
         .inner-button
-          a.button-outline(href="#") Xem tất cả
+          a.button-outline(href="/search/suggestBook") Xem tất cả
   // End Section 4
   
   // Section 5

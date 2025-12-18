@@ -9,4 +9,3 @@ module.exports.detail = (req, res) => {
   });
 }
 
-
