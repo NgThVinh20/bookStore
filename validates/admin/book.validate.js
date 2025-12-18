@@ -10,6 +10,8 @@ module.exports.createPost = async (req, res, next) => {
       parent: Joi.string().allow(''),
       position: Joi.string().allow(''),
       status: Joi.string().allow(''),
+      discount:Joi.string().allow(''),
+      suggested:Joi.string().allow(''),
       avatar: Joi.string().allow(''),
       time : Joi.string().allow(''),
       amount : Joi.string().allow(''),

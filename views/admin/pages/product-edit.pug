@@ -27,6 +27,16 @@ block main
           select(id="status" name="status")
             option(value="active" selected = (bookDetail.status == "active")) Hoạt động
             option(value="inactive" selected = (bookDetail.status == "inactive")) Tạm dừng
+        .inner-group  
+          label.inner-label(for="discount") Nổi bật
+          select(id="discount" name="discount")
+            option(value="true" selected = (bookDetail.discount == "true")) Có
+            option(value="false" selected = (bookDetail.discount == "false")) Không
+        .inner-group  
+          label.inner-label(for="suggested") Gợi ý
+          select(id="suggested" name="suggested")
+            option(value="true" selected = (bookDetail.suggested == "true")) Có
+            option(value="false" selected = (bookDetail.suggested == "false")) Không
         .inner-group.inner-two-col.inner-avatar
           label.inner-label(for="avatar") Ảnh đại diện
           .inner-upload-image

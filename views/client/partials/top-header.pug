@@ -1,12 +1,15 @@
 .top-header
   .container
     .inner-wrap
-      .inner-item
-        i.fa-solid.fa-phone
-        | 0123.456.789
-      .inner-item
-        i.fa-solid.fa-envelope
-        | contact@ThangLong.com
-      .inner-item
-        i.fa-solid.fa-building
-        | Số 123, đường ABC, thành phố XYZ
+      if(settingWebsiteInfo.numberPhone)
+        .inner-item
+          i.fa-solid.fa-phone
+          | #{settingWebsiteInfo.numberPhone}
+      if(settingWebsiteInfo.email)
+        .inner-item
+          i.fa-solid.fa-envelope
+          | #{settingWebsiteInfo.email}
+      if(settingWebsiteInfo.numberPhone)
+        .inner-item
+          i.fa-solid.fa-building
+          | #{settingWebsiteInfo.place}

@@ -79,20 +79,9 @@ block main
         .inner-list
           .swiper.swiperSection2
             .swiper-wrapper
-              .swiper-slide 
-                +product-item()
-              .swiper-slide
-                +product-item()
-              .swiper-slide
-                +product-item()
-              .swiper-slide 
-                +product-item()
-              .swiper-slide 
-                +product-item()
-              .swiper-slide 
-                +product-item()
-              .swiper-slide 
-                +product-item()
+              each item in BookListDiscount
+                .swiper-slide 
+                  +product-item(item)
             .swiper-pagination
   // End Section 2
   
@@ -148,21 +137,20 @@ block main
                       )
                   .inner-title 
                     a(href="") Truyện Tranh
-              
             .swiper-pagination
   // End Section 3
   
   // Section 4
   .section-4
     .container(data-aos="fade-up" data-aos-duration="1500" )
-      h2.box-title Sản phẩm bán chạy nhất
-      .inner-wrap
-        +product-item()
-        +product-item()
-        +product-item()
-        +product-item()
-      .inner-button
-        a.button-outline(href="#") Xem tất cả
+      h2.box-title Gợi Ý cho bạn
+      .swiper.swiperSection4
+        .swiper-wrapper
+          each item in constBookListSection4
+            .swiper-slide 
+              +product-item(item)
+        .inner-button
+          a.button-outline(href="#") Xem tất cả
   // End Section 4
   
   // Section 5
@@ -179,13 +167,13 @@ block main
   .section-4
     .container(data-aos="fade-up" data-aos-duration="1500" )
       h2.box-title Sách mới phát hành
-      .inner-wrap
-        +product-item()
-        +product-item
-        +product-item()
-        +product-item()
-      .inner-button
-        a.button-outline(href="#") Xem tất cả
+      .swiper.swiperSection4
+        .swiper-wrapper
+          each item in constBookListSection6
+            .swiper-slide 
+              +product-item(item)
+        .inner-button
+          a.button-outline(href="#") Xem tất cả
   // End Section 6
   
   // Section 7

@@ -1,34 +1,34 @@
-mixin product-item()
+mixin product-item(item)
   .product-item
     .inner-image
-      a(href="#")
+      a(href=`/books/detail/${item.slug}`)
         img(
           alt="" 
-          src="/client/assets/images/demo-item.png"
+          src=item.avatar
           )
     .inner-discount
       i.fa-solid.fa-bolt
-      | Giảm -30%
+      | Giảm -#{item.priceDiscount}%
     .inner-content
       h3.inner-title
-        a(href="#") Tiểu thuyết Mưa đỏ
+        a(href=`/books/detail/${item.slug}`) #{item.name}
       .inner-prices
         .inner-price-old
-          | 250.000
+          | #{item.priceOld.toLocaleString("vi-VN")}
           span.inner-unit đ
         .inner-price-new
-          | 175.000
+          | #{item.priceNew.toLocaleString("vi-VN")}
           span.inner-unit đ
       .inner-desc
         div.inner-more
           | Tác Giả:
-          b Nguyễn Nhật Ánh
+          b #{item.author}
         div.inner-more
           | Ngày xuất bản:
-          b 12/12/2023
+          b #{item.timeFormat}
         div.inner-more
           | Thể Loại:
-          b Tiểu thuyết
+          b #{item.parentName}
       .inner-meta
         .inner-rating
           .inner-stars
@@ -39,4 +39,4 @@ mixin product-item()
             i.fa-regular.fa-star
         .inner-stock
           .inner-label Số lượng còn:
-          .inner-number 10
+          .inner-number #{item.amount}

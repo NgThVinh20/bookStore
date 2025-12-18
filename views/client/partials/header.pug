@@ -6,36 +6,30 @@ header.header
           alt="" 
           src="/client/assets/images/icon-menu.png"
           )
-      a.inner-logo(href="#")
-        img(
-          alt="ThangLong BookStore" 
-          src="/client/assets/images/logo.png"
-          )
+      if(settingWebsiteInfo.logo)
+        a.inner-logo(href="/")
+          img(
+            alt="ThangLong BookStore" 
+            src=settingWebsiteInfo.logo
+            )
       nav.inner-menu
         ul
           li
-            a.active(href="#") Trang Chủ
+            a.active(href="/") Trang Chủ
           li
-            a(href="#") Danh mục sách
+            .List Danh mục sách
             i.fa-solid.fa-caret-down
             ul.inner-sub
-              li
-                a.active(href="#") Tiểu thuyết
-              li
-                a(href="#") Truyện tranh
-              li
-                a(href="#") Lịch sử
-              li
-                a(href="#") Kinh tế
+              each item in categoryList
+                li
+                  a(href="") #{item.name}
           li
-            a(href="#") Tác giả
-          li
-            a(href="#") Bán chạy
+            a(href="#") Sách mới
             
           li
            input(type="text" placeholder="Tìm kiếm sách..." class="inner-search")
         .overlay
-      a.inner-cart(href="#")
+      a.inner-cart(href="/cart")
         i.fa-solid.fa-cart-shopping
         span
           img(

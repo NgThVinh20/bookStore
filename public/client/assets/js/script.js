@@ -182,6 +182,33 @@ if(swiperSection3){
 }
 // Swiper Section 3
 
+// Swiper Section 4
+const swiperSection4 = document.querySelector(".section-4 .swiperSection4");
+if(swiperSection4){
+ new Swiper(".swiperSection4", {
+    slidesPerView: 2,
+    spaceBetween: 20,
+    breakpoints: {
+      992: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+      1200: {
+        slidesPerView: 4,
+        spaceBetween: 40,
+      },
+    },
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+
+  });
+}
+// Swiper Section 4
+
+
 // box-images section-10
 const boxImages10 = document.querySelector(".box-images");
 if(boxImages10){

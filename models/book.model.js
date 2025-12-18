@@ -9,6 +9,8 @@ const schema = new mongoose.Schema(
     parent: String,
     position: Number,
     status: String,
+    discount:String,
+    suggested:String,
     avatar: String,
     time: Date,
     amount: Number,

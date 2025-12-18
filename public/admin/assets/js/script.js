@@ -206,6 +206,8 @@ if(formCreateProduct){
     const parent = event.target.parent.value;
     const position = event.target.position.value;
     const status = event.target.status.value;
+    const discount = event.target.discount.value;
+    const suggested = event.target.suggested.value;
     const avatar = filePond.avatar.getFile()?.file;
     const time = event.target.time.value;
     const amount = event.target.amount.value;
@@ -213,6 +215,7 @@ if(formCreateProduct){
     const priceNew = event.target.priceNew.value;
     const author = event.target.author.value;
     const infor = tinymce.get("infor").getContent();
+    
 
     // tạo FormData
     const formData = new FormData();
@@ -220,6 +223,8 @@ if(formCreateProduct){
     formData.append("parent",parent);
     formData.append("position",position);
     formData.append("status",status);
+    formData.append("discount",discount);
+    formData.append("suggested",suggested);
     formData.append("avatar",avatar);
     formData.append("time",time);
     formData.append("amount",amount);
@@ -227,6 +232,7 @@ if(formCreateProduct){
     formData.append("priceNew",priceNew);
     formData.append("author",author);
     formData.append("infor",infor);
+    
 
     fetch(`/${pathAdmin}/books/create`,{
       method:"POST",
@@ -266,6 +272,8 @@ if(formEditProduct){
     const parent = event.target.parent.value;
     const position = event.target.position.value;
     const status = event.target.status.value;
+    const discount = event.target.discount.value;
+    const suggested = event.target.suggested.value;
     const avatar = filePond.avatar.getFile()?.file;
     const time = event.target.time.value;
     const amount = event.target.amount.value;
@@ -280,6 +288,8 @@ if(formEditProduct){
     formData.append("parent",parent);
     formData.append("position",position);
     formData.append("status",status);
+    formData.append("discount",discount);
+    formData.append("suggested",suggested);
     formData.append("avatar",avatar);
     formData.append("time",time);
     formData.append("amount",amount);
