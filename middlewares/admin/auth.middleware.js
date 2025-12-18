@@ -25,7 +25,8 @@ module.exports.verifyToken = async (req, res, next) => {
         deleted:false
       })
       if(role){
-        existAccount.roleName = role.name
+        existAccount.roleName = role.name;
+        res.locals.pers = role.permissions;
       }
     }
     req.account = existAccount;

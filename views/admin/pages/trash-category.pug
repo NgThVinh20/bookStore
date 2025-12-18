@@ -3,77 +3,78 @@ include ../mixins/checkbox.pug
 
 
 block main
-  h1.box-title Thùng rác
+  if(pers.includes("category-trash"))
+    h1.box-title Thùng rác
 
 
-  //-Section-5
-  .section-5 
-    .inner-wrap
-      .inner-change-status(change-multi data-api=`/${pathAdmin}/category/trash-multi`)
-        .inner-item
-          select
-            option(value="") -- Hành động --
-            option(value="remove") Xóa
-            option(value="undo") Khôi phục
-        button.inner-button Áp dụng
-      .inner-search
-        <i class="fa-solid fa-magnifying-glass"></i>
-        input(type="text" placeholder="Tìm kiếm" search)
-  //-Section-5
+    //-Section-5
+    .section-5 
+      .inner-wrap
+        .inner-change-status(change-multi data-api=`/${pathAdmin}/category/trash-multi`)
+          .inner-item
+            select
+              option(value="") -- Hành động --
+              option(value="remove") Xóa
+              option(value="undo") Khôi phục
+          button.inner-button Áp dụng
+        .inner-search
+          <i class="fa-solid fa-magnifying-glass"></i>
+          input(type="text" placeholder="Tìm kiếm" search)
+    //-Section-5
 
-  //-Section-6
-  .section-6
-    .table-2
-      table
-        thead
-          tr
-            th.text-left
-              +checkbox-30("checkAll","checkAll")
-            th.text-left Tên danh mục
-            th.text-center Ảnh đại diện
-            th.text-center Vị trí
-            th.text-center Trạng thái
-            th.text-left Tạo bởi
-            th.text-left Xóa bởi
-            th.text-left Hành động
-        tbody
-          each item in categoryList
+    //-Section-6
+    .section-6
+      .table-2
+        table
+          thead
             tr
-              td.text-left 
-                +checkbox-30("checkItem","checkItem",item.id)
-              td.text-left #{item.name}
-              td.text-center 
-                img(src=item.avatar, alt="")
-              td.text-center #{item.position}
-              td.text-center 
-                if item.status == "active"
-                  .tag.tag-green Hoạt động
-                else if item.status == "inactive"
-                  .tag.tag-red Tạm dừng
-                else
-                  .tag.tag-gray Đã xóa
-              td.text-left
-                if item.createdByFullname
-                  div #{item.createdByFullname}
-                  div #{item.createdAtFormat}
-              td.text-left
-                if item.deletedByFullname
-                  div #{item.deletedByFullname}
-                  div #{item.deletedAtFormat}
-              td.text-left 
-                .box-actions
-                  a(href="javascript:;" class="inner-undo" buttonUndo data-api=`/${pathAdmin}/category/undo/${item.id}`)
-                    i(class="fa-solid fa-rotate-right")
-                  a(href="javascript:;" class="inner-remove" buttonRemove data-api=`/${pathAdmin}/category/remove/${item.id}`)
-                    i(class="fa-solid fa-trash-can")
-  //-Section-6
+              th.text-left
+                +checkbox-30("checkAll","checkAll")
+              th.text-left Tên danh mục
+              th.text-center Ảnh đại diện
+              th.text-center Vị trí
+              th.text-center Trạng thái
+              th.text-left Tạo bởi
+              th.text-left Xóa bởi
+              th.text-left Hành động
+          tbody
+            each item in categoryList
+              tr
+                td.text-left 
+                  +checkbox-30("checkItem","checkItem",item.id)
+                td.text-left #{item.name}
+                td.text-center 
+                  img(src=item.avatar, alt="")
+                td.text-center #{item.position}
+                td.text-center 
+                  if item.status == "active"
+                    .tag.tag-green Hoạt động
+                  else if item.status == "inactive"
+                    .tag.tag-red Tạm dừng
+                  else
+                    .tag.tag-gray Đã xóa
+                td.text-left
+                  if item.createdByFullname
+                    div #{item.createdByFullname}
+                    div #{item.createdAtFormat}
+                td.text-left
+                  if item.deletedByFullname
+                    div #{item.deletedByFullname}
+                    div #{item.deletedAtFormat}
+                td.text-left 
+                  .box-actions
+                    a(href="javascript:;" class="inner-undo" buttonUndo data-api=`/${pathAdmin}/category/undo/${item.id}`)
+                      i(class="fa-solid fa-rotate-right")
+                    a(href="javascript:;" class="inner-remove" buttonRemove data-api=`/${pathAdmin}/category/remove/${item.id}`)
+                      i(class="fa-solid fa-trash-can")
+    //-Section-6
 
-  //-Section-7
-  .section-7
-    span.inner-label Hiển thị #{pagination.skip +1 } - #{pagination.skip + categoryList.length} của #{pagination.totalRecord} 
-    select(class="inner-pagination" box-pagination)
-      - for (let i = 1; i <= pagination.totalPage; i++)
-        option(value=i) Trang #{i}
+    //-Section-7
+    .section-7
+      span.inner-label Hiển thị #{pagination.skip +1 } - #{pagination.skip + categoryList.length} của #{pagination.totalRecord} 
+      select(class="inner-pagination" box-pagination)
+        - for (let i = 1; i <= pagination.totalPage; i++)
+          option(value=i) Trang #{i}
   //-Section-7
 
 

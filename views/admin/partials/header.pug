@@ -10,9 +10,9 @@ header.header
     .inner-notify
       img(src="/admin/assets/images/notification.png", alt="")
     .inner-account 
-      .inner-avatar
-        img(src="/admin/assets/images/logo.png", alt="")
-      .inner-text
+      a(href=`/${pathAdmin}/profile/edit`).inner-avatar
+        img(src=account.avatar, alt="")
+      a(href=`/${pathAdmin}/profile/edit`).inner-text
         .inner-name #{account.fullname}
-        .inner-role Admin
+        .inner-role #{account.roleName}
    

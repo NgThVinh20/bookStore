@@ -6,21 +6,24 @@ block main
   h1.box-title  Cài đặt chung
   //- Section-1
   .section-1
-    .inner-item
-      .inner-icon-setting
-        img(src="/admin/assets/images/setting-1.png", alt="")
-      a(href=`/${pathAdmin}/settings/info`).inner-content
-        .inner-title-setting Thông tin website
-    .inner-item
-      .inner-icon-setting
-        img(src="/admin/assets/images/setting-2.png", alt="")
-      a(href=`/${pathAdmin}/settings/adminAccount`).inner-content
-        .inner-title-setting Tài khoản quản trị
-    .inner-item
-      .inner-icon-setting
-        img(src="/admin/assets/images/setting-3.png", alt="")
-      a(href=`/${pathAdmin}/settings/roleAdmin`).inner-content
-        .inner-title-setting Nhóm quyền
+    if(pers.includes("website-edit"))
+      .inner-item
+        .inner-icon-setting
+          img(src="/admin/assets/images/setting-1.png", alt="")
+        a(href=`/${pathAdmin}/settings/info`).inner-content
+          .inner-title-setting Thông tin website
+    if(pers.includes("adminAccount"))
+      .inner-item
+        .inner-icon-setting
+          img(src="/admin/assets/images/setting-2.png", alt="")
+        a(href=`/${pathAdmin}/settings/adminAccount`).inner-content
+          .inner-title-setting Tài khoản quản trị
+    if(pers.includes("role"))
+      .inner-item
+        .inner-icon-setting
+          img(src="/admin/assets/images/setting-3.png", alt="")
+        a(href=`/${pathAdmin}/settings/roleAdmin`).inner-content
+          .inner-title-setting Nhóm quyền
      
   //- Section-1
   //- Section-2

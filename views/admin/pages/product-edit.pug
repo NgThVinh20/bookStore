@@ -3,52 +3,53 @@ include ../mixins/checkbox.pug
 include ../mixins/options.pug
 
 block main
-  h1.box-title Chỉnh sửa sản phẩm
-  //-section-8
-  .section-8
-    form(action="" id="formEditProduct")
-      .inner-group(style = "display:none;")
-        label.inner-label(for="id") ID
-        input(type="text" name="id" id="id" value=bookDetail.id)
-      .inner-group
-        label.inner-label(for="name") Tên sản phẩm
-        input(type="text" name="name" id="name" value=bookDetail.name)
-      .inner-group
-        label.inner-label(for="parent") Danh mục 
-        select(id="parent" name="parent")
-          option(value="") --Chọn danh mục
-          +options(categoryList, 0, bookDetail.parent)
-      .inner-group
-        label.inner-label(for="position") Vị trí
-        input(type="text" name="position" id="position"  value=bookDetail.position)
-      .inner-group  
-        label.inner-label(for="status") Trạng thái
-        select(id="status" name="status")
-          option(value="active" selected = (bookDetail.status == "active")) Hoạt động
-          option(value="inactive" selected = (bookDetail.status == "inactive")) Tạm dừng
-      .inner-group.inner-two-col.inner-avatar
-        label.inner-label(for="avatar") Ảnh đại diện
-        .inner-upload-image
-          input(type="file" id="avatar" name="avatar" filepondImage image-default=bookDetail.avatar)
-      .inner-group
-        label.inner-label Giá cũ
-        input(type="text" name="priceOld" id="priceOld" value=bookDetail.priceOld) 
-      .inner-group
-        label.inner-label Giá mới
-        input(type="text" name="priceNew" id="priceNew" value=bookDetail.priceNew) 
-      .inner-group
-        label.inner-label Số lượng
-        input(type="text" name="amount" id="amount" value=bookDetail.amount) 
-      .inner-group
-        label.inner-label(for="time" ) Ngày xuất bản
-        input(type="date" name="time" id="time" value=bookDetail.timeFormat)
-      .inner-group
-        label.inner-label(for="author") Tác giả
-        input(type="text" name="author" id="author" value=bookDetail.author)
-      .inner-group.inner-two-col
-        label.inner-label(for="infor") Thông tin sách
-        textarea(name="infor" id="infor" textarea_mce) #{bookDetail.infor}
-      .inner-button.inner-two-col
-        button Cập nhật
-    .inner-back
-        a(href=`/${pathAdmin}/books/list`) Quay lại danh sách 
+  if(pers.includes("book-edit"))
+    h1.box-title Chỉnh sửa sản phẩm
+    //-section-8
+    .section-8
+      form(action="" id="formEditProduct")
+        .inner-group(style = "display:none;")
+          label.inner-label(for="id") ID
+          input(type="text" name="id" id="id" value=bookDetail.id)
+        .inner-group
+          label.inner-label(for="name") Tên sản phẩm
+          input(type="text" name="name" id="name" value=bookDetail.name)
+        .inner-group
+          label.inner-label(for="parent") Danh mục 
+          select(id="parent" name="parent")
+            option(value="") --Chọn danh mục
+            +options(categoryList, 0, bookDetail.parent)
+        .inner-group
+          label.inner-label(for="position") Vị trí
+          input(type="text" name="position" id="position"  value=bookDetail.position)
+        .inner-group  
+          label.inner-label(for="status") Trạng thái
+          select(id="status" name="status")
+            option(value="active" selected = (bookDetail.status == "active")) Hoạt động
+            option(value="inactive" selected = (bookDetail.status == "inactive")) Tạm dừng
+        .inner-group.inner-two-col.inner-avatar
+          label.inner-label(for="avatar") Ảnh đại diện
+          .inner-upload-image
+            input(type="file" id="avatar" name="avatar" filepondImage image-default=bookDetail.avatar)
+        .inner-group
+          label.inner-label Giá cũ
+          input(type="text" name="priceOld" id="priceOld" value=bookDetail.priceOld) 
+        .inner-group
+          label.inner-label Giá mới
+          input(type="text" name="priceNew" id="priceNew" value=bookDetail.priceNew) 
+        .inner-group
+          label.inner-label Số lượng
+          input(type="text" name="amount" id="amount" value=bookDetail.amount) 
+        .inner-group
+          label.inner-label(for="time" ) Ngày xuất bản
+          input(type="date" name="time" id="time" value=bookDetail.timeFormat)
+        .inner-group
+          label.inner-label(for="author") Tác giả
+          input(type="text" name="author" id="author" value=bookDetail.author)
+        .inner-group.inner-two-col
+          label.inner-label(for="infor") Thông tin sách
+          textarea(name="infor" id="infor" textarea_mce) #{bookDetail.infor}
+        .inner-button.inner-two-col
+          button Cập nhật
+      .inner-back
+          a(href=`/${pathAdmin}/books/list`) Quay lại danh sách 

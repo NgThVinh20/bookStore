@@ -2,31 +2,32 @@ extends ../layouts/default.pug
 include ../mixins/checkbox.pug
 
 block main
-  h1.box-title Thông tin website
+  if(pers.includes("website-edit"))
+    h1.box-title Thông tin website
 
-  .section-8
-    form(action="" id = "formWebsiteInformation")
-      .inner-group
-        label.inner-label(for="name") Tên website
-        input(type="text" name="name" id="name" value=websiteInfo.name)
-      .inner-group
-        label.inner-label(for="email") Email
-        input(type="email" name="email" id="email" value=websiteInfo.email)
-      .inner-group
-        label.inner-label(for="numberPhone") Số điện thoại
-        input(type="number" name="numberPhone" id="numberPhone" value=websiteInfo.numberPhone)
-      .inner-group
-        label.inner-label(for="place") Địa chỉ
-        input(type="text" name="place" id="place" value=websiteInfo.place)
-      .inner-group.inner-avatar
-        label.inner-label(for="logo" ) Logo 
-        .inner-upload-image
-          input(type="file" id="logo" name="logo" filepondImage image-default=websiteInfo.logo)
-      .inner-group.inner-avatar
-        label.inner-label(for="favicon") Favicon
-        .inner-upload-image
-          input(type="file" id="favicon" name="favicon" filepondImage image-default=websiteInfo.favicon)
-      .inner-button.inner-two-col
-        button Cập nhật
-    .inner-back
-        a(href=`/${pathAdmin}/settings/list`) Quay lại danh sách 
+      .section-8
+        form(action="" id = "formWebsiteInformation")
+          .inner-group
+            label.inner-label(for="name") Tên website
+            input(type="text" name="name" id="name" value=websiteInfo.name)
+          .inner-group
+            label.inner-label(for="email") Email
+            input(type="email" name="email" id="email" value=websiteInfo.email)
+          .inner-group
+            label.inner-label(for="numberPhone") Số điện thoại
+            input(type="number" name="numberPhone" id="numberPhone" value=websiteInfo.numberPhone)
+          .inner-group
+            label.inner-label(for="place") Địa chỉ
+            input(type="text" name="place" id="place" value=websiteInfo.place)
+          .inner-group.inner-avatar
+            label.inner-label(for="logo" ) Logo 
+            .inner-upload-image
+              input(type="file" id="logo" name="logo" filepondImage image-default=websiteInfo.logo)
+          .inner-group.inner-avatar
+            label.inner-label(for="favicon") Favicon
+            .inner-upload-image
+              input(type="file" id="favicon" name="favicon" filepondImage image-default=websiteInfo.favicon)
+          .inner-button.inner-two-col
+            button Cập nhật
+        .inner-back
+            a(href=`/${pathAdmin}/settings/list`) Quay lại danh sách 

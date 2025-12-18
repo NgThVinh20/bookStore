@@ -315,6 +315,9 @@ select {
   font-weight:700;
   color:var(--color-text);
 }
+.header .inner-account .inner-text .inner-name:hover{
+  color:#1250e1;
+}
 .header .inner-account .inner-text .inner-role{
   font-size:12px;
   font-weight:600;

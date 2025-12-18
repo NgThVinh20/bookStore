@@ -3,102 +3,103 @@ include ../mixins/checkbox.pug
 
 
 block main
-  h1.box-title Quản lý đơn hàng 
-  //-section-4
-  .section-4 
-    .inner-wrap
-      .inner-item.inner-label 
-        <i class="fa-solid fa-filter"></i> Bộ lọc
-      .inner-item
-        select
-          option(value="") Trạng thái 
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
-      .inner-item.inner-date
-        input(type="date")
-        span - 
-        input(type="date")
-      .inner-item
-        select
-          option(value="") Phương thức thanh toán
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
-      .inner-item
-        select
-          option(value="") Trạng thái thanh toán
-          option(value="") Hoạt động 
-          option(value="") Tạm dừng
-      .inner-item.inner-reset
-        <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
-  //-Section-4
+  if(pers.includes("order-view"))
+    h1.box-title Quản lý đơn hàng 
+    //-section-4
+    .section-4 
+      .inner-wrap
+        .inner-item.inner-label 
+          <i class="fa-solid fa-filter"></i> Bộ lọc
+        .inner-item
+          select
+            option(value="") Trạng thái 
+            option(value="") Hoạt động 
+            option(value="") Tạm dừng
+        .inner-item.inner-date
+          input(type="date")
+          span - 
+          input(type="date")
+        .inner-item
+          select
+            option(value="") Phương thức thanh toán
+            option(value="") Hoạt động 
+            option(value="") Tạm dừng
+        .inner-item
+          select
+            option(value="") Trạng thái thanh toán
+            option(value="") Hoạt động 
+            option(value="") Tạm dừng
+        .inner-item.inner-reset
+          <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
+    //-Section-4
 
-  //-Section-5
-  .section-5 
-    .inner-wrap
-      .inner-search
-        <i class="fa-solid fa-magnifying-glass"></i>
-        input(type="text" placeholder="Tìm kiếm")
-  //-Section-5
+    //-Section-5
+    .section-5 
+      .inner-wrap
+        .inner-search
+          <i class="fa-solid fa-magnifying-glass"></i>
+          input(type="text" placeholder="Tìm kiếm")
+    //-Section-5
 
-  //-Section-6
-  .section-6
-    .table-2
-      table
-        thead
-          tr
-            th.text-left Mã
-            th.text-left Thông tin khách
-            th.text-left Danh sách sách
-            th.text-left Thanh toán
-            th.text-left Trạng thái
-            th.text-center Ngày đặt
-            th.text-left Hành động
-        tbody
-          tr
-            td.text-left 
-              .text-primary OD000001
-            td.text-left
-              div Họ tên: Lê Văn A
-              div SĐT: 0123456789
-              div Ghi chú: Test...
-            td.text-left
-              .book-list 
-                .book-item
-                  img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
-                  .inner-content
-                    .inner-name Tiểu thuyết Mưa đỏ
-                .book-item
-                  img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
-                  .inner-content
-                    .inner-name Tiểu thuyết Mưa đỏ
-            td.text-left
-              div Tổng tiền: 250.000đ
-              div   Giảm: 75.000đ
-              div Mã giảm: UUDAITHANG124
-              div Thanh toán: 175.000đ
-              div PTTT: Ví Momo
-              div TTTT: Đã thanh toán
-            td.text-left
-              .tag.tag-orange Khởi tạo
-            td.text-center
-              div Lê Văn A
-              div 16:30 - 12/09/2025
-            td.text-left 
-              .box-actions
-                a(href=`/${pathAdmin}/order/edit` class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i> 
-                a(href="" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>     
-  //-Section-6
+    //-Section-6
+    .section-6
+      .table-2
+        table
+          thead
+            tr
+              th.text-left Mã
+              th.text-left Thông tin khách
+              th.text-left Danh sách sách
+              th.text-left Thanh toán
+              th.text-left Trạng thái
+              th.text-center Ngày đặt
+              th.text-left Hành động
+          tbody
+            tr
+              td.text-left 
+                .text-primary OD000001
+              td.text-left
+                div Họ tên: Lê Văn A
+                div SĐT: 0123456789
+                div Ghi chú: Test...
+              td.text-left
+                .book-list 
+                  .book-item
+                    img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
+                    .inner-content
+                      .inner-name Tiểu thuyết Mưa đỏ
+                  .book-item
+                    img(src="/admin/assets/images/demo-item.png", alt="" class="inner-image")
+                    .inner-content
+                      .inner-name Tiểu thuyết Mưa đỏ
+              td.text-left
+                div Tổng tiền: 250.000đ
+                div   Giảm: 75.000đ
+                div Mã giảm: UUDAITHANG124
+                div Thanh toán: 175.000đ
+                div PTTT: Ví Momo
+                div TTTT: Đã thanh toán
+              td.text-left
+                .tag.tag-orange Khởi tạo
+              td.text-center
+                div Lê Văn A
+                div 16:30 - 12/09/2025
+              td.text-left 
+                .box-actions
+                  a(href=`/${pathAdmin}/order/edit` class="inner-edit")
+                    <i class="fa-solid fa-pen-to-square"></i> 
+                  a(href="" class="inner-remove")
+                    <i class="fa-solid fa-trash-can"></i>     
+    //-Section-6
 
-  //-Section-7
-  .section-7  
-    span.inner-label Hiển thị 1 - 9 của 78
-    select.inner-pagination
-      option(value="") Trang 1
-      option(value="") Trang 2
-      option(value="") Trang 3
-  //-Section-7
+    //-Section-7
+    .section-7  
+      span.inner-label Hiển thị 1 - 9 của 78
+      select.inner-pagination
+        option(value="") Trang 1
+        option(value="") Trang 2
+        option(value="") Trang 3
+    //-Section-7
 
 
 
