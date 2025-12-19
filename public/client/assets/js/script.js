@@ -188,6 +188,10 @@ if(swiperSection4){
  new Swiper(".swiperSection4", {
     slidesPerView: 2,
     spaceBetween: 20,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
     breakpoints: {
       992: {
         slidesPerView: 3,
@@ -329,3 +333,31 @@ if(orderForm){
     })
 }
 // validate order form
+
+// box-filer
+const boxFilter = document.querySelector(".box-filter");
+if(boxFilter) {
+  const url = new URL(`${window.location.origin}/search`);
+
+  const buttonApply = boxFilter.querySelector(".inner-button");
+
+  buttonApply.addEventListener("click", () => {
+    const filterList = [
+      "author",
+      "category",
+      "price",
+    ];
+    
+    filterList.forEach(item => {
+      const value = boxFilter.querySelector(`[name="${item}"]`).value;
+      if(value) {
+        url.searchParams.set(item, value);
+      } else {
+        url.searchParams.delete(item);
+      }
+    })
+    console.log(url.href)
+    // window.location.href = url.href;
+  })
+}
+

@@ -21,30 +21,24 @@ block main
                 i.fa-solid.fa-filter
               .inner-group
                 .inner-label Tác giả
-                select
-                  option(value="") -- Chọn Tác giả --
-                  option(value="") Chu Lai
-                  option(value="") Nguyễn Nhật Ánh
-                  option(value="") Nguyễn Huy Thiệp
-                  option(value="") Vũ Trọng Phụng 
+                select(name="author")
+                    option(value="") -- Chọn Tác giả --
+                    each item in authorList
+                      option(value=item) #{item}
               .inner-group
                 .inner-label Thể loại
-                select
+                select(name="category")
                   option(value="") -- Chọn thể loại --
-                  option(value="") Tiểu thuyết
-                  option(value="") Truyện tranh
-                  option(value="") Lịch sử
-                  option(value="") Kinh tế
-                  option(value="") Văn học
-                  option(value="") Kĩ năng sống
+                  each item in categoryList
+                    option(value=item.slug) #{item.name}
               .inner-group
                 .inner-label Mức giá
-                select
+                select(name="price")
                   option(value="") -- Chọn khoảng giá --
-                  option(value="") Dưới 100.000đ
-                  option(value="") Từ 100.000đ đến 300.000đ
-                  option(value="") Từ 300.000đ đến 500.000đ
-                  option(value="") Trên 500.000đ
+                  option(value="0-99000") Dưới 100.000đ
+                  option(value="100000-300000") Từ 100.000đ đến 300.000đ
+                  option(value="300000-500000") Từ 300.000đ đến 500.000đ
+                  option(value="500000-5000000") Trên 500.000đ
               button.inner-button Áp Dụng
           // End Box Filter
           .overlay
@@ -62,7 +56,7 @@ block main
               button
                 | Giá giảm dần
                 i.fa-solid.fa-circle-arrow-down
-              button.active
+              button
                 | Khuyến Mại Hot
                 i.fa-solid.fa-tag
               button

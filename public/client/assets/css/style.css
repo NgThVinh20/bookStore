@@ -930,21 +930,26 @@ input, select, textarea, button {
   padding-bottom: 60px;
 }
 
-.section-4 .inner-wrap {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
 
 .section-4 .inner-button {
   margin-top: 30px;
   text-align: center;
 }
-.section-2 .swiper-pagination {
-    margin-top: 30px;
-    position: static;
-    text-align: center;
-    color: white;
+.section-4 .swiper-pagination {
+  margin-top: 30px; 
+  position: static; 
+  text-align: center; 
+  color: white;
+}
+.section-4 .swiper-pagination-bullet {
+  background-color: #1e1d1c; 
+  opacity: 0.6; 
+  width: 10px;
+  height: 10px;
+}
+.section-4 .swiper-pagination-bullet-active {
+  background-color: var(--color-primary); 
+  opacity: 1;
 }
 @media (max-width: 1199.98px) {
   .section-4 .inner-wrap {
@@ -1345,8 +1350,9 @@ input, select, textarea, button {
   color: #747578;
 }
 
-.section-9 .inner-info-2 .inner-sort button.active {
+.section-9 .inner-info-2 .inner-sort button:hover, .section-9 .inner-info-2 .inner-sort button.active {
   color: #F9313D;
+  cursor: pointer;
 }
 
 .section-9 .inner-info-2 .inner-sort button i {

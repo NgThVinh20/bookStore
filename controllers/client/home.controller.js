@@ -29,7 +29,6 @@ module.exports.home = async (req, res) => {
   // section-2
 
   // section-3
-  // tất cả danh mục cha
   const categoryListParent = await Category.find({
     deleted:false,
     status:"active",
@@ -69,7 +68,7 @@ module.exports.home = async (req, res) => {
     status: "active",
     time: { $gte: oneMonthAgo }
   }).sort({
-     publishDate: "asc"
+     time: "asc"
   });
   for(const item of constBookListSection6){
     if(item.parent){
