@@ -38,19 +38,11 @@ module.exports.list = async (req, res) => {
     }
     item.priceDiscount = Math.round(((item.priceOld - item.priceNew) / item.priceOld) * 100);
   }
-  const authorList = await Book.distinct("author", {
-    deleted: false,
-    status: "active"
-  });
-  for(const item of authorList){
-    console.log(item.id);
-  }
   res.render('client/pages/danh-sach-sach.pug', {
     pageTitle:categoryDetail.name,
     breadcumb:breadcumb,
     categoryDetail:categoryDetail,
     totalRecords:totalRecords,
     bookDetail:bookDetail,
-    authorList:authorList
   });
 }

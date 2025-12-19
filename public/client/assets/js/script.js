@@ -338,15 +338,13 @@ if(orderForm){
 const boxFilter = document.querySelector(".box-filter");
 if(boxFilter) {
   const url = new URL(`${window.location.origin}/search`);
-
   const buttonApply = boxFilter.querySelector(".inner-button");
-
-  buttonApply.addEventListener("click", () => {
-    const filterList = [
+  const filterList = [
       "author",
       "category",
       "price",
     ];
+  buttonApply.addEventListener("click", () => {
     
     filterList.forEach(item => {
       const value = boxFilter.querySelector(`[name="${item}"]`).value;
@@ -356,8 +354,34 @@ if(boxFilter) {
         url.searchParams.delete(item);
       }
     })
-    console.log(url.href)
-    // window.location.href = url.href;
+    window.location.href = url.href;
   })
+  // hiển thị giá trị mặc định
+  const urlCurrent = new URL(window.location.href)
+  for(const item of filterList){
+    const valueCurrent = urlCurrent.searchParams.get(item);
+    if(valueCurrent){
+      boxFilter.querySelector(`[name="${item}"]`).value=valueCurrent 
+    }
+  }
 }
 
+// form-search
+const formSearch = document.querySelector("[form-search]");
+if (formSearch) {
+  const url = new URL(`${window.location.origin}/search`);
+  formSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nameBook = formSearch.nameBook.value.trim();
+
+    if (nameBook) {
+      url.searchParams.set("nameBook", nameBook);
+    } else {
+      url.searchParams.delete("nameBook");
+    }
+
+    window.location.href = url.href;
+  });
+  
+ 
+}

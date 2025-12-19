@@ -4,6 +4,14 @@ const moment = require("moment");
 const categoryHelper = require("../../helpers/category.helper")
 
 module.exports.home = async (req, res) => {
+  // section-1
+  const BookListSection1 = await Book.find({
+    deleted:false,
+    status:"active",
+    suggested:"true"
+  }).limit(4)
+
+
   // section-2
   const BookListDiscount = await Book.find({
     deleted:false,
@@ -86,6 +94,7 @@ module.exports.home = async (req, res) => {
 
   res.render('client/pages/index.pug', {
     pageTitle:"Trang chủ",
+    BookListSection1:BookListSection1,
     BookListDiscount:BookListDiscount,
     categoryListParent:categoryListParent,
     constBookListSection4:constBookListSection4,

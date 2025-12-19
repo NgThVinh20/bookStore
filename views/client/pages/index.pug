@@ -9,40 +9,23 @@ block main
         h1.inner-title
           | Khám phá Thế Giới Sách – Tri Thức Mở Ra Mỗi Ngày
         p.inner-desc Kho tàng sách phong phú từ văn học, kỹ năng sống đến kinh doanh và khám phá tri thức. Mỗi trang sách là một hành trình mới chờ bạn bắt đầu.
-        form.inner-form
+        form.inner-form(form-search)
           .inner-box
             .inner-input-group
-              input(type="text" class="inner-input" placeholder="Bạn muốn tìm kiếm thể loại sách gì?")
+              input(type="text" name ="nameBook" class="inner-input" placeholder="Bạn đang muốn tìm kiếm sách gì?")
               i.fa-solid.fa-angle-down.inner-down
             .inner-suggest
               .inner-suggest-title
                 <i class="fa-solid fa-location-dot"></i> Những thể loại sách phổ biến
               .inner-suggest-list
-                .inner-item 
-                  .inner-item-image 
-                    img(src="/client/assets/images/db.png" alt="")
-                  .inner-item-content
-                    .inner-item-title Truyện tranh
-                    .inner-item-desc 50 sản phẩm
-                .inner-item 
-                  .inner-item-image 
-                    img(src="/client/assets/images/tieuthuyet.jpg" alt="")
-                  .inner-item-content
-                    .inner-item-title Tiểu thuyết
-                    .inner-item-desc 50 Sản phẩm
-                .inner-item 
-                  .inner-item-image 
-                    img(src="/client/assets/images/banner-vanhoc.jpg" alt="")
-                  .inner-item-content
-                    .inner-item-title Văn học
-                    .inner-item-desc 50 sản 
-                .inner-item 
-                  .inner-item-image 
-                    img(src="/client/assets/images/kinh-te.jpg" alt="")
-                  .inner-item-content
-                    .inner-item-title Kinh tế
-                    .inner-item-desc Sản phẩm 
-          button.inner-button
+                each item in BookListSection1
+                  .inner-item 
+                    .inner-item-image 
+                      img(src=item.avatar alt="")
+                    .inner-item-content
+                      .inner-item-title #{item.name}
+                      .inner-item-desc số lượng: #{item.amount}
+          button.inner-button(type="submit")
             i.fa-solid.fa-magnifying-glass
             | Tìm Kiếm
   // End Section 1

@@ -1,0 +1,79 @@
+extends ../layouts/default.pug
+include ../mixins/product-item.pug
+include ../mixins/breadcumb.pug
+
+
+block main
+  // End Breadcrumb
+  // Section 9
+  .section-9
+    .container
+      .inner-wrap
+        .inner-left
+          // Box Filter
+          .box-filter
+            .inner-filter-list
+              .inner-head
+                .inner-title Bộ Lọc
+                i.fa-solid.fa-filter
+              .inner-group
+                .inner-label Tác giả
+                select(name="author")
+                    option(value="") -- Chọn Tác giả --
+                    each item in authorList
+                      option(value=item) #{item}
+              .inner-group
+                .inner-label Thể loại
+                select(name="category")
+                  option(value="") -- Chọn thể loại --
+                  each item in categoryList
+                    option(value=item.slug) #{item.name}
+              .inner-group
+                .inner-label Mức giá
+                select(name="price")
+                  option(value="") -- Chọn khoảng giá --
+                  option(value="0-99000") Dưới 100.000đ
+                  option(value="100000-300000") Từ 100.000đ đến 300.000đ
+                  option(value="300000-500000") Từ 300.000đ đến 500.000đ
+                  option(value="500000-5000000") Trên 500.000đ
+              button.inner-button Áp Dụng
+          // End Box Filter
+          .overlay
+        .inner-right
+          .inner-info-1
+            h2.inner-title #{pageTitle}
+          .inner-info-2
+            .inner-sort
+              .inner-label Sắp xếp:
+              button
+                | Giá tăng dần
+                i.fa-solid.fa-circle-arrow-up
+              button
+                | Giá giảm dần
+                i.fa-solid.fa-circle-arrow-down
+              button
+                | Khuyến Mại Hot
+                i.fa-solid.fa-tag
+              button
+                | Xem Nhiều
+                i.fa-solid.fa-eye
+            .inner-total-item
+              | Tất cả:
+              b #{totalRecords} Sách 
+            button.inner-button-filter
+              | Bộ Lọc
+              i.fa-solid.fa-filter
+          .inner-list-item
+            each item in bookList
+              +product-item(item)
+          .box-pagination
+            .inner-list-button
+              button
+                i.fa-solid.fa-angles-left
+              button.active 1
+              button 2
+              button 3
+              button 4
+              button
+                i.fa-solid.fa-angles-right
+  // End Section 9
