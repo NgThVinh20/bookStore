@@ -8,13 +8,16 @@ module.exports.list = async (req, res) => {
     status:"active",
     deleted:false
   }
+  // lọc theo tên sách
   if (req.query.nameBook) {
       const nameBookSlug = slugify(req.query.nameBook);
       find.slug = new RegExp(nameBookSlug, "i");
     }
+  // lọc theo tên tác giả
   if(req.query.author){
     find.author = req.query.author
   }
+  // lọc theo tên danh mục
   if(req.query.category){
     const category = await Category.findOne({
       slug:req.query.category
@@ -23,6 +26,16 @@ module.exports.list = async (req, res) => {
       find.parent= category.id
     }
   }
+  // lọc theo giá
+   if (req.query.price) {
+      const [priceMin, priceMax] = req.query.price
+        .split("-")
+        .map((item) => parseInt(item));
+      find.priceNew = {
+        $gte: priceMin,
+        $lte: priceMax,
+      };
+    }
   const bookList = await Book.find(find)
   for(const item of bookList){
     if(item.parent){
