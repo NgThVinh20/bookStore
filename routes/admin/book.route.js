@@ -9,11 +9,28 @@ const upload = multer({
 router.get('/list', bookController.list);
 
 router.get('/create', bookController.create);
-router.post('/create', upload.single('avatar'), bookValidate.createPost,
-bookController.createPost);
+router.post('/create', upload.fields([
+    {
+      name: "avatar",
+      maxCount: 1
+    },
+    {
+      name: "images",
+      maxCount: 10
+    }
+  ]), bookValidate.createPost, bookController.createPost);
 
 router.get('/edit/:id', bookController.edit)
-router.patch('/edit/:id',upload.single('avatar'), bookValidate.createPost, bookController.editPatch)
+router.patch('/edit/:id',upload.fields([
+    {
+      name: "avatar",
+      maxCount: 1
+    },
+    {
+      name: "images",
+      maxCount: 10
+    }
+  ]), bookValidate.createPost, bookController.editPatch)
 
 router.get('/trash', bookController.trash);
 

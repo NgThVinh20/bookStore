@@ -1,15 +1,19 @@
-mixin breadcumb(item)
+mixin breadcumb(categoryDetail, book)
+  - const bookDetail = book ? book :categoryDetail;
   .breadcrumb
     .inner-image
       img(
-        alt=item.name
+        alt=bookDetail.name
         src="/client/assets/images/bg.png"
         )
     .inner-content
       .container
         .inner-wrap
-          h1.inner-title #{item.name}
+          h1.inner-title #{bookDetail.name}
           nav.inner-links
             a(href="/") Trang Chủ
             i.fa-solid.fa-angles-right
-            a(href=`category/${item.slug}`) #{item.name}
+            a(href=`/category/${categoryDetail.slug}`) #{categoryDetail.name}
+            if(book)
+              i.fa-solid.fa-angles-right
+              a(href=`/category/${bookDetail.slug}`) #{bookDetail.name}

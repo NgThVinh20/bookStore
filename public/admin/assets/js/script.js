@@ -6,6 +6,7 @@ const initTinyMce = (selector)=>{
     toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link anchor charmap image numlist bullist media',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
+    images_upload_url: `/${pathAdmin}/upload/image`,
     mergetags_list: [
       { value: 'First.Name', title: 'First Name' },
       { value: 'Email', title: 'Email' },
@@ -33,7 +34,35 @@ if(buttonMenuMobile){
 }
 // menu mobile 
 
-
+// FilePond for image upload(nhiều ảnh)
+// Filepond Image Multi
+const listFilepondImageMulti = document.querySelectorAll("[filepond-image-multi]");
+const filePondMulti = {};
+if(listFilepondImageMulti.length > 0) {
+  FilePond.registerPlugin(FilePondPluginImagePreview);
+  FilePond.registerPlugin(FilePondPluginFileValidateType);
+  
+  listFilepondImageMulti.forEach(filepondImage => {
+    let listImageDefault = filepondImage.getAttribute("list-image-default");
+    let files = null;
+    if(listImageDefault) {
+      listImageDefault = JSON.parse(listImageDefault);
+      if(listImageDefault.length > 0) {
+        files = [];
+        listImageDefault.forEach(image => {
+          files.push({
+            source: image
+          });
+        })
+      }
+    }
+    filePondMulti[filepondImage.name] = FilePond.create(filepondImage, {
+      labelIdle: "+",
+      acceptedFileTypes: ['image/*'],
+      files: files
+    });
+  })
+}
 
 
 // FilePond for image upload
@@ -59,6 +88,7 @@ if (filePondImage.length > 0) {
     });
   });
 }
+
 
 // chart dashBoard
 const ctx = document.getElementById('revenue-chart');
@@ -232,7 +262,13 @@ if(formCreateProduct){
     formData.append("priceNew",priceNew);
     formData.append("author",author);
     formData.append("infor",infor);
-    
+
+    // Thêm danh sách ảnh
+    if(filePondMulti.images.getFiles().length > 0) {
+        filePondMulti.images.getFiles().forEach(item => {
+          formData.append("images", item.file);
+        })
+      }
 
     fetch(`/${pathAdmin}/books/create`,{
       method:"POST",
@@ -297,6 +333,14 @@ if(formEditProduct){
     formData.append("priceNew",priceNew);
     formData.append("author",author);
     formData.append("infor",infor);
+
+    // Thêm danh sách ảnh
+    if(filePondMulti.images.getFiles().length > 0) {
+        filePondMulti.images.getFiles().forEach(item => {
+          formData.append("images", item.file);
+        })
+      }
+
 
     fetch(`/${pathAdmin}/books/edit/${id}`,{
       method:"PATCH",

@@ -231,9 +231,6 @@ input, select, textarea, button {
     position: fixed;
     display: none;
   }
-  .header .inner-menu input{
-    display: none;
-  }
   .header .inner-menu.active{
     position: fixed;
     top:0;
@@ -1264,6 +1261,9 @@ input, select, textarea, button {
   font-size: 16px;
   color: white;
 }
+.breadcrumb .inner-content .inner-links a:hover{
+  color:rgb(255, 213, 0);
+}
 
 .breadcrumb .inner-content .inner-links i {
   font-size: 11px;
@@ -1684,7 +1684,7 @@ input, select, textarea, button {
 }
 /* End Box Images */
 
-/* Box Tour Detail */
+/* Box book Detail */
 .book-detail {
   background-color: white;
   box-shadow: 0px 1.75px 3.51px 0px #0000001F;
@@ -1786,8 +1786,15 @@ input, select, textarea, button {
   color: #5D5E60;
   margin-bottom:10px;
 }
+.book-detail .inner-group label {
+  font-weight: 400;
+  font-size: 16px;
+  color: #5D5E60;
+  margin-right: 8px;
+}
 .book-detail .inner-group input{
   width: 50px;
+  padding:5px;
   border: 1px solid gray;
   border-radius:5px;
 }
@@ -1854,9 +1861,9 @@ input, select, textarea, button {
     margin-top: 0;
   }
 }
-/* End Box Tour Detail */
+/* End Box book Detail */
 
-/* book Tour Info */
+/* book book Info */
 .book-info {
   background-color: white;
   box-shadow: 0px 1.75px 3.51px 0px #0000001F;
@@ -1887,9 +1894,10 @@ input, select, textarea, button {
 }
 
 .book-info .inner-content img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: 10px;
+
 }
 
 .book-info .inner-read-more {
@@ -1901,7 +1909,7 @@ input, select, textarea, button {
     padding: 15px;
   }
 }
-/* End Box Tour Info */
+/* End Box book Info */
 
 
 /* Section 11 */
@@ -1948,7 +1956,7 @@ input, select, textarea, button {
   color: var(--color-primary);
 }
 
-.section-11 .inner-tour-item {
+.section-11 .inner-book-item {
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #F2F2F2;
@@ -1956,14 +1964,14 @@ input, select, textarea, button {
   align-items: flex-start;
 }
 
-.section-11 .inner-tour-item .inner-actions {
+.section-11 .inner-book-item .inner-actions {
   display: flex;
   flex-direction: column;
   gap: 43px;
   margin-right: 6px;
 }
 
-.section-11 .inner-tour-item .inner-actions .inner-delete {
+.section-11 .inner-book-item .inner-actions .inner-delete {
   width: 21px;
   height: 21px;
   background-color: transparent;
@@ -1972,18 +1980,18 @@ input, select, textarea, button {
   font-size: 13px;
   color: #828282;
 }
-.section-11 .inner-tour-item .inner-actions .inner-delete i:hover{
+.section-11 .inner-book-item .inner-actions .inner-delete i:hover{
   cursor:pointer;
   color:#f9313d;
 }
-.section-11 .inner-tour-item .inner-actions .inner-check {
+.section-11 .inner-book-item .inner-actions .inner-check {
   margin: 0;
   width: 21px;
   height: 21px;
   accent-color: var(--color-primary);
 }
 
-.section-11 .inner-tour-item .inner-product {
+.section-11 .inner-book-item .inner-product {
   flex: 1;
   display: flex;
   align-items: flex-start;
@@ -1991,7 +1999,7 @@ input, select, textarea, button {
   margin-right: 10px;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-image {
+.section-11 .inner-book-item .inner-product .inner-image {
   width: 178px;
   height: 255px;
   aspect-ratio: 178/149;
@@ -1999,17 +2007,17 @@ input, select, textarea, button {
   overflow: hidden;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-image img {
+.section-11 .inner-book-item .inner-product .inner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-content {
+.section-11 .inner-book-item .inner-product .inner-content {
   flex: 1;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-title {
+.section-11 .inner-book-item .inner-product .inner-title {
   margin-bottom: 12px;
   font-weight: 500;
   font-size: 30px;
@@ -2019,15 +2027,15 @@ input, select, textarea, button {
   overflow: hidden;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-title a {
+.section-11 .inner-book-item .inner-product .inner-title a {
   color: #25282B;
 }
 
-.section-11 .inner-tour-item .inner-product .inner-title a:hover {
+.section-11 .inner-book-item .inner-product .inner-title a:hover {
   color: var(--color-primary);
 }
 
-.section-11 .inner-tour-item .inner-product .inner-meta {
+.section-11 .inner-book-item .inner-product .inner-meta {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2035,7 +2043,7 @@ input, select, textarea, button {
   font-size: 20px;
   color: #8C8C8C;
 }
-.section-11 .inner-tour-item .inner-product .inner-meta div{
+.section-11 .inner-book-item .inner-product .inner-meta div{
   display:flex;
   align-items:center;
   gap:8px;
@@ -2115,11 +2123,11 @@ input, select, textarea, button {
     width: 100%;
   }
 
-  .section-11 .inner-tour-item {
+  .section-11 .inner-book-item {
     flex-wrap: wrap;
   }
 
-  .section-11 .inner-tour-item .inner-actions {
+  .section-11 .inner-book-item .inner-actions {
     width: 100%;
     margin-right: 0;
     margin-bottom: 10px;
@@ -2127,21 +2135,21 @@ input, select, textarea, button {
     justify-content: space-between;
   }
 
-  .section-11 .inner-tour-item .inner-actions .inner-delete {
+  .section-11 .inner-book-item .inner-actions .inner-delete {
     order: 1;
   }
 
-  .section-11 .inner-tour-item .inner-product {
+  .section-11 .inner-book-item .inner-product {
     flex: none;
     width: 100%;
     margin-right: 0;
     margin-bottom: 10px;
   }
-  .section-11 .inner-tour-item .inner-quantity {
+  .section-11 .inner-book-item .inner-quantity {
     width: 100%;
   }
 
-  .section-11 .inner-tour-item .inner-quantity .inner-label {
+  .section-11 .inner-book-item .inner-quantity .inner-label {
     text-align: left;
   }
 }
@@ -2167,19 +2175,19 @@ input, select, textarea, button {
     font-size: 11px;
   }
 
-  .section-11 .inner-tour-item .inner-product {
+  .section-11 .inner-book-item .inner-product {
     gap: 10px;
   }
 
-  .section-11 .inner-tour-item .inner-product .inner-image {
+  .section-11 .inner-book-item .inner-product .inner-image {
     width: 118px;
   }
 
-  .section-11 .inner-tour-item .inner-product .inner-title {
+  .section-11 .inner-book-item .inner-product .inner-title {
     font-size: 14px;
   }
 
-  .section-11 .inner-tour-item .inner-product .inner-meta {
+  .section-11 .inner-book-item .inner-product .inner-meta {
     gap: 3px;
     font-size: 12px;
   }

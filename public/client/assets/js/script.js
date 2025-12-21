@@ -385,3 +385,31 @@ if (formSearch) {
   
  
 }
+
+// sort price
+// sort
+const sortButtons = document.querySelectorAll("[data-sort]");
+if (sortButtons.length) {
+  sortButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const sortValue = button.getAttribute("data-sort");
+      const url = new URL(window.location.href);
+
+      if (sortValue) {
+        url.searchParams.set("sort", sortValue);
+      } else {
+        url.searchParams.delete("sort");
+      }
+      window.location.href = url.href;
+    });
+  });
+  const currentSort = new URL(window.location.href).searchParams.get("sort");
+  if (currentSort) {
+    sortButtons.forEach(button => {
+      if (button.getAttribute("data-sort") === currentSort) {
+        button.classList.add("active");
+      }
+    });
+  }
+}
+

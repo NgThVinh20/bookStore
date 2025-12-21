@@ -36,7 +36,20 @@ module.exports.list = async (req, res) => {
         $lte: priceMax,
       };
     }
-  const bookList = await Book.find(find)
+  let sort = {};
+    if (req.query.sort) {
+      switch (req.query.sort) {
+        case "price_asc":
+          sort.priceNew = 1;
+          break;
+        case "price_desc":
+          sort.priceNew = -1;
+          break;
+        default:
+          break;
+      }
+    }
+  const bookList = await Book.find(find).sort(sort);
   for(const item of bookList){
     if(item.parent){
       const category = await Category.findOne({
@@ -49,11 +62,11 @@ module.exports.list = async (req, res) => {
     }
     item.priceDiscount = Math.round(((item.priceOld - item.priceNew) / item.priceOld) * 100);
   }
-  console.log(bookList)
   res.render('client/pages/search.pug', {
     pageTitle:"Kết quả tìm kiếm",
     bookList: bookList
   });
 }
+
 
 

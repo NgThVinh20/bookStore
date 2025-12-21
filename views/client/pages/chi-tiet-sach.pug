@@ -2,7 +2,7 @@ extends ../layouts/default.pug
 include ../mixins/breadcumb.pug
 block main
   // Breadcrumb
-  +breadcumb()
+  +breadcumb(categoryDetail, bookDetail)
   // End Breadcrumb
   // Section 10
   .section-10
@@ -14,73 +14,28 @@ block main
             .inner-image-main
               .swiper.swiperImagesMain
                 .swiper-wrapper 
-                  .swiper-slide
-                    .inner-image
-                      img(
-                        alt="" 
-                        src="/client/assets/images/demo-item.png"
-                        )
-                  .swiper-slide
-                    .inner-image
-                      img(
-                        alt="" 
-                        src="/client/assets/images/item-1.png"
-                        )
-                  .swiper-slide
-                    .inner-image
-                      img(
-                        alt="" 
-                        src="/client/assets/images/item-1.png"
-                        )
-                  .swiper-slide
-                    .inner-image
-                      img(
-                        alt="" 
-                        src="/client/assets/images/tieuthuyet.jpg"
-                        )
+                  each item in bookDetail.images
+                    .swiper-slide
+                      .inner-image
+                        img(
+                          alt="" 
+                          src=item
+                          )
             .inner-image-thumb
               .swiper.swiperImagesThumb
                 .swiper-wrapper 
-                  .swiper-slide 
+                  each item in bookDetail.images
+                    .swiper-slide
                       .inner-image
                         img(
                           alt="" 
-                          src="/client/assets/images/demo-item.png"
-                          )
-                  .swiper-slide 
-                      .inner-image
-                        img(
-                          alt="" 
-                          src="/client/assets/images/item-1.png"
-                          )
-                  .swiper-slide 
-                      .inner-image
-                        img(
-                          alt="" 
-                          src="/client/assets/images/item-1.png"
-                          )
-                  .swiper-slide 
-                      .inner-image
-                        img(
-                          alt="" 
-                          src="/client/assets/images/tieuthuyet.jpg"
+                          src=item
                           )
           // End Box Images
           // Box book Info
           .book-info
             .inner-title-main Thông Tin sách
-            .inner-content
-              p
-                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit cumque, quae soluta repellendus in quia rem esse laboriosam culpa velit corrupti voluptas, sed tenetur possimus aperiam sint ex! Corporis, quisquam? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi iure, quas laborum culpa numquam magni reiciendis laboriosam deserunt ut sequi corporis delectus quibusdam consequatur, perferendis veniam molestiae accusamus consequuntur dolorem.
-              img(
-                alt="" 
-                src="/client/assets/images/item-1.png"
-                )
-              p
-                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolorem possimus, quam quaerat sapiente doloribus unde perferendis corporis qui voluptates placeat, hic totam, quis alias. Aut, et nulla. Dolores, amet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima beatae, ut eaque, est, impedit labore facere saepe veniam aperiam dignissimos cupiditate perspiciatis quas inventore rerum odio qui numquam. Sequi, atque.
-              <img alt="" src="/client/assets/images/demo-item.png">
-              p
-                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolorem possimus, quam quaerat sapiente doloribus unde perferendis corporis qui voluptates placeat, hic totam, quis alias. Aut, et nulla. Dolores, amet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima beatae, ut eaque, est, impedit labore facere saepe veniam aperiam dignissimos cupiditate perspiciatis quas inventore rerum odio qui numquam. Sequi, atque.
+            .inner-content !{bookDetail.infor}
             .inner-read-more
               button.button-outline Xem tất cả
           // End Box book Info
@@ -92,10 +47,10 @@ block main
               .inner-image
                 img(
                   alt="" 
-                  src="/client/assets/images/demo-item.png"
+                  src=bookDetail.avatar
                   )
               .inner-info
-                .inner-title Tiểu thuyết mưa đỏ
+                .inner-title #{bookDetail.name}
                 .inner-rating
                   .inner-stars
                     i.fa-solid.fa-star
@@ -112,29 +67,29 @@ block main
               .inner-item
                 <i class="fa-solid fa-user"></i>
                 span Tác giả:
-                span.inner-highlight Chu Lai
+                span.inner-highlight #{bookDetail.author}
               .inner-item
                 <i class="fa-solid fa-book"></i>
                 span Thể loại:
-                span.inner-highlight Tiểu thuyết
+                span.inner-highlight #{bookDetail.parentName}
               .inner-item
                 i.fa-solid.fa-calendar-days
-                span Ngày xuất bản
-                span.inner-highlight 20/10/2024
+                span Ngày xuất bản:
+                span.inner-highlight #{bookDetail.timeFormat}
               .inner-item
                 <i class="fa-solid fa-dollar-sign"></i>
-                span giá cũ
-                span.old-price 250.000đ
+                span giá cũ:
+                span.old-price #{bookDetail.priceOld.toLocaleString("vi-VN")}đ
               .inner-item
                 <i class="fa-solid fa-dollar-sign"></i>
                 span giá mới
-                span.inner-highlight 175.000đ
-            .inner-group
-              .inner-label Số Lượng
-              input(type="number" class="bookNumber")
+                span.inner-highlight #{bookDetail.priceNew.toLocaleString("vi-VN")}đ
+              .inner-group
+                label(for="amount") Số lượng
+                input(type="number" class="bookNumber" name ="amount" min =0 max = bookDetail.amount value = 1) 
             .inner-total
               .inner-label Tổng cộng:
-              .inner-price 175.000đ
+              .inner-price 
             button.inner-button-add-cart Thêm Vào Giỏ Hàng
           // End book Tour Detail
   // End Section 10

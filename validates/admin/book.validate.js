@@ -19,6 +19,7 @@ module.exports.createPost = async (req, res, next) => {
       priceOld : Joi.string().allow(''),
       author :Joi.string().allow(''),
       infor: Joi.string().allow(''),
+      images:Joi.string().allow(''),
   })
   const { error } = schema.validate(req.body);
   if(error) {

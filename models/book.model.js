@@ -12,6 +12,7 @@ const schema = new mongoose.Schema(
     discount:String,
     suggested:String,
     avatar: String,
+    images:Array,
     time: Date,
     amount: Number,
     priceOld: Number,
