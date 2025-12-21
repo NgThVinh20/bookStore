@@ -412,4 +412,67 @@ if (sortButtons.length) {
     });
   }
 }
+// initial cart
+const cart = localStorage.getItem("cart");
+if(!cart){
+  localStorage.setItem("cart", JSON.stringify([]));
+}
+// initial cart 
+// box book detail
+const boxBookDetail = document.querySelector(".book-detail");
+
+if (boxBookDetail) {
+  const inputQuantity = boxBookDetail.querySelector(".bookNumber");
+  const totalPrice = boxBookDetail.querySelector("[totalPrice]");
+  const buttonAddCart = document.querySelector("[button-add-cart]");
+  const bookID = buttonAddCart.getAttribute("book-id");
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  const existItem = cart.find(item => item.bookID === bookID);
+
+  const updatePrice = () => {
+    let quantity = parseInt(inputQuantity.value);
+
+    const price = parseInt(inputQuantity.getAttribute("data-price"));
+    const min = parseInt(inputQuantity.getAttribute("min"));
+    const max = parseInt(inputQuantity.getAttribute("max"));
+
+    if (quantity < min) {
+      quantity = min;
+      inputQuantity.value = min;
+    } 
+    else if (quantity > max) {
+      quantity = max;
+      inputQuantity.value = max;
+    }
+    const newPrice = quantity * price;
+    return newPrice;
+  };
+
+  inputQuantity.addEventListener("change", () => {
+    const newPrice = updatePrice();
+    totalPrice.innerHTML = newPrice.toLocaleString("vi-VN") + " ₫";
+  });
+  buttonAddCart.addEventListener("click", () => {
+    const quantity = parseInt(inputQuantity.value);
+    if(quantity > 0){
+      const item = {
+        bookID:bookID,
+        quantity:quantity,
+      }
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const indexItem = cart.findIndex(item => item.bookID === bookID);
+      if(indexItem !== -1){
+        cart[indexItem].quantity += quantity;
+      }
+      else{
+        cart.push(item);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      notify.success("Thêm vào giỏ hàng thành công");
+    }
+  });
+}
+
+// box book detail
+
 

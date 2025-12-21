@@ -86,10 +86,10 @@ block main
                 span.inner-highlight #{bookDetail.priceNew.toLocaleString("vi-VN")}đ
               .inner-group
                 label(for="amount") Số lượng
-                input(type="number" class="bookNumber" name ="amount" min =0 max = bookDetail.amount value = 1) 
+                input(type="number" class="bookNumber" name ="amount" min = 0 max = bookDetail.amount value = 1 data-price = bookDetail.priceNew) 
             .inner-total
               .inner-label Tổng cộng:
-              .inner-price 
-            button.inner-button-add-cart Thêm Vào Giỏ Hàng
+              .inner-price(totalPrice) #{bookDetail.priceNew.toLocaleString("vi-VN")}đ
+            button.inner-button-add-cart(button-add-cart book-id = bookDetail.id) Thêm Vào Giỏ Hàng
           // End book Tour Detail
   // End Section 10

@@ -57,6 +57,8 @@ if(listFilepondImageMulti.length > 0) {
       }
     }
     filePondMulti[filepondImage.name] = FilePond.create(filepondImage, {
+      allowMultiple: true,   
+      allowReorder: true,
       labelIdle: "+",
       acceptedFileTypes: ['image/*'],
       files: files
