@@ -468,7 +468,9 @@ if (boxBookDetail) {
         cart.push(item);
       }
       localStorage.setItem("cart", JSON.stringify(cart));
-      notify.success("Thêm vào giỏ hàng thành công");
+      drawNotify("success", "Thêm vào giỏ hàng thành công");
+      window.location.reload();
+      
     }
   });
 }
@@ -476,3 +478,9 @@ if (boxBookDetail) {
 // box book detail
 
 
+// mini cart
+const minicart = document.querySelector("[mini-cart]");
+if(minicart){
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  minicart.innerHTML = cart.length;
+}

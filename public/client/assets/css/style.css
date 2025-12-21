@@ -212,7 +212,9 @@ input, select, textarea, button {
   top: 4px;
   left: -5px;
 }
-
+.header .inner-cart span .inner-number{
+  font-size: 12px;
+}
 .header .inner-button-menu {
   display: none;
 }
