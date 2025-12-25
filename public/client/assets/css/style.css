@@ -2050,6 +2050,12 @@ input, select, textarea, button {
   align-items:center;
   gap:8px;
 }
+.section-11 .inner-book-item input{
+  border:0;
+  border-bottom:1px solid #8C8C8C;
+  width: 50px;
+  font-size:16px;
+}
 .section-11 .inner-coupon {
   display: flex;
   justify-content: flex-end;

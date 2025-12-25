@@ -11,9 +11,10 @@ const authorMiddleWare = require("../../middlewares/client/author.middlware")
 router.use(settingMiddleWare.websiteInfor);
 router.use(categoryMiddleWare.list);
 router.use(authorMiddleWare.list);
-router.use('/',homeRoutes);
+
 router.use('/books',booksRoutes);
 router.use('/cart',cartRoutes);
 router.use('/category',categoryRoutes);
 router.use('/search',searchRoutes);
+router.use('/',homeRoutes);
 module.exports = router;

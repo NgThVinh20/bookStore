@@ -3,40 +3,16 @@ extends ../layouts/default.pug
 
 block main
   // Section 11
-  .section-11
+  .section-11(page-cart)
     .container
       .inner-wrap
         .inner-head
           .inner-title Giỏ Hàng
-          a.inner-back(href="#")
+          a.inner-back(href="/")
             | Quay lại mua hàng
             i.fa-solid.fa-angle-right
-        .inner-book-list
-          .inner-book-item
-            .inner-actions
-              button.inner-delete
-                i.fa-solid.fa-xmark
-              input.inner-check(type="checkbox")
-            .inner-product
-              .inner-image
-                a(href="#")
-                  img(
-                    alt="" 
-                    src="/client/assets/images/demo-item.png"
-                    )
-              .inner-content
-                .inner-title
-                  a(href="#") Tiểu thuyết Mưa đỏ
-                .inner-meta
-                  div
-                    | Tác giả:
-                    b Chu Lai
-                  div
-                    | Ngày Xuất Bản:
-                    b 20/10/2024
-                  div
-                    | Danh mục:
-                    b Tiểu thuyết
+        .inner-book-list(book-list)
+          
         .inner-coupon
           form(action="" id ="coupon-form")
             input(
@@ -48,14 +24,18 @@ block main
             button Dùng Mã
         .inner-list-price
           .inner-item
-            .inner-label Tổng tiền:
-            .inner-price  250.000đ
+            .inner-label Tạm tính:
+            .inner-price 
+              span(cart-sub-total) 0
+              span đ
           .inner-item
             .inner-label Giảm:
-            .inner-price -75.000 đ
+            .inner-price(cart-discount) -0đ
           .inner-item
             .inner-label Thanh toán:
-            .inner-price-highlight 175.000 đ
+            .inner-price-highlight 
+              span(cart-total) 0
+              span đ
   // End Section 11
   
   // Section 12

@@ -86,7 +86,7 @@ block main
                 span.inner-highlight #{bookDetail.priceNew.toLocaleString("vi-VN")}đ
               .inner-group
                 label(for="amount") Số lượng
-                input(type="number" class="bookNumber" name ="amount" min = 0 max = bookDetail.amount value = 1 data-price = bookDetail.priceNew) 
+                input(type="number" class="bookNumber" id ="amount" name ="amount" min = 0 max = bookDetail.amount value = bookDetail.amount > 0 ? "1" : "0" data-price = bookDetail.priceNew) 
             .inner-total
               .inner-label Tổng cộng:
               .inner-price(totalPrice) #{bookDetail.priceNew.toLocaleString("vi-VN")}đ

@@ -418,6 +418,16 @@ if(!cart){
   localStorage.setItem("cart", JSON.stringify([]));
 }
 // initial cart 
+
+const drawMiniCart = () => {
+  const minicart = document.querySelector("[mini-cart]");
+  if(minicart){
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    minicart.innerHTML = cart.length;
+  }
+}
+drawMiniCart();
+
 // box book detail
 const boxBookDetail = document.querySelector(".book-detail");
 
@@ -468,10 +478,12 @@ if (boxBookDetail) {
         cart.push(item);
       }
       localStorage.setItem("cart", JSON.stringify(cart));
-      drawNotify("success", "Thêm vào giỏ hàng thành công");
-      window.location.reload();
-      
+      notify.success("Thêm vào giỏ hàng thành công");
+      drawMiniCart();
     }
+    else{
+       notify.error("Sản phẩm đã hết hàng");
+    } 
   });
 }
 
@@ -479,8 +491,105 @@ if (boxBookDetail) {
 
 
 // mini cart
-const minicart = document.querySelector("[mini-cart]");
-if(minicart){
-  const cart = JSON.parse(localStorage.getItem("cart"));
-  minicart.innerHTML = cart.length;
+
+
+// Page Cart
+const drawCart = () => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  fetch(`/cart/render`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cart })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.code == "success"){
+      const cartDetail = data.cartDetail;
+      let subTotal = 0;
+      const htmlArr = cartDetail.map(item => {
+        subTotal += item.priceNew * item.quantity;
+        return `
+        <div class="inner-book-item">
+          <div class="inner-actions">
+            <button class="inner-delete" button-delete book-id="${item.bookID}"><i class="fa-solid fa-xmark"></i></button>
+            <input class="inner-check" type="checkbox"/>
+          </div>
+          <div class="inner-product">
+            <div class="inner-image"><a href="/books/detail/${item.slug}"><img alt="" src="${item.avatar}"/></a></div>
+            <div class="inner-content">
+              <div class="inner-title"><a href="/books/detail/${item.slug}">${item.name}</a></div>
+              <div class="inner-meta">
+                <div>Tác giả:<b>${item.author}</b></div>
+                <div>Ngày Xuất Bản:<b>${item.time}</b></div>
+                <div>Danh mục:<b>${item.parentName}</b></div>
+                <div class="inner-item-label">
+                    Số lượng:
+                </div>
+                <input type="number" class="inner-item-input" value="${item.quantity}" min="0" max="${item.amount}" book-id="${item.bookID}" input-quantity="quantity">
+              </div>
+            </div>
+          </div>
+        </div>
+        `
+      });
+      
+      const elementCartList = document.querySelector("[book-list]");
+      let discount = 0;
+      let totalPrice =subTotal-discount ;
+      const elementCartSubTotal = document.querySelector("[cart-sub-total]")
+      elementCartSubTotal.innerHTML = subTotal.toLocaleString("vi-VN") ;
+      const elementTotal = document.querySelector("[cart-total]")
+      elementTotal.innerHTML = totalPrice.toLocaleString("vi-VN");
+      elementCartList.innerHTML = htmlArr.join("");
+      // cập nhật số lượng
+      const ListInputQuantity = document.querySelectorAll("[input-quantity]");
+      ListInputQuantity.forEach(input => {
+        input.addEventListener("change", () => {
+          let quantity = parseInt(input.value);
+          const bookID = input.getAttribute("book-id");
+          const min = parseInt(input.getAttribute("min"));
+          const max = parseInt(input.getAttribute("max"));
+
+          if (quantity < min) {
+            quantity = min;
+            input.value = min;
+          } else if (quantity > max) {
+            quantity = max;
+            input.value = max;
+          }
+
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const indexItem = cart.findIndex(item => item.bookID === bookID);
+
+          if (indexItem !== -1) {
+            cart[indexItem].quantity = quantity;
+            localStorage.setItem("cart", JSON.stringify(cart));
+          }
+
+          // cập nhật tổng tiền mà không render lại toàn bộ
+          drawCart();
+        });
+      });
+      // xóa sản phẩm
+      const listButtonDelete = document.querySelectorAll("[button-delete]");
+      listButtonDelete.forEach(button=>{
+        button.addEventListener("click", ()=>{
+          const bookID = button.getAttribute("book-id");
+          let cart = JSON.parse(localStorage.getItem("cart"));
+          cart = cart.filter(item => item.bookID !== bookID);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          drawCart();
+          drawMiniCart();
+        });
+      });
+    }
+    if(data.code == "error"){
+      localStorage.setItem("cart", JSON.stringify([]));
+     
+    }
+  })
 }
+drawCart();
+// Page Cart

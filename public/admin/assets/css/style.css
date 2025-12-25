@@ -996,28 +996,22 @@ select {
 .section-8 .inner-upload-image .filepond--root .filepond--drop-label{
   min-height: 100%;
 }
-.section-8 .inner-upload-images{
-  width: 200px;
-  height:200px;
+.section-8 form .inner-upload-images-multi .filepond--root {
+  width: 300px;
+  max-height: 600px;
 }
-.section-8 .inner-upload-images .filepond--credits{
-  display:none;
+
+.section-8 form .inner-upload-images-multi .filepond--drop-label label {
+  font-weight: 500;
+  font-size: 50px;
+  cursor: pointer;
 }
-.section-8 .inner-upload-images .filepond--drop-label label{
-  font-size:50px;
+
+.section-8 form .inner-upload-images-multi .filepond--credits {
+  display: none;
 }
-.section-8 .inner-upload-images .filepond--root{
-  margin-bottom:0;
-  height:100% !important;
-}
-.section-8 .inner-upload-images .filepond--root .filepond--drop-label{
-  min-height: 100%;
-}
-.section-8 .inner-avatar .inner-delete{
-  position: absolute;
-  top:20px;
-  left:98%;
-}
+
+
 .section-8 .inner-button{
   text-align: center;
 }
