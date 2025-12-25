@@ -2,6 +2,11 @@
  const moment = require("moment");
  const Book = require("../../models/book.model");
  const Order = require("../../models/order.model");
+ const Category = require("../../models/category.model");
+ const {paymentMethodList} = require("../../config/variable.config");
+ const {paymentStatusList} = require("../../config/variable.config");
+ const {statusList} = require("../../config/variable.config");
+
  module.exports.create = async (req, res) => {
   try {
     console.log(req.body);
@@ -57,4 +62,32 @@
     message:"Đặt hàng thất bại"
   })
   }
+ }
+  module.exports.success = async (req, res) => {
+    const {orderCode, phone} = req.query;
+    const orderDetail = await Order.findOne({
+      code:orderCode,
+      phone:phone
+    })
+    if(!orderDetail){
+      res.redirect("/");
+      return;
+    }
+    const paymentMethodItem = paymentMethodList.find(item => item.value == orderDetail.paymentMethod);
+    orderDetail.paymentMethodName = paymentMethodItem ? paymentMethodItem.label : "";
+
+    const paymentStatus = paymentStatusList.find(item => item.value == orderDetail.paymentStatus);
+    orderDetail.paymentStatusName = paymentStatus ? paymentStatus.label : "";
+
+    const statusItem = statusList.find(item => item.value == orderDetail.status);
+    orderDetail.statusName = statusItem ? statusItem.label : "";
+    
+    if(orderDetail){
+      orderDetail.timeFormat = moment(orderDetail.time).format("DD/MM/YYYY") 
+    }
+    res.render('client/pages/order-success.pug', {
+      pageTitle: "Đặt hàng thành công",
+      orderDetail:orderDetail
+  
+    });
  }

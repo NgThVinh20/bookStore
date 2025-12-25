@@ -4,7 +4,9 @@ const schema = new mongoose.Schema(
   {
     code: String,
     fullName: String,
+    email: String,
     phone: String,
+    place: String,
     note: String,
     items: Array,
     subTotal: Number,

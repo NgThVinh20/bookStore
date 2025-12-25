@@ -83,3 +83,57 @@ module.exports.permissions = [
   },
  
 ]
+
+
+module.exports.paymentMethodList = [
+  {
+    label: 'Tiền Mặt',
+    value: 'money',
+  },
+  {
+    label: 'Chuyển khoản',
+    value: 'bank',
+  },
+  {
+    label: 'Zalo pay',
+    value: 'zalopay',
+  },
+  {
+    label: 'VNPay',
+    value: 'vnpay',
+  },
+];
+
+module.exports.paymentStatusList = [
+  {
+    label: 'Chưa thanh toán!',
+    value: 'unpaid',
+  },
+  {
+    label: 'Đã thanh toán',
+    value: 'paid',
+  },
+];
+
+module.exports.statusList = [
+  {
+    label: 'Khởi tạo',
+    value: 'initial',
+    color: 'orange',
+  },
+  {
+    label: 'Xác nhận',
+    value: 'confirm',
+    color: 'green',
+  },
+  {
+    label: 'Hoàn thành',
+    value: 'done',
+    color: 'green',
+  },
+  {
+    label: 'Đã Hủy',
+    value: 'cancel',
+    color: 'red',
+  },
+];

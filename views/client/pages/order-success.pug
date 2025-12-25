@@ -1,0 +1,63 @@
+extends ../layouts/default.pug
+block main
+    .container
+        .section-11(style="padding-top: 20px;")
+            .inner-wrap
+                if error
+                    .alert.alert-danger
+                        strong Lỗi thanh toán:
+                        if error === 'zalopay_failed'
+                            |  Thanh toán Zalo Pay thất bại. Vui lòng thử lại hoặc liên hệ hỗ trợ.
+                        else if error === 'zalopay_error'
+                            |  Có lỗi xảy ra khi xử lý thanh toán Zalo Pay. Vui lòng thử lại hoặc liên hệ hỗ trợ.
+                        else
+                            |  Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ hỗ trợ.
+                h4 Cảm ơn quý khách đã đặt hàng! Chúng tôi sẽ liên hệ lại với quý khách trong thời gian sớm nhất.
+                .inner-head
+                    .inner-title Thông tin đơn hàng
+                p Mã đơn hàng: #{orderDetail.code}
+                p Tên khách hàng: #{orderDetail.fullName}
+                p Số điện thoại: #{orderDetail.phone}
+                p email: #{orderDetail.email}
+                p Địa chỉ: #{orderDetail.place}
+                p Ghi chú: #{orderDetail.note}
+                p Phương thức thanh toán: #{orderDetail.paymentMethodName}
+                p Trạng thái thanh toán:  #{orderDetail.paymentStatusName}
+                p Trạng thái đơn hàng: #{orderDetail.statusName}
+                p Ngày đặt: #{orderDetail.timeFormat}
+
+        .section-11(style="padding-top: 20px;")
+            .inner-wrap
+                .inner-head
+                    .inner-title Danh sách sản phẩm
+                .inner-book-list
+                    each item in orderDetail.items
+                        // book Item
+                        .inner-book-item
+                            .inner-product
+                                .inner-image
+                                    a(href=`/books/detail/${item.slug}`)
+                                        img(
+                                          alt="" 
+                                          src=item.avatar
+                                          )
+                                .inner-content
+                                    .inner-title-success
+                                        a(href=`/books/detail/${item.slug}`) #{item.name}
+                                        label.inner-label Số Lượng 
+                                        .inner-list
+                                            .inner-item
+                                                .inner-item-price
+                                                span #{item.quantity}
+                                                span x
+                                                span.inner-highlight #{item.priceNew.toLocaleString("vi-VN")}    
+                .inner-list-price
+                    .inner-item
+                      .inner-label Tạm tính:
+                      .inner-price #{orderDetail.subTotal.toLocaleString("vi-VN")}
+                    .inner-item
+                      .inner-label Giảm:
+                      .inner-price #{orderDetail.discount.toLocaleString("vi-VN")}
+                    .inner-item
+                      .inner-label Thanh toán:
+                      .inner-price-highlight #{orderDetail.total.toLocaleString("vi-VN")}

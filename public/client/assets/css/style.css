@@ -2032,7 +2032,19 @@ input, select, textarea, button {
 .section-11 .inner-book-item .inner-product .inner-title a {
   color: #25282B;
 }
-
+.section-11 .inner-book-item .inner-product .inner-title-success a{
+  color:var(--color-primary);
+  font-weight: 500;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.section-11 .inner-book-item .inner-product .inner-title-success .inner-list, .section-11 .inner-book-item .inner-product .inner-title-success .inner-label{
+  margin-top:5px;
+  color:#8C8C8C;
+  font-size: 20px;
+  font-weight: 400;
+}
 .section-11 .inner-book-item .inner-product .inner-title a:hover {
   color: var(--color-primary);
 }

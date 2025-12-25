@@ -319,7 +319,7 @@ if(orderForm){
       const fullName = event.target.fullName.value;
       const numberPhone = event.target.numberPhone.value;
       const note = event.target.note.value;
-      const medthod = event.target.method.value;
+      const paymentMethod = event.target.method.value;
       const email = event.target.email.value;
       const place = event.target.place.value;
       let cart = JSON.parse(localStorage.getItem("cart"));
@@ -329,9 +329,9 @@ if(orderForm){
       if(cart.length > 0){
         const dataFinal={
           fullName:fullName,
-          numberPhone:numberPhone,
+          phone:numberPhone,
           note:note,
-          medthod:medthod,
+          paymentMethod:paymentMethod,
           email:email,
           place:place,
           items:cart
@@ -349,7 +349,7 @@ if(orderForm){
             let cart = JSON.parse(localStorage.getItem("cart"));
             cart = cart.filter(item=>item.checked=="false");
             localStorage.setItem("cart", JSON.stringify(cart));
-            drawNotify(data.code,data.message);
+            drawNotify("success", data.message);
             window.location.href = `/order/success?orderCode=${data.orderCode}&phone=${numberPhone}`;
           }else{
             notify.error(data.message)
@@ -538,6 +538,7 @@ if (boxBookDetail) {
 
 // Page Cart
 const drawCart = () => {
+  if(!document.querySelector("[book-list]")) return;
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   fetch(`/cart/render`, {
     method: "POST",
