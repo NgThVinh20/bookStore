@@ -339,7 +339,7 @@ if(orderForm){
         fetch(`/order/create`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json" 
           },
           body: JSON.stringify(dataFinal)
         })
@@ -375,6 +375,8 @@ if(orderForm){
     })
 }
 // validate order form
+
+
 
 // box-filer
 const boxFilter = document.querySelector(".box-filter");

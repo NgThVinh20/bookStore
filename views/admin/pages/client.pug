@@ -5,37 +5,12 @@ include ../mixins/checkbox.pug
 block main
   if(pers.includes("user-view"))
     h1.box-title Quản lý khách hàng
-    //-section-4
-    .section-4 
-      .inner-wrap
-        .inner-item.inner-label 
-          <i class="fa-solid fa-filter"></i> Bộ lọc
-        .inner-item
-          select
-            option(value="") Trạng thái 
-            option(value="") Hoạt động 
-            option(value="") Tạm dừng
-        .inner-item.inner-date
-          input(type="date")
-          span - 
-          input(type="date")
-        .inner-item.inner-reset
-          <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
-    //-Section-4
-
     //-Section-5
     .section-5 
       .inner-wrap
-        .inner-change-status
-          .inner-item
-            select
-              option(value="") -- Hành động --
-              option(value="") Dừng hoạt động
-              option(value="") xóa
-          button.inner-button Áp dụng
         .inner-search
           <i class="fa-solid fa-magnifying-glass"></i>
-          input(type="text" placeholder="Tìm kiếm")
+          input(type="text" placeholder="Tìm kiếm" search)
     //-Section-5
 
     //-Section-6
@@ -47,91 +22,26 @@ block main
               th.text-left
                 +checkbox-30("","")
               th.text-left Họ tên
-              th.text-center Ảnh đại diện
               th.text-center Email
+              th.text-center Đơn Hàng
               th.text-center Số điện thoại
               th.text-left Địa chỉ
-              th.text-left Trạng thái
-              th.text-left Hành động
           tbody
-            tr
-              td.text-left 
-                +checkbox-30("","")
-              td.text-left Lê Văn A
-              td.text-center 
-                img(src="/admin/assets/images/tour-1.png", alt="")
-              td.text-center levana@gmail.com
-              td.text-center 01234567890
-              td.text-left Số 123, đường ABC,...
-              td.text-left 
-                .tag.tag-green Hoạt động
-              td.text-left 
-                .box-actions
-                  a(href="" class="inner-edit")
-                    <i class="fa-solid fa-pen-to-square"></i> 
-                  a(href="" class="inner-remove")
-                    <i class="fa-solid fa-trash-can"></i> 
-            tr
-              td.text-left 
-                +checkbox-30("","")
-              td.text-left Lê Văn A
-              td.text-center 
-                img(src="/admin/assets/images/tour-1.png", alt="")
-              td.text-center levana@gmail.com
-              td.text-center 01234567890
-              td.text-left Số 123, đường ABC,...
-              td.text-left 
-                .tag.tag-green Hoạt động
-              td.text-left 
-                .box-actions
-                  a(href="" class="inner-edit")
-                    <i class="fa-solid fa-pen-to-square"></i> 
-                  a(href="" class="inner-remove")
-                    <i class="fa-solid fa-trash-can"></i>
-            tr
-              td.text-left 
-                +checkbox-30("","")
-              td.text-left Lê Văn A
-              td.text-center 
-                img(src="/admin/assets/images/tour-1.png", alt="")
-              td.text-center levana@gmail.com
-              td.text-center 01234567890
-              td.text-left Số 123, đường ABC,...
-              td.text-left 
-                .tag.tag-green Hoạt động
-              td.text-left 
-                .box-actions
-                  a(href="" class="inner-edit")
-                    <i class="fa-solid fa-pen-to-square"></i> 
-                  a(href="" class="inner-remove")
-                    <i class="fa-solid fa-trash-can"></i>
-            tr
-              td.text-left 
-                +checkbox-30("","")
-              td.text-left Lê Văn A
-              td.text-center 
-                img(src="/admin/assets/images/tour-1.png", alt="")
-              td.text-center levana@gmail.com
-              td.text-center 01234567890
-              td.text-left Số 123, đường ABC,...
-              td.text-left 
-                .tag.tag-green Hoạt động
-              td.text-left 
-                .box-actions
-                  a(href="" class="inner-edit")
-                    <i class="fa-solid fa-pen-to-square"></i> 
-                  a(href="" class="inner-remove")
-                    <i class="fa-solid fa-trash-can"></i>            
+            each item in orderList
+              tr
+                td.text-left 
+                  +checkbox-30("","")
+                td.text-left #{item.fullName}
+                td.text-center #{item.email}
+                td.text-center #{item.code}
+                td.text-center #{item.phone}
+                td.text-left #{item.place}
+ 
+    
+         
     //-Section-6
 
-    //-Section-7
-    .section-7
-      span.inner-label Hiển thị 1 - 9 của 78
-      select.inner-pagination
-        option(value="") Trang 1
-        option(value="") Trang 2
-        option(value="") Trang 3
-    //-Section-7
+  
 
 
 

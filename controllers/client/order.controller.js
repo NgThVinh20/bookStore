@@ -6,6 +6,7 @@
  const {paymentMethodList} = require("../../config/variable.config");
  const {paymentStatusList} = require("../../config/variable.config");
  const {statusList} = require("../../config/variable.config");
+ const {sendMail} = require("../../helpers/mail.helper");
 
  module.exports.create = async (req, res) => {
   try {
@@ -50,6 +51,52 @@
 
   const newRecord = new Order(req.body);
   await newRecord.save();
+
+  // Send confirmation email
+  const subject = `Xác nhận đơn hàng ${req.body.code}`;
+  let html = `
+    <h1>Cảm ơn bạn đã đặt hàng!</h1>
+    <p>Đơn hàng của bạn đã được tạo thành công với mã: <strong>${req.body.code}</strong></p>
+    <h2>Thông tin khách hàng:</h2>
+    <p><strong>Họ tên:</strong> ${req.body.fullName}</p>
+    <p><strong>Email:</strong> ${req.body.email}</p>
+    <p><strong>Số điện thoại:</strong> ${req.body.phone}</p>
+    <p><strong>Địa chỉ:</strong> ${req.body.place}</p>
+    ${req.body.note ? `<p><strong>Ghi chú:</strong> ${req.body.note}</p>` : ''}
+    <h2>Chi tiết đơn hàng:</h2>
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th style="padding: 8px; text-align: left;">Sách</th>
+          <th style="padding: 8px; text-align: center;">Số lượng</th>
+          <th style="padding: 8px; text-align: right;">Đơn giá</th>
+          <th style="padding: 8px; text-align: right;">Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  for(const item of req.body.items) {
+    html += `
+      <tr>
+        <td style="padding: 8px;">${item.name}</td>
+        <td style="padding: 8px; text-align: center;">${item.quantity}</td>
+        <td style="padding: 8px; text-align: right;">${item.priceNew.toLocaleString('vi-VN')}đ</td>
+        <td style="padding: 8px; text-align: right;">${(item.priceNew * item.quantity).toLocaleString('vi-VN')}đ</td>
+      </tr>
+    `;
+  }
+
+  html += `
+      </tbody>
+    </table>
+    <h3>Tổng tiền: ${req.body.total.toLocaleString('vi-VN')}đ</h3>
+    <p>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận đơn hàng.</p>
+    <p>Trân trọng,<br>BookStore Team</p>
+  `;
+
+  sendMail(req.body.email, subject, html);
+
   res.json({
     code:"sucess",
     message:"Đặt hàng thành công",
@@ -81,9 +128,8 @@
 
     const statusItem = statusList.find(item => item.value == orderDetail.status);
     orderDetail.statusName = statusItem ? statusItem.label : "";
-    
     if(orderDetail){
-      orderDetail.timeFormat = moment(orderDetail.time).format("DD/MM/YYYY") 
+      orderDetail.createdAtFormat = moment(orderDetail.createdAtFormat).format("HH:mm-DD/MM/YYYY") 
     }
     res.render('client/pages/order-success.pug', {
       pageTitle: "Đặt hàng thành công",

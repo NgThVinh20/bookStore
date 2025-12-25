@@ -34,7 +34,7 @@ module.exports.cart = (req, res) => {
           name: bookDetail.name,
           priceNew: bookDetail.priceNew,
           author: bookDetail.author,
-          time: moment(bookDetail.time).format("DD/MM/YYYY"),
+          time: moment(bookDetail.time).format("HH:mm - DD/MM/YYYY"),
           parent: bookDetail.parent,
           parentName: bookDetail.parentName,
           slug: bookDetail.slug,

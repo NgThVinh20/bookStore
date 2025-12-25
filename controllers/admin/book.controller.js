@@ -19,6 +19,10 @@ module.exports.list = async (req, res) => {
    if(req.query.createdBy) {
     find.createdBy = req.query.createdBy;
   }
+  // lọc theo danh mục
+  if(req.query.category){
+    find.parent = req.query.category;
+  }
   // lọc theo ngày tạo
   const filterDate = {}
     if(req.query.startDate){
@@ -84,10 +88,16 @@ module.exports.list = async (req, res) => {
     .find({})
     .select("id fullname");
 
+  const categoryList = await Category.find({
+    deleted: false
+  });
+  const categoryTree = buildCategoryTree(categoryList);
+
   res.render('admin/pages/book-list', {
     pageTitle: "Quản lý Sách",
     bookList: bookList,
     accountAdminList: accountAdminList,
+    categoryList: categoryTree,
     pagination: pagination,
   });
 }
@@ -431,7 +441,7 @@ module.exports.remove = async (req, res) => {
     if(!bookDetail) {
       res.json({
         code: "error",
-        message: "Danh mục không tồn tại!"
+        message: "Sản phẩm không tồn tại!"
       })
       return;
     }

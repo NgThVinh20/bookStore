@@ -365,8 +365,8 @@ const orderEdit = document.querySelector("#orderEdit");
 if(orderEdit){
   const validator = new JustValidate('#orderEdit');
 
-  validator 
-    .addField("#name", [
+  if(document.querySelector("#name")) {
+    validator.addField("#name", [
       {
         rule: "required", 
         errorMessage: "Vui lòng nhập Họ tên"
@@ -377,7 +377,10 @@ if(orderEdit){
         errorMessage: "Vui lòng nhập ít nhất 3 ký tự!"
       },
     ])
-     .addField("#numberPhone", [
+  }
+
+  if(document.querySelector("#numberPhone")) {
+    validator.addField("#numberPhone", [
       {
         rule: "required", 
         errorMessage: "Vui lòng nhập số điện thoại"
@@ -388,7 +391,10 @@ if(orderEdit){
         errorMessage: "Vui lòng nhập số điện thoại đúng định dạng"
       },
     ])
-    .addField("#email", [
+  }
+
+  if(document.querySelector("#email")) {
+    validator.addField("#email", [
       {
         rule: "required", 
         errorMessage: "Vui lòng nhập Email"
@@ -398,15 +404,42 @@ if(orderEdit){
         errorMessage: "Vui lòng nhập Email đúng định dạng"
       },
     ])
-    .onSuccess((event)=>{
-      const name = event.target.name.value;
-      const email = event.target.email.value;
-      const numberPhone = event.target.numberPhone.value;
-      const note = event.target.note.value;
-      const paymentMethod = event.target.paymentMethod.value;
-      const paymentStatus = event.target.paymentStatus.value;
-      const status = event.target.status.value;
+  }
 
+  validator.onSuccess((event)=>{
+      const id = event.target.id.value;
+      const name = event.target.name.value;
+      const email =  event.target.email.value;
+      const numberPhone =  event.target.numberPhone.value;
+      const note =  event.target.note.value;
+      const paymentMethod = event.target.paymentMethod.value;
+      const paymentStatus =  event.target.paymentStatus.value;
+      const status = event.target.status.value;
+      dataFinal={
+        fullName:name,
+        email:email,
+        phone:numberPhone,
+        note:note,
+        paymentMethod:paymentMethod,
+        paymentStatus:paymentStatus,
+        status:status
+      }
+       fetch(`/${pathAdmin}/orders/edit/${id}`,{
+        method:"PATCH",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(dataFinal)
+        })
+      .then(res=> res.json())
+      .then(data => {
+        if(data.code=="error"){
+          notify.error(data.message);
+        }
+        if(data.code=="success"){
+          notify.success(data.message); 
+        }
+      })
     })
 }
 // validate order form
@@ -1051,6 +1084,64 @@ if(filterRole){
 //filter-role
 
 
+
+// filter-payment-method
+const filterPaymentMethod = document.querySelector("[filter-payment-method]");
+if(filterPaymentMethod){
+  const url = new URL(window.location.href);
+  filterPaymentMethod.addEventListener("change", () => {
+    const value = filterPaymentMethod.value;
+    if(value){
+      url.searchParams.set("paymentMethod",value);
+    }else{
+       url.searchParams.delete("paymentMethod");
+    }
+    window.location.href=url.href
+  })
+  const valueCurrent = url.searchParams.get("paymentMethod");
+  if(valueCurrent){
+    filterPaymentMethod.value=valueCurrent
+  }
+}
+
+// filter-payment-status
+const filterPaymentStatus = document.querySelector("[filter-payment-status]");
+if(filterPaymentStatus){
+  const url = new URL(window.location.href);
+  filterPaymentStatus.addEventListener("change", () => {
+    const value = filterPaymentStatus.value;
+    if(value){
+      url.searchParams.set("paymentStatus",value);
+    }else{
+       url.searchParams.delete("paymentStatus");
+    }
+    window.location.href=url.href
+  })
+  const valueCurrent = url.searchParams.get("paymentStatus");
+  if(valueCurrent){
+    filterPaymentStatus.value=valueCurrent
+  }
+}
+
+// filter-category
+const filterCategory = document.querySelector("[filter-category]");
+if(filterCategory){
+  const url = new URL(window.location.href);
+  filterCategory.addEventListener("change", () => {
+    const value = filterCategory.value;
+    if(value){
+      url.searchParams.set("category",value);
+    }else{
+       url.searchParams.delete("category");
+    }
+    window.location.href=url.href
+  })
+  const valueCurrent = url.searchParams.get("category");
+  if(valueCurrent){
+    filterCategory.value=valueCurrent
+  }
+}
+
 // check all
 const inputCheckAll = document.querySelector(`input[name="checkAll"]`);
 if(inputCheckAll){
@@ -1200,5 +1291,3 @@ if(boxPagination){
   }
 }
 //box-pagination
-
-

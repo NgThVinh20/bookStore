@@ -2,7 +2,8 @@ const router = require("express").Router();
 const orderController = require("../../controllers/admin/order.controller.js");
 
 router.get('/list', orderController.list);
-router.get('/edit', orderController.edit);
-// router.get('/trash', orderController.trash);
-
+router.get('/edit/:id', orderController.edit);
+router.patch('/edit/:id', orderController.editPatch);
+router.patch('/change-multi', orderController.changeMultiPatch);
+router.delete('/remove/:id', orderController.remove)
 module.exports = router;

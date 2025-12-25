@@ -24,7 +24,7 @@ block main
                 p Phương thức thanh toán: #{orderDetail.paymentMethodName}
                 p Trạng thái thanh toán:  #{orderDetail.paymentStatusName}
                 p Trạng thái đơn hàng: #{orderDetail.statusName}
-                p Ngày đặt: #{orderDetail.timeFormat}
+                p Ngày đặt: #{orderDetail.createdAtFormat}
 
         .section-11(style="padding-top: 20px;")
             .inner-wrap
@@ -50,7 +50,7 @@ block main
                                                 .inner-item-price
                                                 span #{item.quantity}
                                                 span x
-                                                span.inner-highlight #{item.priceNew.toLocaleString("vi-VN")}    
+                                                span.inner-highlight #{item.priceNew.toLocaleString("vi-VN")}đ
                 .inner-list-price
                     .inner-item
                       .inner-label Tạm tính:
@@ -60,4 +60,4 @@ block main
                       .inner-price #{orderDetail.discount.toLocaleString("vi-VN")}
                     .inner-item
                       .inner-label Thanh toán:
-                      .inner-price-highlight #{orderDetail.total.toLocaleString("vi-VN")}
+                      .inner-price-highlight #{orderDetail.total.toLocaleString("vi-VN")}đ

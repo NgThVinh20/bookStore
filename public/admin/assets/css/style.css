@@ -1060,7 +1060,10 @@ select {
   border: 1px solid rgb(213, 213, 213,0.6);
   background-color: white;
 }
-
+.section-8 .inner-pay .inner-total-price{
+  color:red;  
+  font-weight:600;
+}
 
 @media(max-width:767.98px){
     .section-8{

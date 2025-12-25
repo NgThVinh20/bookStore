@@ -25,14 +25,10 @@ block main
           span - 
           input(type="date" filter-end-date)
         .inner-item
-          select
+          select(filter-category)
             option(value="") Danh mục
-            option(value="") --Chọn danh mục--
-        .inner-item
-          select
-            option(value="") Mức giá
-            option(value="") Hoạt động 
-            option(value="") Tạm dừng
+            if(categoryList)
+              +options(categoryList)
         .inner-item.inner-reset(filter-reset)
           <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
     //-Section-4

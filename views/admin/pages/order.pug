@@ -3,62 +3,62 @@ include ../mixins/checkbox.pug
 
 
 block main
-  h1.box-title Đơn hàng: OD000001
-
+  h1.box-title Đơn hàng: #{orderDetail.code}
   .section-8
     form(action="" id="orderEdit")
+      .inner-group(style = "display:none;")
+        label.inner-label(for="id") ID
+        input(type="text" name="id" id="id" value=orderDetail.id)
       .inner-group
         label.inner-label(for="name") Tên khách hàng
-        input(type="text" name="name" id="name")
+        input(type="text" name="name" id="name" value=orderDetail.fullName)
       .inner-group
         label.inner-label(for="numberPhone") Số điện thoại
-        input(type="number" name="numberPhone" id="numberPhone")
+        input(type="number" name="numberPhone" id="number-phone" value=orderDetail.phone)
       .inner-group
         label.inner-label(for="email") Email khách hàng
-        input(type="email" name="email" id="email")
+        input(type="email" name="email" id="email" value=orderDetail.email)
       .inner-group.inner-two-col
         label.inner-label(for="note") Ghi chú
-        textarea(name="note" id = "note") 
+        textarea(name="note" id = "note" value=orderDetail.note readonly) 
       .inner-group
         label.inner-label(for="paymentMethod") Phương thức thanh toán
         select(name="paymentMethod" id="paymentMethod")
-          option(value="momo") Ví MoMo
-          option(value="bank") Chuyển Khoản
-          option(value="zaloPay") ZaloPay 
-          option(value="money") Tiền mặt  
+          each item in paymentMethodList
+            option(value=item.value selected = (item.value == orderDetail.paymentMethod)) #{item.label}  
       .inner-group
         label.inner-label(for="paymentStatus") Trạng thái thanh toán
         select(name="paymentStatus" id="paymentStatus")
-          option(value="unPaid") Chưa thanh toán
-          option(value="paid") Đã thanh toán
-      .inner-group
-        label.inner-label(for="date") Ngày đặt
-        input(type="text" name="date" id="date")
+          each item in paymentStatusList
+            option(value=item.value selected = (item.value == orderDetail.paymentStatus)) #{item.label}  
       .inner-group
         label.inner-label(for="status") Trạng thái
         select(name="status")
-          option(value="init") khởi tạo
-          option(value="done") Hoàn thành
-          option(value="cancel") Hủy
+          each item in statusList
+            option(value=item.value selected = (item.value == orderDetail.status)) #{item.label} 
+      .inner-group
+        label.inner-label(for="date") Ngày đặt
+        input(type="text" name="date" id="date" value=orderDetail.createdAtFormat readonly)
       .inner-group
         label.inner-label(for="list") Danh sách sách
         .book-list 
-          .book-item
-            img(src="/admin/assets/images/tour-1.png", alt="" class="inner-image")
-            .inner-content
-              .inner-name Tiểu thuyết Mưa đỏ
-              .inner-desc
-                div Số lượng: 2 x 150.000đ
-                div Thể loại: Tiểu thuyết
-                div Tác giả: Nguyễn Nhật Ánh
+          each item in orderDetail.items
+            .book-item
+              img(src=item.avatar, alt="" class="inner-image")
+              .inner-content
+                .inner-name #{item.name}
+                .inner-desc
+                  div Số lượng: #{item.quantity} x #{item.priceNew.toLocaleString("vi-VN")}đ
+                  div Thể loại: #{item.categoryName}
+                  div Tác giả: #{item.authorName}
       .inner-group
         label.inner-label(for="pay") Thanh toán
         .inner-pay
-          div Tổng tiền: 300.000đ
-          div Giảm: 75.000đ
+          div Tổng tiền: #{orderDetail.total.toLocaleString("vi-VN")}đ
+          div Giảm: 0đ
           div Mã giảm: UUDAITHANG124
-          div Thanh toán: 225.000đ
+          .inner-total-price Thanh toán: #{orderDetail.total.toLocaleString("vi-VN")}đ
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back
-        a(href=`/${pathAdmin}/books/list`) Quay lại danh sách 
+        a(href=`/${pathAdmin}/orders/list`) Quay lại danh sách 
