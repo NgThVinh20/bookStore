@@ -309,13 +309,55 @@ if(orderForm){
         errorMessage: "Vui lòng nhập email đúng định dạng"
       },
     ])
-
+    .addField("#place", [
+      {
+        rule: "required", 
+        errorMessage: "Vui lòng nhập địa chỉ"
+      },
+    ])
     .onSuccess((event)=>{
       const fullName = event.target.fullName.value;
       const numberPhone = event.target.numberPhone.value;
       const note = event.target.note.value;
       const medthod = event.target.method.value;
       const email = event.target.email.value;
+      const place = event.target.place.value;
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      cart = cart.filter(item => {
+        return (item.checked) && (item.quantity > 0);
+      } );
+      if(cart.length > 0){
+        const dataFinal={
+          fullName:fullName,
+          numberPhone:numberPhone,
+          note:note,
+          medthod:medthod,
+          email:email,
+          place:place,
+          items:cart
+        }
+        fetch(`/order/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataFinal)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          if(data.code == "sucess"){
+            let cart = JSON.parse(localStorage.getItem("cart"));
+            cart = cart.filter(item=>item.checked=="false");
+            localStorage.setItem("cart", JSON.stringify(cart));
+            drawNotify(data.code,data.message);
+            window.location.href = `/order/success?orderCode=${data.orderCode}&phone=${numberPhone}`;
+          }else{
+            notify.error(data.message)
+          }
+        })
+      }else{
+        notify.error("Vui lòng chọn ít nhất 1 sản phẩm");
+      }
     })
 
     // list input method
