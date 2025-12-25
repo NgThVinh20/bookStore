@@ -29,6 +29,7 @@ module.exports.cart = (req, res) => {
         cartDetail.push({
           bookID: item.bookID,
           quantity: item.quantity,
+          checked: item.checked,
           avatar: bookDetail.avatar,
           name: bookDetail.name,
           priceNew: bookDetail.priceNew,

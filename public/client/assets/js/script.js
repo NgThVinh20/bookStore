@@ -468,6 +468,7 @@ if (boxBookDetail) {
       const item = {
         bookID:bookID,
         quantity:quantity,
+        checked:true
       }
       const cart = JSON.parse(localStorage.getItem("cart"));
       const indexItem = cart.findIndex(item => item.bookID === bookID);
@@ -509,12 +510,14 @@ const drawCart = () => {
       const cartDetail = data.cartDetail;
       let subTotal = 0;
       const htmlArr = cartDetail.map(item => {
-        subTotal += item.priceNew * item.quantity;
+        if(item.checked){
+          subTotal += item.priceNew * item.quantity;
+        }
         return `
         <div class="inner-book-item">
           <div class="inner-actions">
             <button class="inner-delete" button-delete book-id="${item.bookID}"><i class="fa-solid fa-xmark"></i></button>
-            <input class="inner-check" type="checkbox"/>
+            <input class="inner-check" type="checkbox" ${item.checked ? "checked" : ""} input-check book-id="${item.bookID}"/>
           </div>
           <div class="inner-product">
             <div class="inner-image"><a href="/books/detail/${item.slug}"><img alt="" src="${item.avatar}"/></a></div>
@@ -560,15 +563,13 @@ const drawCart = () => {
             input.value = max;
           }
 
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const cart = JSON.parse(localStorage.getItem("cart")) ;
           const indexItem = cart.findIndex(item => item.bookID === bookID);
 
           if (indexItem !== -1) {
             cart[indexItem].quantity = quantity;
             localStorage.setItem("cart", JSON.stringify(cart));
           }
-
-          // cập nhật tổng tiền mà không render lại toàn bộ
           drawCart();
         });
       });
@@ -584,6 +585,21 @@ const drawCart = () => {
           drawMiniCart();
         });
       });
+      // check book
+      const listInputCheck = document.querySelectorAll("[input-check]");
+      listInputCheck.forEach(input => {
+        input.addEventListener("change", () => {
+          const bookID = input.getAttribute("book-id");
+          const checked = input.checked;
+          const cart = JSON.parse(localStorage.getItem("cart")) 
+          const updateItem = cart.find(item => item.bookID === bookID);
+          if (updateItem) {
+            updateItem["checked"] = checked;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            drawCart();
+          }
+        })
+      })
     }
     if(data.code == "error"){
       localStorage.setItem("cart", JSON.stringify([]));
