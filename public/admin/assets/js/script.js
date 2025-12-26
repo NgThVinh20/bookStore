@@ -91,37 +91,90 @@ if (filePondImage.length > 0) {
   });
 }
 
+const drawChart=(dateFilter)=>{
+  const now = dateFilter;
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
 
+  const previousMonThDate = new Date(currentYear, now.getMonth()-1,1);
+  const previousMonth = previousMonThDate.getMonth() + 1;
+  const previousYear = previousMonThDate.getFullYear();
+
+  const DayCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
+  const DayPreviousMonth = new Date(previousYear, previousMonth, 0).getDate();
+
+  const days = DayCurrentMonth > DayPreviousMonth ? DayCurrentMonth : DayPreviousMonth;
+
+  const arrDays = [];
+   for(let i=1; i<=days; i++){
+    arrDays.push(i);
+   }
+  const dataFinal = {
+    currentMonth:currentMonth,
+    currentYear:currentYear,
+    previousMonth:previousMonth,
+    previousYear:previousYear,
+    arrDays: arrDays
+   }
+    fetch(`/${pathAdmin}/dashboard/chart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dataFinal)
+    })
+    .then(res=> res.json())
+    .then(data => {
+      if(data.code=="success"){
+        const htmlCanvas = `<canvas></canvas>`;
+        const parentChart = document.querySelector(".section-2 .inner-chart");
+        parentChart.innerHTML = htmlCanvas;
+        const canvas = document.querySelector("canvas");
+        new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: arrDays,
+          datasets: [{
+            label: `Tháng ${currentMonth}/${currentYear}`,
+            data:data.dataMonthCurrent,
+            borderWidth: 1.5,
+            borderColor: "#36A1EA"
+          }, 
+          {
+            label: `Tháng ${previousMonth}/${previousYear}`,
+            data: data.dataMonthPre,
+            borderWidth: 1.5,
+            borderColor: "#FE6383"
+          }, 
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          maintainAspectRatio: false,
+        }
+      
+      });
+    
+      }
+    });
+}
 // chart dashBoard
 const ctx = document.getElementById('revenue-chart');
 if(ctx){
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['01', '02', '03', '04', '05', '06'],
-      datasets: [{
-        label: 'Tháng 10/2025',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1.5,
-        borderColor: "#36A1EA"
-      }, 
-      {
-        label: 'Tháng 9/2025',
-        data: [10, 12, 4, 7, 5, 1],
-        borderWidth: 1.5,
-        borderColor: "#FE6383"
-      }, 
-      ]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
-      maintainAspectRatio: false,
-    }
-  });
+  const now = new Date();
+  drawChart(now);
+  const filterMonth = document.querySelector("[filter-month]");
+  if(filterMonth){
+    filterMonth.addEventListener("change", ()=>{
+      const value = filterMonth.value;
+      const dateFilter = new Date(value);
+      drawChart(dateFilter);
+    })
+  }
 }
   
 

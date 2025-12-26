@@ -10,26 +10,26 @@ block main
         .inner-icon
           img(src="assets/images/user.png", alt="")
         .inner-content
-          .inner-title Người dùng 
-          .inner-number 1.200
+          .inner-title Quản trị viên
+          .inner-number #{totalAdmin}
       .inner-item
         .inner-icon
           img(src="assets/images/order.png", alt="")
         .inner-content
           .inner-title Đơn hàng
-          .inner-number 3.600
+          .inner-number #{totalRecord}
       .inner-item
         .inner-icon
           img(src="assets/images/revenue.png", alt="")
         .inner-content
           .inner-title Doanh thu
-          .inner-number 300.000.000đ
+          .inner-number #{totalRevenue.toLocaleString("vi-VN")}đ
     //- Section-1
     //- Section-2
     .section-2
       .inner-head
         h2.inner-title Biểu đồ doanh thu 
-        input.inner-filter(type="month")
+        input.inner-filter(type="month" filter-month)
       .inner-chart 
         canvas(id="revenue-chart")
     //- Section-2
@@ -49,39 +49,34 @@ block main
               th.text-left Trạng thái
               th.text-left Ngày đặt
           tbody
-            tr 
-              td.text-left
-                .text-primary OD000001
-              td.text-left
-                div Họ tên: Lê Văn A 
-                div SDT: 012345678
-                div Ghi chú: Test...
-              td.text-left 
-                .book-list 
-                  .book-item
-                    img(src="assets/images/demo-item.png", alt="" class="inner-image")
-                    .inner-content
-                      .inner-name Tiểu thuyết Mưa đỏ
-                  .book-item
-                    img(src="assets/images/demo-item.png", alt="" class="inner-image")
-                    .inner-content
-                      .inner-name book Hạ Long
-              td.text-left 
-                div Tổng tiền: 250.000đ
-                div Giảm: 75.000đ
-                div Mã giảm: UUDAITHANG12
-                div Thanh toán: 175.000đ
-                div PTTT: Ví Momo
-                div TTTT: Đã thanh toán
-              td.text-left 
-                .tag.tag-orange Khởi tạo
-              td.text-right
-                div 16:20
-                div 01/01/2025  
-  
-
+            each item in newOrder
+              tr 
+                td.text-left
+                  .text-primary #{item.code}
+                td.text-left
+                  div Họ tên: #{item.fullName}
+                  div SDT: #{item.phone}
+                  div Ghi chú: #{item.note}
+                td.text-left 
+                  .book-list 
+                    each book in item.items
+                      .book-item
+                        img(src=book.avatar, alt="" class="inner-image")
+                        .inner-content
+                          .inner-name #{book.bookName}
+                td.text-left 
+                  div Tổng tiền: #{item.total.toLocaleString("vi-VN")}đ
+                  div Giảm: 0đ
+                  div Mã giảm: UUDAITHANG12
+                  div Thanh toán: Tổng tiền: #{item.total.toLocaleString("vi-VN")}đ
+                  div PTTT: #{item.paymentMethodName}
+                  div TTTT: #{item.paymentStatusName}
+                td.text-left 
+                  span(class=`tag ${item.statusClass}`) #{item.statusName}
+                td.text-right
+                  div #{item.createdAthour}
+                  div #{item.createdAtDay}  
     //- Section-3
 
 
     
-

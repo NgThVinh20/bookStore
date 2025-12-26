@@ -92,7 +92,7 @@
     </table>
     <h3>Tổng tiền: ${req.body.total.toLocaleString('vi-VN')}đ</h3>
     <p>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận đơn hàng.</p>
-    <p>Trân trọng,<br>BookStore Team</p>
+    <p>Trân trọng,<br>Thang Long BookStore</p>
   `;
 
   sendMail(req.body.email, subject, html);
